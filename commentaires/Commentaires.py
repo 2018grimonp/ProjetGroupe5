@@ -1,5 +1,3 @@
-from textblob import TextBlob
-
 def fichierLecture():
     """
     Ouvre le fichier event_candidate_a.rb.rb, juste pour pouvoir tester les fonctions
@@ -28,15 +26,17 @@ def commentsHashtag(lines):
         isComment = False
         comment = ''
         while i < len(lines[lineNumber]) and not isComment:
+
             #On détècte un commentaire dès qu'il y a un #
             if lines[lineNumber][i] == '#':
                 isComment = True
             i += 1
+
         #Le commentaire correspond à la fin de la ligne
         if isComment:
             comment = lines[lineNumber][i:]
         if comment != '':
-            commentDico['ligne ' +str(lineNumber)] = [comment, len(comment)]
+            commentDico[lineNumber] = [comment, len(comment)]
     return commentDico
 
 
@@ -53,13 +53,16 @@ def commentBlocks(lines):
     isBlock = False
     #On regarde à chaque ligne si il y a le mot "=begin"
     for lineNumber in range(len(lines)):
+        #On enregistre les lignes de commentaires jusqu'à '=end'
         if isBlock and lines[lineNumber][:4] != '=end':
             block += lines[lineNumber]
-        #On enregistre les lignes de commentaires jusqu'à '=end'
+
+        #On enregistre le commentaire lorsqu'on tombe sur un '=end'
         if isBlock and lines[lineNumber][:4] == '=end':
             isBlock = False
-            commentDico['ligne '+str(blockLine)] = [block, len(block)]
-        #On enregistre le commentaire lorsqu'on tombe sur un '=end'
+            commentDico[blockLine] = [block, len(block)]
+
+        #On détecte le debut du commentaire par le '=begin'
         if lines[lineNumber][:6] == '=begin':
             isBlock = True
             block = lines[lineNumber][6:]
@@ -73,7 +76,7 @@ print(commentBlocks(fichierLecture()))
 
 def commentCount(lines):
     """
-    Donne un couple (nombre de com, {'ligne': [commentaire, nb de carac]})
+    Donne un couple (nombre de com, {ligne: [commentaire, nb de carac]})
     :param lines: le code représenté par une liste de lignes
     :return: le fameux couple
     """
@@ -83,6 +86,7 @@ def commentCount(lines):
     commentDico = {}
     for key in dicoHash:
         commentDico[key] = dicoHash[key]
+    #Je rajoute les blocks après au cas où ya un # dans un block
     for key in dicoBlock:
         commentDico[key] = dicoBlock[key]
     return count, commentDico
