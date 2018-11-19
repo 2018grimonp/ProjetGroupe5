@@ -40,7 +40,7 @@ def commentsHashtag(lines):
     return commentDico
 
 
-print(commentsHashtag(fichierLecture()))
+#print(commentsHashtag(fichierLecture()))
 
 
 def commentBlocks(lines):
@@ -71,7 +71,7 @@ def commentBlocks(lines):
     return commentDico
 
 
-print(commentBlocks(fichierLecture()))
+#print(commentBlocks(fichierLecture()))
 
 
 def commentCount(lines):
@@ -91,4 +91,4 @@ def commentCount(lines):
         commentDico[key] = dicoBlock[key]
     return count, commentDico
 
-print(commentCount(fichierLecture()))
+#print(commentCount(fichierLecture()))
