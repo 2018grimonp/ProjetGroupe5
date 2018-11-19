@@ -13,6 +13,7 @@
 # Liste des commande qui ouvrent des actions
 lOpen=["if","while","for","do","class"]
 
+
 # TO DO : exception
 def rechercheEnd(lignes, ligneOpen):
     """
@@ -52,8 +53,9 @@ def isTest(lignes):
                             return True
     return False
 
-# v0.2
-# TO DO : Ajouter isTest + exception
+
+# v0.3
+# TO DO : exception
 def countTests(lignes):
     """
     Compte le nombre de tests dans un fichier et les sépare
@@ -72,12 +74,25 @@ def countTests(lignes):
                     if mots[i] == "test":
                         nombreTestsDansLigne += 1
                         nombreTests += 1
-                        if nombreTestsDansLigne == 1:
-                            #for j in range(i, )
-        return nombreTests
+                        nomTest = ""
+                        for j in range(i, len(mots)):
+                            nomTest += j
+                            if j[-1] == '"':
+                                break
+                        nomTest = nomTest[1:-1]
+                        dicTests[nomTest] = ""
+                if nombreTestsDansLigne == 1:
+                    ligneEnd = rechercheEnd(lignes, lignes[i])
+                    paragrapheTest = ""
+                    for j in range(i, ligneEnd+1):
+                        paragrapheTest += lignes[j] + "\n"
+                    dicTests[nomTest] = paragrapheTest
+        return (nombreTests, dicTests)
     else:
         return -1
 
+
+# TO DO : compter le nombre d'assert
 def printStatsTests (lignes):
     """
     Affiche les informations statistiques à propos des tests
