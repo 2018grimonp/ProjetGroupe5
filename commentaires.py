@@ -1,17 +1,18 @@
+import matplotlib.pyplot as plt
+
 def fichierLecture():
     """
     Ouvre le fichier event_candidate_a.rb.rb, juste pour pouvoir tester les fonctions
     :return: la liste des lignes du fichier
     """
     try:
-        fichier = open("../test_candidats/event_candidate_a.rb.rb", "rt")
+        fichier = open("./test_candidats/event_candidate_a.rb.rb", "rt")
         ligneListe = fichier.readlines()
         return ligneListe
     except IOError:
         print("Erreur fichier")
 
 #print(fichierLecture())
-
 
 def commentsHashtag(lines):
     """
@@ -39,9 +40,7 @@ def commentsHashtag(lines):
             commentDico[lineNumber] = [comment, len(comment)]
     return commentDico
 
-
 #print(commentsHashtag(fichierLecture()))
-
 
 def commentBlocks(lines):
     """
@@ -70,9 +69,7 @@ def commentBlocks(lines):
             pass
     return commentDico
 
-
 #print(commentBlocks(fichierLecture()))
-
 
 def commentCount(lines):
     """
@@ -112,6 +109,11 @@ def detectCom(line):
     return 0
 
 def retirerCom(lines):
+    """
+    On retire les commentaires du script
+    :return: la nouvelle liste nettoyée
+    """
+    #On retire les commentaires
     newLines = []
     isBlock = False
     for line in lines:
@@ -126,16 +128,51 @@ def retirerCom(lines):
             isBlock = True
         if test == -2:
             isBlock = False
+    #Et on renvoie la nouvelle liste de lignes
     return newLines
 
 #print(fichierLecture())
 #print(commentCount(retirerCom(fichierLecture())))
 
-def analyse(lines):
-	caracNumber = sum([len(line) for line in lines])
-	linesNumber = len(lines)
-	linesList = [0 for a in range(linesNumber)]
-	com = commentCount(lines)[1]
-	for lineNumber in range(linesNumber):
-		linesList[lineNumber] += com[lineNumber]
-	return linesList
+def analyseCom(lines):
+    """
+    donne des données intéressantes sur le fichier texte
+    :return: liste des commentaires, ratio caractères commentés, ratio lignes commentées
+    """
+    caracNumber = sum([len(line) for line in lines]) #nombre de caractères en tout
+    linesNumber = len(lines) #nombre de lignes du fichier
+    linesList = [0 for a in range(linesNumber)]
+    com = commentCount(lines)[1]
+
+    #Enregistre le nombre de commentaires par ligne
+    for lineNumber in range(linesNumber):
+        if lineNumber in com.keys():
+            linesList[lineNumber] += com[lineNumber][1]
+
+    #Enregistre le nombre de caractères dédiés aux commentaires
+    comCarac = 0
+    for ligne in com.keys():
+        comCarac += com[ligne][1]
+
+    #Enregistre le nombre de lignes où il y a un commentaire
+    commentLinesNumber = len([i for i in linesList if i != 0])
+
+    return linesList, comCarac/caracNumber, commentLinesNumber/linesNumber
+
+def printCom(lines):
+    analyse = analyseCom(lines)
+    print('-------- Localisation des commentaires dans le script --------')
+    print(analyse[0])
+    print('-------- Pourcentage de caractères dédiés aux commentaires --------')
+    print(str(int(analyse[1]*10000)/100)+'%')
+    print('-------- Pourcentage de lignes dédiées aux commentaires --------')
+    print(str(int(analyse[2]*10000)/100)+'%')
+
+
+"""
+On peut éxécuter les commandes suivantes pour afficher les résultats de ce script
+printCom(fichierLecture())
+plt.plot(analyseCom(fichierLecture())[0])
+plt.show()
+"""
+
