@@ -1,6 +1,6 @@
 def test_variables(lines): #lines=tableau de lignes
     """entré: une liste de lignes (sans les '/n')
-       sortie: le nombre de variable dans le code, un tableau du nom de cahque variables""""
+       sortie: le nombre de variable dans le code, un tableau du nom de cahque variables"""
     nombre_variables=0
     tableau_variables=[]   #pour stocker les variables
     for line in lines:
