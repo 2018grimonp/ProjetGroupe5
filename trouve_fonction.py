@@ -40,7 +40,7 @@ def count_fonction(Code):
 
 #omg c'est trop cool
 
-def affiche_fonction(Code):
+def printFonction(Code):
     fonctions=count_fonction(Code)
     if len(fonctions)==0 :
         print("omg ce candidat n'utilise pas de fonctions")
@@ -60,6 +60,4 @@ def affiche_fonction(Code):
     print ("la longueur maximal est : "+str(l_max))
     print ("le nom de fonction le plus stylé est : "+fonctions[rd.randint(0,len(fonctions)-1)]["nom"])
 
-
-affiche_fonction(Code1)
 
