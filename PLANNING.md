@@ -7,6 +7,7 @@ Analyse du code
 Fonctionnalités
 	
 Lundi -MVP1	
+
 	Trouver les fonctions, le nombre de lignes par fonction - Tim
 	Trouver les commentaires, leur nombre, nombre de caractères par commentaire, leur distribution - Jérôme
 	Trouver les tests, nombre de tests - Anthony
@@ -17,6 +18,7 @@ Lundi -MVP1
 	Le tout doit être fonctionnel et assemblé dans le main lundi soir.
 
 Mercredi - MVP2
+
 	Vérifier que les variables et les noms des fonctions respectent une convention cohérente de nommage - Geoffroy
 	Dupliquation de fonctions - Tim
 	Identifier les fonctions ou variables jamais appelées - Pierrick
@@ -26,6 +28,7 @@ Mercredi - MVP2
 
 
 Jeudi - MVP3
+
 	Comparaison des noms de variables et de fonctions	
 	Calculer les hash Md5 des fichiers et les comparer
 	Comparer des segments des deux fichiers traités pour repérer des points communs (copier-coller)
