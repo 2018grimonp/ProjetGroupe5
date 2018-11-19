@@ -34,7 +34,7 @@ class EventCandidatA < ApplicationRecord
   end
 
   def appointment?
-    kind.eql? 'appointment'
+    kind.eql? 'appointment' #Voilà on a des commentaires un peu partout #bonjour
   end
 
   def self.availabilities(start_date, end_date = start_date + 6.day)
@@ -48,7 +48,9 @@ class EventCandidatA < ApplicationRecord
   end
 
   private
-
+=begin bonjour ca se passe bien
+Hello how are you ?
+=end
   def starts_at_cannot_be_greater_than_ends_at
     if starts_at.present? and ends_at.present? and starts_at >= ends_at
       errors.add(:starts_at, 'cannot be greater than ends_at')
@@ -82,7 +84,7 @@ class EventCandidatA < ApplicationRecord
       errors.add(:base, 'cannot be outside of opening hours')
     end
   end
-
+#Ok on va écrire un commentaire ici
   def self.slots_available(date)
     openings = split_into_slots(EventCandidatA.openings_on(date))
     appointments = split_into_slots(EventCandidatA.appointments_on(date))
@@ -91,14 +93,20 @@ class EventCandidatA < ApplicationRecord
   end
 
   def self.split_into_slots(events)
-    slots = []
-
+    slots = [] 
+	
+=begin
+	
+ waow encore un block #bonjour
+c'est tout à fait dingue il se passe plein de trucs !!
+=end
     events.each do |event|
       (event.starts_at.to_i..(event.ends_at.to_i - 30.minutes)).step(30.minutes) do |timestamp|
-        slots << Time.at(timestamp).utc.strftime('%-H:%M')
+        slots << Time.at(timestamp).utc.strftime('%-H:%M') #et puis un autre là
       end
     end
 
     return slots
   end
+>>>>>>> origin/Jerome
 end
