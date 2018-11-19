@@ -1,7 +1,7 @@
-﻿# ProjetGroupe5
+# ProjetGroupe5
 Analyse du code
 	
-	Notes: Le fichier de code sera représenté par un tableau de lignes
+	Notes: le fichier de code sera représenté par un tableau de lignes
 
 
 Fonctionnalités
