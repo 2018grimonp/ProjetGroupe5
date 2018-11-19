@@ -24,11 +24,11 @@ def commentsHashtag(lines):
 
             if lines[lineNumber][i] == '#':
                 isComment = True
-            if isComment :
+            if isComment and lines[lineNumber][i] != '#':
                 comment = comment + lines[lineNumber][i]
             i += 1
         if comment != '':
-            commentDico[lineNumber] = comment
+            commentDico['ligne ' +str(lineNumber)] = [comment, len(comment)]
     return commentDico
 
 print(commentsHashtag(fichierLecture()))
@@ -39,6 +39,31 @@ def commentBlocks(lines):
     :return: a dictionary in which all the block comments are ordered by is "=begin" line
     """
     commentDico = {}
+    isBlock = False
     for lineNumber in range(len(lines)):
-        words = TextBlob(lines[lineNumber])
+        if isBlock and lines[lineNumber][:4] != '=end':
+            block += lines[lineNumber]
+        if isBlock and lines[lineNumber][:4] == '=end':
+            isBlock = False
+            commentDico['ligne '+str(blockLine)] = [block, len(block)]
+        if lines[lineNumber][:6] == '=begin':
+            isBlock = True
+            block = lines[lineNumber][6:]
+            blockLine = lineNumber
+            pass
+    return commentDico
 
+print(commentBlocks(fichierLecture()))
+
+def commentCount(lines):
+    dicoHash = commentsHashtag(lines)
+    dicoBlock = commentBlocks(lines)
+    count = len(dicoHash) + len(dicoBlock)
+    commentDico = {}
+    for key in dicoHash:
+        commentDico[key] = dicoHash[key]
+    for key in dicoBlock:
+        commentDico[key] = dicoBlock[key]
+    return count, commentDico
+
+print(commentCount(fichierLecture()))
