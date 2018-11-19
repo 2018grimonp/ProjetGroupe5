@@ -22,17 +22,19 @@ def commentsHashtag(lines):
     :return: un dico avec la liste des commentaires (sans le #) associée à la ligne du com
     """
     commentDico = {}
+    #On itère sur chaque ligne
     for lineNumber in range(len(lines)):
         i = 0
         isComment = False
         comment = ''
-        while i < len(lines[lineNumber]):
-
+        while i < len(lines[lineNumber]) and not isComment:
+            #On détècte un commentaire dès qu'il y a un #
             if lines[lineNumber][i] == '#':
                 isComment = True
-            if isComment and lines[lineNumber][i] != '#':
-                comment = comment + lines[lineNumber][i]
             i += 1
+        #Le commentaire correspond à la fin de la ligne
+        if isComment:
+            comment = lines[lineNumber][i:]
         if comment != '':
             commentDico['ligne ' +str(lineNumber)] = [comment, len(comment)]
     return commentDico
@@ -49,7 +51,6 @@ def commentBlocks(lines):
     """
     commentDico = {}
     isBlock = False
-
     #On regarde à chaque ligne si il y a le mot "=begin"
     for lineNumber in range(len(lines)):
         if isBlock and lines[lineNumber][:4] != '=end':

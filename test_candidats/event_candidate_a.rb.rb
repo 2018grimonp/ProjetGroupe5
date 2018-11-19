@@ -93,8 +93,11 @@ Hello how are you ?
   end
 
   def self.split_into_slots(events)
-    slots = []
-=begin waow encore un block
+    slots = [] 
+	
+=begin
+	
+ waow encore un block #bonjour
 c'est tout à fait dingue il se passe plein de trucs !!
 =end
     events.each do |event|
