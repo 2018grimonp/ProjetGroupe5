@@ -34,6 +34,7 @@ def count_fonction(Code):
             open_count-=1
             if open_count== def_open :
                 ListeLongeurFonction[-1]=k-ListeLongeurFonction[-1]-1   #calcul la longueur de la fonction (def et end exclus)
+                fonction_open=False
     return(ListeLongeurFonction)
 
 #omg c'est trop cool
