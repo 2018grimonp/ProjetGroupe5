@@ -11,37 +11,28 @@
 # ==== ==== ==== ====
 
 # Liste des commande qui ouvrent des actions
-l_open=["if","while","for","do","class"]
+lOpen=["if","while","for","do","class"]
 
-#degrossir + exception
+# TO DO : exception
 def rechercheEnd(lignes, ligneOpen):
     """
     Inspiré de count_fonction de trouve_fonction
+    Recherche le numéro de la ligne du end qui correspond au mot clé de open demandé
     :param lignes: Un tableau contenant des strings correspondantes aux différentes lignes du texte
     :param ligneOpen: Le numéro de la ligne pour laquelle on recherche le end associé
     :return: Le numéro de la ligne du end associé
     """
     # On suppose qu'un mot clé de open ne renvoie pas en end sur la même ligne si c'est le premier mot clé de open de sa ligne
-    open_count=0
-    fonction_open=False
-    def_open=-1
-    for k in range(len(lignes)):
-        if "end" in ligne
-        if Code[:3]=="def" :
-            if fonction_open :                  #test si une fonction est déjà ouverte
-                return("Erreur fonction lingne "+str(k))
-            else :
-                fonction_open=True
-            ListeLongeurFonction.append(k)      #sauvegarde l'indice de début de la fonction
-            def_open=open_count
-            open_count+=1
-        if ligne_open(k) :      #controle si la ligne ouvre des commandes
-            open_count+=1
-        if Code[:3]=="end" :    #controle si la ligne ferme des commandes
-            open_count-=1
-            if open_count== def_open :
-                ListeLongeurFonction[-1]=k-ListeLongeurFonction[-1]-1   #calcul la longueur de la fonction (def et end exclus)
-    return(ListeLongeurFonction)
+    open_count = 1
+    for k in range(ligneOpen+1, len(lignes)):
+        if "end" in ligne:  # Contrôle si la ligne contient des end
+            open_count -= 1
+        for iOpen in lOpen: # Contrôle si la ligne contient un mot lé de open
+            if iOpen in ligne:
+                open_count += 1
+        if open_count == 0:
+            return k
+    return False
 
 
 def isTest(lignes):
@@ -61,8 +52,8 @@ def isTest(lignes):
                             return True
     return False
 
-#v0.1
-# Ajouter isTest + exception
+# v0.1
+# TO DO : Ajouter isTest + exception
 def countTests(lignes):
     """
     Compte le nombre de tests dans un fichier et les séparent
