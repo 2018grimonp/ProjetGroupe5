@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 def fichierLecture():
     """
     Ouvre le fichier event_candidate_a.rb.rb, juste pour pouvoir tester les fonctions
@@ -132,10 +133,15 @@ def retirerCom(lines):
 #print(commentCount(retirerCom(fichierLecture())))
 
 def analyse(lines):
-	caracNumber = sum([len(line) for line in lines])
-	linesNumber = len(lines)
-	linesList = [0 for a in range(linesNumber)]
-	com = commentCount(lines)[1]
-	for lineNumber in range(linesNumber):
-		linesList[lineNumber] += com[lineNumber]
-	return linesList
+    caracNumber = sum([len(line) for line in lines])
+    linesNumber = len(lines)
+    linesList = [0 for a in range(linesNumber)]
+    com = commentCount(lines)[1]
+    print(com)
+    for lineNumber in range(linesNumber):
+        if lineNumber in com.keys():
+            linesList[lineNumber] += com[lineNumber][1]
+    return linesList
+
+plt.plot(analyse(fichierLecture()))
+plt.show()
