@@ -34,6 +34,6 @@ une variable sera consideree comme utilisee si elle apprait deux fois dans le co
         if count>2:
             variables_utiles.append(var)
         nb_variables_utiles=len(variables_utiles)
-        str_variables_utiles=",".joint(variables_utiles)
+        str_variables_utiles=",".join(variables_utiles)
         return print ("Il y a "+str(nb_variables_utiles)+ ". Elle s'appelle " + str_variables_utiles +" .")
 
