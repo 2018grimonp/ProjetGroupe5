@@ -11,7 +11,7 @@
 # ==== ==== ==== ====
 
 # Liste des commande qui ouvrent des actions
-lOpen=["if","while","for","do","class"]
+lOpen=["if", "while", "for", "do", "class"]
 
 
 # TO DO : exception
@@ -26,6 +26,7 @@ def rechercheEnd(lignes, ligneOpen):
     # On suppose qu'un mot clé de open ne renvoie pas en end sur la même ligne si c'est le premier mot clé de open de sa ligne
     openCount = 1
     for k in range(ligneOpen+1, len(lignes)):
+        ligne = lignes[k]
         if "end" in ligne:  # Contrôle si la ligne contient des end
             openCount -= 1
         for iOpen in lOpen: # Contrôle si la ligne contient un mot clé de open
@@ -46,15 +47,14 @@ def isTest(lignes):
     for ligne in lignes:
         if "require" in ligne:
             mots = ligne.strip().split()
-            for i on range(len(mots)):
+            for i in range(len(mots)):
                 if mots[i] == "require":
                     for j in range(i+1, len(mots)):
                         if mots[j] == "'test_helper'":
                             return True
-    return False
+    return -1
 
 
-# v0.3
 # TO DO : exception
 def countTests(lignes):
     """
@@ -70,19 +70,20 @@ def countTests(lignes):
             nombreTestsDansLigne = 0
             if "test" in ligne:
                 mots = ligne.strip().split()
-                for i on range(len(mots)):
+                for i in range(len(mots)):
                     if mots[i] == "test":
                         nombreTestsDansLigne += 1
                         nombreTests += 1
                         nomTest = ""
-                        for j in range(i, len(mots)):
-                            nomTest += j
-                            if j[-1] == '"':
+                        for j in range(i+1, len(mots)):
+                            nomTest += mots[j]
+                            nomTest += " "
+                            if mots[j][-1] == '"':
                                 break
-                        nomTest = nomTest[1:-1]
+                        nomTest = nomTest[1:-2]
                         dicTests[nomTest] = ""
                 if nombreTestsDansLigne == 1:
-                    ligneEnd = rechercheEnd(lignes, lignes[i])
+                    ligneEnd = rechercheEnd(lignes, i)
                     paragrapheTest = ""
                     for j in range(i, ligneEnd+1):
                         paragrapheTest += lignes[j] + "\n"
@@ -99,8 +100,13 @@ def printStatsTests (lignes):
     :param lignes: Un tableau contenant des strings correspondantes aux différentes lignes du texte
     :return: None
     """
+    print("")
     print("Nombre de tests dans le fichier : " + str(countTests(lignes)[0]))
-    print("Les noms de ces test sont : " + str(countTests(lignes)[1]).keys())
-    for i in range(len(countTests(lignes)[1]).keys())):
-        print("Le contenu du test " + str(countTests(lignes)[1]).keys()[i]) + " est :")
-        print(countTests(lignes)[1]).values()[i])
+    print("")
+    print("Les noms de ces test sont : ")
+    for key in countTests(lignes)[1].keys() :
+        print ("    - " + key)
+    print("")
+    for key in countTests(lignes)[1].keys() :
+        print('Le contenu du test "' + key + '" est :')
+        print(countTests(lignes)[1][key])
