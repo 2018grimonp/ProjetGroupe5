@@ -76,7 +76,7 @@ def commentBlocks(lines):
 
 def commentCount(lines):
     """
-    Donne un couple (nombre de com, {ligne: [commentaire, nb de carac]})
+    Donne un couple (nombre de lignes de com, {ligne: [commentaire, nb de carac]})
     :param lines: le code représenté par une liste de lignes
     :return: le fameux couple
     """
@@ -128,5 +128,14 @@ def retirerCom(lines):
             isBlock = False
     return newLines
 
-print(fichierLecture())
-print(commentCount(retirerCom(fichierLecture())))
+#print(fichierLecture())
+#print(commentCount(retirerCom(fichierLecture())))
+
+def analyse(lines):
+	caracNumber = sum([len(line) for line in lines])
+	linesNumber = len(lines)
+	linesList = [0 for a in range(linesNumber)]
+	com = commentCount(lines)[1]
+	for lineNumber in range(linesNumber):
+		linesList[lineNumber] += com[lineNumber]
+	return linesList
