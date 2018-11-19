@@ -169,9 +169,9 @@ def printCom(lines):
     print(str(int(analyse[2]*10000)/100)+'%')
 
 """
-On peut éxécuter les commandes suivantes pour afficher les résultats de ce script"""
+On peut éxécuter les commandes suivantes pour afficher les résultats de ce script
 printCom(fichierLecture())
 plt.plot(analyseCom(fichierLecture())[0])
 plt.show()
-
+"""
 
