@@ -1,8 +1,10 @@
 #liste de commande qui ouvre des actions
 open=["if","while","for","do","class"]
 
+"""
 #code à analyser
 Code = ["hello","def gilbert","end"]    #liste de ligne (str)
+"""
 
 ListeLongeurFonction=[] #donne une liste des n fonctions avec la longeur de chaque liste
            #indique le nombre de parentaises ouverte
@@ -13,7 +15,7 @@ def ligne_open(k):      #controlle si la ligne ouvre des commande
             return True
     return False
 
-def count_fonction():
+def count_fonction(Code):
     open_count=0
     fonction_open=False
     def_open=-1
