@@ -23,16 +23,16 @@ def rechercheEnd(lignes, ligneOpen):
     :return: Le numéro de la ligne du end associé
     """
     # On suppose qu'un mot clé de open ne renvoie pas en end sur la même ligne si c'est le premier mot clé de open de sa ligne
-    open_count = 1
+    openCount = 1
     for k in range(ligneOpen+1, len(lignes)):
         if "end" in ligne:  # Contrôle si la ligne contient des end
-            open_count -= 1
-        for iOpen in lOpen: # Contrôle si la ligne contient un mot lé de open
+            openCount -= 1
+        for iOpen in lOpen: # Contrôle si la ligne contient un mot clé de open
             if iOpen in ligne:
-                open_count += 1
-        if open_count == 0:
+                openCount += 1
+        if openCount == 0:
             return k
-    return False
+    return -1
 
 
 def isTest(lignes):
@@ -52,20 +52,40 @@ def isTest(lignes):
                             return True
     return False
 
-# v0.1
+# v0.2
 # TO DO : Ajouter isTest + exception
 def countTests(lignes):
     """
-    Compte le nombre de tests dans un fichier et les séparent
+    Compte le nombre de tests dans un fichier et les sépare
     :param lignes: Un tableau contenant des strings correspondantes aux différentes lignes du texte
     :return: Un tuple constitué du nombre de tests dans le fichier et d'un dictionnaire avec le nom des tests pour indice et le tableau contenant les lignes associées pour valeur
     """
-    
-    nombreTests = 0
-    for ligne in lignes:
-        if "test" in ligne:
-            mots = ligne.strip().split()
+
+    if isTest(lignes):
+        nombreTests = 0
+        dicTests = {}
+        for ligne in lignes:
+            nombreTestsDansLigne = 0
+            if "test" in ligne:
+                mots = ligne.strip().split()
                 for i on range(len(mots)):
                     if mots[i] == "test":
+                        nombreTestsDansLigne += 1
                         nombreTests += 1
-    return nombreTests
+                        if nombreTestsDansLigne == 1:
+                            #for j in range(i, )
+        return nombreTests
+    else:
+        return -1
+
+def displayStatsTests (lignes):
+    """
+    Affiche les informations statistiques à propos des tests
+    :param lignes: Un tableau contenant des strings correspondantes aux différentes lignes du texte
+    :return: None
+    """
+    print("Nombre de tests dans le fichier : " + str(countTests(lignes)[0]))
+    print("Les noms de ces test sont : " + str(countTests(lignes)[1]).keys())
+    for i in range(len(countTests(lignes)[1]).keys())):
+        print("Le contenu du test " + str(countTests(lignes)[1]).keys()[i]) + " est :")
+        print(countTests(lignes)[1]).values()[i])
