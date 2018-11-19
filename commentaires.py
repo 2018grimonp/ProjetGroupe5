@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 
 def fichierLecture():
     """
-    Ouvre le fichier event_candidate_a.rb.rb, juste pour pouvoir tester les fonctions
+    Ouvre le fichier event_candidate_a.rb.rb, juste pour pouvoir tester les fonctions (à virer)
     :return: la liste des lignes du fichier
     """
     try:
@@ -167,7 +167,6 @@ def printCom(lines):
     print(str(int(analyse[1]*10000)/100)+'%')
     print('-------- Pourcentage de lignes dédiées aux commentaires --------')
     print(str(int(analyse[2]*10000)/100)+'%')
-
 
 """
 On peut éxécuter les commandes suivantes pour afficher les résultats de ce script
