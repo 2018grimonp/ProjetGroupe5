@@ -21,17 +21,25 @@ def isTest(lignes):
         if "require" in ligne:
             mots = ligne.strip().split()
             for i on range(len(mots)):
-                if mots[i] = "require":
+                if mots[i] == "require":
                     for j in range(i+1, len(mots)):
-                        if mots[j] = "'test_helper'":
+                        if mots[j] == "'test_helper'":
                             return True
     return False
 
-
+#v0.1
 def countTests(lignes):
     """
     Compte le nombre de tests dans un fichier et les séparent
     :param lignes: Un tableau contenant des strings correspondantes aux différentes lignes du texte
     :return: Un tuple constitué du nombre de tests dans le fichier et d'un dictionnaire avec le nom des tests pour indice et le tableau contenant les lignes associées pour valeur
     """
-    # A compléter
+    
+    nombreTests = 0
+    for ligne in lignes:
+        if "test" in ligne:
+            mots = ligne.strip().split()
+                for i on range(len(mots)):
+                    if mots[i] == "test":
+                        nombreTests += 1
+    return nombreTests
