@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+
 def fichierLecture():
     """
     Ouvre le fichier event_candidate_a.rb.rb, juste pour pouvoir tester les fonctions
@@ -12,7 +13,6 @@ def fichierLecture():
         print("Erreur fichier")
 
 #print(fichierLecture())
-
 
 def commentsHashtag(lines):
     """
@@ -109,9 +109,11 @@ def detectCom(line):
     return 0
 
 def retirerCom(lines):
-    #On commence par afficher les propriétés des commentaires
-    print(commentCount(lines))
-    #puis on retire les commentaires
+    """
+    On retire les commentaires du script
+    :return: la nouvelle liste nettoyée
+    """
+    #On retire les commentaires
     newLines = []
     isBlock = False
     for line in lines:
@@ -126,6 +128,7 @@ def retirerCom(lines):
             isBlock = True
         if test == -2:
             isBlock = False
+    #Et on renvoie la nouvelle liste de lignes
     return newLines
 
 #print(fichierLecture())
@@ -134,6 +137,7 @@ def retirerCom(lines):
 def analyseCom(lines):
     """
     donne des données intéressantes sur le fichier texte
+    :return: liste des commentaires, ratio caractères commentés, ratio lignes commentées
     """
     caracNumber = sum([len(line) for line in lines]) #nombre de caractères en tout
     linesNumber = len(lines) #nombre de lignes du fichier
@@ -152,6 +156,7 @@ def analyseCom(lines):
 
     #Enregistre le nombre de lignes où il y a un commentaire
     commentLinesNumber = len([i for i in linesList if i != 0])
+
     return linesList, comCarac/caracNumber, commentLinesNumber/linesNumber
 
 def printCom(lines):
@@ -162,8 +167,12 @@ def printCom(lines):
     print(str(int(analyse[1]*10000)/100)+'%')
     print('-------- Pourcentage de lignes dédiées aux commentaires --------')
     print(str(int(analyse[2]*10000)/100)+'%')
-"""
-plt.plot(analyseCom(fichierLecture())[0])
-plt.show()"""
 
+
+"""
+On peut éxécuter les commandes suivantes pour afficher les résultats de ce script
 printCom(fichierLecture())
+plt.plot(analyseCom(fichierLecture())[0])
+plt.show()
+"""
+
