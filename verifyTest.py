@@ -78,7 +78,7 @@ def countTests(lignes):
     else:
         return -1
 
-def displayStatsTests (lignes):
+def printStatsTests (lignes):
     """
     Affiche les informations statistiques à propos des tests
     :param lignes: Un tableau contenant des strings correspondantes aux différentes lignes du texte
