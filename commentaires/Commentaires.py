@@ -92,3 +92,41 @@ def commentCount(lines):
     return count, commentDico
 
 #print(commentCount(fichierLecture()))
+
+def detectCom(line):
+    """
+    Détecte si il y a un commentaire sur cette ligne
+    :param line: la fameuse ligne
+    :return: 0 si la ligne ne comporte pas de commentaire
+             i si il y a un # à l'indice i de la ligne
+             -1 si c'est un =begin
+             -2 si c'est un =end
+    """
+    if line[:6] == '=begin':
+        return -1
+    if line[:4] == '=end':
+        return -2
+    for i in range(len(line)):
+        if line[i] == '#':
+            return i+1
+    return 0
+
+def retirerCom(lines):
+    newLines = []
+    isBlock = False
+    for line in lines:
+        test = detectCom(line)
+        if test == 0:
+            if not isBlock:
+                newLines.append(line)
+            pass
+        if test > 0:
+            newLines.append(line[:test-1])
+        if test == -1:
+            isBlock = True
+        if test == -2:
+            isBlock = False
+    return newLines
+
+print(fichierLecture())
+print(commentCount(retirerCom(fichierLecture())))
