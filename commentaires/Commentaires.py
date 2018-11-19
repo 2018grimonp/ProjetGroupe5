@@ -1,6 +1,10 @@
 from textblob import TextBlob
 
 def fichierLecture():
+    """
+    Ouvre le fichier event_candidate_a.rb.rb, juste pour pouvoir tester les fonctions
+    :return: la liste des lignes du fichier
+    """
     try:
         fichier = open("../test_candidats/event_candidate_a.rb.rb", "rt")
         ligneListe = fichier.readlines()
@@ -10,10 +14,12 @@ def fichierLecture():
 
 #print(fichierLecture())
 
+
 def commentsHashtag(lines):
     """
-    :param lines: a list of lines from the source file
-    :return: a dictionary with the #comments and the line where it is written
+    Donne les commentaires unitaires
+    :param lines: le code représenté par une liste de lignes
+    :return: un dico avec la liste des commentaires (sans le #) associée à la ligne du com
     """
     commentDico = {}
     for lineNumber in range(len(lines)):
@@ -31,21 +37,28 @@ def commentsHashtag(lines):
             commentDico['ligne ' +str(lineNumber)] = [comment, len(comment)]
     return commentDico
 
+
 print(commentsHashtag(fichierLecture()))
+
 
 def commentBlocks(lines):
     """
-    :param lines: a list of lines from the source file
-    :return: a dictionary in which all the block comments are ordered by is "=begin" line
+    Donne les commentaires en block (=begin ... commentaire ... =end)
+    :param lines: le code représenté par une liste de lignes
+    :return: un dico avec le commentaire en block associé au numéro de la première ligne de commentaire
     """
     commentDico = {}
     isBlock = False
+
+    #On regarde à chaque ligne si il y a le mot "=begin"
     for lineNumber in range(len(lines)):
         if isBlock and lines[lineNumber][:4] != '=end':
             block += lines[lineNumber]
+        #On enregistre les lignes de commentaires jusqu'à '=end'
         if isBlock and lines[lineNumber][:4] == '=end':
             isBlock = False
             commentDico['ligne '+str(blockLine)] = [block, len(block)]
+        #On enregistre le commentaire lorsqu'on tombe sur un '=end'
         if lines[lineNumber][:6] == '=begin':
             isBlock = True
             block = lines[lineNumber][6:]
@@ -53,9 +66,16 @@ def commentBlocks(lines):
             pass
     return commentDico
 
+
 print(commentBlocks(fichierLecture()))
 
+
 def commentCount(lines):
+    """
+    Donne un couple (nombre de com, {'ligne': [commentaire, nb de carac]})
+    :param lines: le code représenté par une liste de lignes
+    :return: le fameux couple
+    """
     dicoHash = commentsHashtag(lines)
     dicoBlock = commentBlocks(lines)
     count = len(dicoHash) + len(dicoBlock)
