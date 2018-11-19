@@ -108,4 +108,5 @@ c'est tout à fait dingue il se passe plein de trucs !!
 
     return slots
   end
+>>>>>>> origin/Jerome
 end
