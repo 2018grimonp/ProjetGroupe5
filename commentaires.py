@@ -184,7 +184,7 @@ def printCom(lines):
 
 def howCommented(lines):
     """
-    Précise si le code est bien commenté
+    Donne des infos par rapport à la répartition des commentaires
     :param lines: le code représenté par une liste de lignes
     :return: False si le code n'est pas commenté
              True s'il est commenté
@@ -207,6 +207,12 @@ def howCommented(lines):
         return True, (moy, stDevCom), (analyse[2], analyse[1])
 
 def commentsWords(lines):
+    """
+    Donne les mots utilisés dans les commentaires
+    :param lines: le code représenté par une liste de lignes
+    :return: un dico des mots fréquemment utilisés avec leur fréquence
+             une liste des mots utilisés une seule fois
+    """
     comments = [comment[0] for comment in list(commentCount(lines)[1].values())]
     commentAll = ''
     for comment in comments:
@@ -227,6 +233,11 @@ def isFrancais(word, dictionaire):
     return word.lower() in dictionaire
 
 def ratioFrancais(lines):
+    """
+    Donne le ratio de mots francais dans les commentaires
+    :param lines: le code représenté par une liste de lignes
+    :return: un tuple contenant les fameux ratios (mots fréquents, mots moins fréquents)
+    """
     frequent, notFrequent = commentsWords(lines)
     numberFrFreq = 0
     numberFrNFreq = 0
