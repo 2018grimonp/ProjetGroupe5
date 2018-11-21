@@ -1,91 +1,89 @@
-import re   #module pour utiliser les expressions reguliere  faire pip install re
+"""
+On considere que l'on a en entrée un tableau contenant tout les noms des variables contenues dans le code.
+Ce tableau a été obtenu avec le programme test_variable.
+On considère ici les conventions de nommage CamelCase et python.
+On sépare d'abord les mots dans un nom de variable, puis on verifie que les mots existent (et que l'ensemble veut bien dire qqch)
+"""
 
-"""On considere que l'on a en entree un tableau contenant tout les noms des variables contenus dans un code.
-Ce tableau a ete obtenu avec le programme test_variable.
-On considere ici les convention de nommage CamelCase et python.
-On separe d'abord les mots dans un nom de variable, puis on verifie que les mots existent (et que l'ensemble veut bien dire qqch)"""
 
-
-"""le premier programme renvoi un tableau contenant tout les mots de la langues francaise"""
+#Ouverture d'un dictionnaire de languie française.
 l="liste.de.mots.francais.frgut.txt"
-
-def readLines(path):  # retire les '/n' d'un fichier texte 
-    L=[]
-    with open(path,'r') as fp:
-        for line in fp:
-            line=line.replace('\n', '')
-            L.append(line)
-    return L
+def readLines():  # retire les '/n' d'un fichier texte 
+	L=[]
+	with open(l,'r') as fp:
+		for line in fp:
+			line=line.replace('\n', '')
+			L.append(line)
+	return L
 
 
 """c'est deux programmes renvoi un tabelau contenant les different nom en minuscules des noms des variables"""
-def nom_underscore(str):  #str=le nom d'UNE variable
-    return str.split("_")
 
 
-#les deux fonctions definies icic servent pour la fonction camel_case
+#Fonction qui renvoie True si la string contient des majuscules.
 def il_y_a_maj(str):
-    est_maj=False
-    for i in "ABCDEFGHIJKLMNOPQRSTUVWXYZ":
-        if str.find(i)!=-1:
-            est_maj=True
-    return est_maj
+	for char in str:
+		if ord(char)>=65 and ord(char)<=90:
+			return True
+	return False
 
-def inverse(str):
-    inv=str[-1]
-    str=str[:-1]
-    while len(str)>0:
-        inv+=str[-1]
-        str=str[:-1]
-    return inv
+#Convertit maVariabble en ["ma","variable"]
+def parse_camel_case(name):
+	noms=[]
+	if not il_y_a_maj(name):      #on test s'il y a des majuscules
+		return [name]
+	else:
+		array=[]
+		lastindex=0
+		for i in range(len(name)):
+			if ord(name[i])>=65 and ord(name[i])<=90:
+				array.append(name[lastindex:i].lower())
+				lastindex=i
+		array.append(name[lastindex:len(name)].lower())
+		return array 
 
-"""re.match(regex, str) retourn None si il n'y a pas de match entre la regex et la string"""
-def nom_camel_case(str): #str=le nom d'UNE variable
-    noms=[]
-    if re.match("^[A-Z]$",str)!=None:     #on test s'il y a des majuscules
-        return [str]
-    else:
-        nom=str[-1].lower()
-        str=str[:-1]
-        while len(str)>1:
-            while il_y_a_maj(nom)==False:  #il n'y a pas de majuscules dans le nom
-                #print (nom)
-                if len(str)==1:            #s'assurer que la string est non vide
-                    nom+=str
-                    noms.append(inverse(nom).lower())
-                    return noms
-                else:
-                    nom+=str[-1]
-                    str=str[:-1]
-            noms.append(inverse(nom).lower())              #on reinitiallise des qu'une maj est rencontre
-            nom=str[-1].lower()
-            str=str[:-1]
-    return noms
+#Convertit ma_variable en ["ma","variable"]
+def parse_snake_case(str):  #str=le nom d'UNE variable
+	return str.split("_")
 
-"""programme final"""
+#Détermine la convention de nommage (si elle est cohérente) et vérifie que les mots existent dans le dictionnaire
+def nom_coherent(list_str):	#on prend en argument la liste des noms des variables utiles 
+	dictionnaire=readLines()
+	snake_case_count=0
+	camel_case_count=0
+	both_case_count=0
+	in_dictionnary=0
+	not_in_dictionnary=0
+	for name in list_str:
+		if name.find("_")!=-1 and not il_y_a_maj(name):
+			snake_case_count+=1		
+			array=parse_snake_case(name)
+			for word in array:
+				if word in dictionnaire:
+					in_dictionnary+=1
+				else:
+					not_in_dictionnary+=1
+		elif il_y_a_maj(name):
+			camel_case_count+=1
+			array=parse_camel_case(name)
+			for word in array:
+				if word in dictionnaire:
+					in_dictionnary+=1
+				else:
+					not_in_dictionnary+=1
+				
+		else:
+			both_case_count+=1
+			if name in dictionnaire:
+				in_dictionnary+=1
+			else:
+				not_in_dictionnary+=1
 
-def nom_coherent(list_str):    #on prend en argument la liste des noms des variables utiles
-    tout_les_noms_sont_cohérents=True
-    for str in list_str:
-        if str.find("_")!=-1:
-            nom_tab=nom_underscore(str)   #tableau contenant les noms de la variables (ex: "cornichon_vert" => ["cornichon","vert"])
-        else:
-            nom_tab=nom_camel_case(str)
-        len_nom_tab=len(nom_tab)
-        count=0
-        nom_exist=[]
-        for nom in nom_tab:
-            for word in readLines(l):
-                if nom ==word:
-                    count+=1
-        if count!=len_nom_tab:
-            print("le nom de la variable " + str + " " +"n'est pas un choix judicieux. ")
-            tout_les_noms_sont_cohérents=False
-    if tout_les_noms_sont_cohérents==True:
-        return print("Tes variables ont des noms bien choisi !")
-    else:
-        return print("Tes choix de noms de variables sont nuls !")
-  
 
-#print(nom_coherent(["cornihon_vert","CornichonVert"]))
-#print(nom_coherent(["cdjiezqnfui_vert","ChuihuiVert"]))
+	print("Vous utilisez la convention de nommage camelCase à "+str(camel_case_count*100//(snake_case_count+camel_case_count))+"%.")
+	print("Vous utilisez la convention de nommage snake_case à "+str(snake_case_count*100//(snake_case_count+camel_case_count))+"%.")
+	print("Les mots que vous utilisez dans vos noms de variables existent à "+str(in_dictionnary*100//(in_dictionnary+not_in_dictionnary))+"% dans le dictionnaire.")
+
+
+
+nom_coherent(["coucouTestBonjourTTTA"])
