@@ -4,7 +4,7 @@ from commentaires import printCom
 from checkIndentation import retirerIndentation
 from checkIndentation import printIndentation
 
-from test_variables import print_test_variable
+from test_variables import print_variables
 
 from trouve_fonction import printFonction
 
@@ -30,6 +30,9 @@ print("----- COMMENTAIRES -----")
 printCom(lines)
 lines=retirerCom(lines)
 
+print(lines[109])
+
+
 #Extraction et retrait des indentations et affichage d'informations sur la correction des indentations.
 print("----- INDENTATIONS -----")
 printIndentation(lines)
@@ -45,7 +48,9 @@ printStatsTests(lines)
 
 #Parsing des variables présentes dans le code et affichage d'informations à leur sujet.
 print("----- VARIABLES  -----")
-print_test_variable(lines)
+print_variables(lines)
+
+
 
 
 

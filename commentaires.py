@@ -206,7 +206,7 @@ def howCommented(lines):
         stDevCom = np.sqrt(varCom)
         return True, (moy, stDevCom), (analyse[2], analyse[1])
 
-def trueComments(lines):
+def commentsWords(lines):
     comments = [comment[0] for comment in list(commentCount(lines)[1].values())]
     commentAll = ''
     for comment in comments:
@@ -223,6 +223,15 @@ def trueComments(lines):
             notFrequentList.append(word)
     return dicoFrequent, notFrequentList
 
+def isFrancais(word):
+    try:
+        fichier = open('liste.de.motsfrancais.frgut.txt', 'r')
+        mots = fichier.readlines()
+        return word.lower() in mots
+    except IOError:
+        print("La liste des mots francais n'est pas là")
 #print(wellCommented(lines)
 #print(wellCommented(fichierLecture()))
-print(trueComments(fichierLecture()))
+#print(commentsWords(fichierLecture()))
+print(isFrancais('Bonjour'))
+print(isFrancais('Hello'))
