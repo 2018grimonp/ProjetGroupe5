@@ -1,8 +1,26 @@
+# ==== ==== ==== ====
+#
+#   test_variable.py
+#
+#   Recherche des informations sur les variables dans un fichier Ruby
+#
+#   Dernière modification : 21/11/2018
+#
+#	2018
+#
+# ==== ==== ==== ====
+
+# Ancienne version légèrement modifiée
+
+"""
 import re
 
-def print_variables(lines): #lines=tableau de lignes
-    """entré: une liste de lignes (sans les '/n')
-       sortie: le nombre de variable dans le code, un tableau du nom de cahque variables"""
+
+def test_variables(lines, redondance = False):
+    Analyse le tableau des lignes envoyé et renvoie la liste des variables déclarées touvées
+    :param lines: une liste de lignes (sans les '/n')
+    :param redondance": le tableau renvoyé sera avec redondance pour True, et sans redondance pour False
+    :return: un tableau contenant les noms des variables
     nombre_variables=0
     tableau_variables=[]   #pour stocker les variables
     for line in lines:
@@ -20,10 +38,41 @@ def print_variables(lines): #lines=tableau de lignes
                 tableau_avant.pop()
                 tableau_variables.append(tableau_avant[-1])
     tableau_variables_sans_doublons=set(tableau_variables)
-    print(tableau_variables_sans_doublons)
+    #print(tableau_variables_sans_doublons)
     nombre_variables=len(tableau_variables_sans_doublons)
-    str_variables_utiles=",".join(tableau_variables_sans_doublons)
-    return print ("Il y a "+str(nombre_variables)+ ". Elles s'appellent " + str_variables_utiles +" .")
+    #str_variables_utiles=",".join(tableau_variables_sans_doublons)
+    #print ("Il y a "+str(nombre_variables)+ ". Elles s'appellent " + str_variables_utiles +" .")
+    print(tableau_variables_sans_doublons)
+    return None
+"""
+
+# Nouvelle version
 
 
-
+# v0.1
+def countVariables(lines, redondance = False):
+    """
+    Analyse le tableau des lignes envoyé et renvoie la liste des variables déclarées touvées
+    :param lines: une liste de lignes (sans les '/n')
+    :param redondance": le tableau renvoyé sera avec redondance pour True, et sans redondance pour False
+    :return: un tableau contenant les noms des variables
+    """
+    nbVariables = 0
+    tabVariables = []   # Stock les variables
+    for line in lines:
+        if "=" in line:
+            mots = line.strip().split()
+            indiceEqual = -1
+            for i in range(len(mots)):
+                if mots[i] == "=":
+                    indiceEqual = i
+                    nbVariables += 1
+                    tabVariables.append(mots[indiceEqual - 1])
+                    break
+    #tabVariablesSansDoublons = set(tabVariables)
+    #print(tableau_variables_sans_doublons)
+    #nbVariables = len(tableau_variables_sans_doublons)
+    #str_variables_utiles=",".join(tableau_variables_sans_doublons)
+    #print ("Il y a "+str(nombre_variables)+ ". Elles s'appellent " + str_variables_utiles +" .")
+    #print(tableau_variables_sans_doublons)
+    return tabVariables
