@@ -1,4 +1,4 @@
-lines = ['Une ligne qui sert à rien', 'une ligne inutile #avec un com à la fin', '#Ok oon s\'amuse', 'on écrit du code', '#et du code', 'et #encore', 'on s\'arrete #jamais', 'toujours plus de code', '#et voila', 'encore', 'youpi', 'c\'est très fun']
+lines = ['Une ligne qui sert à rien', '#Un commentaire normal', 'une ligne inutile #avec un com à la fin', '=begin un commentaire en block', 'ca continue', '=end']
 import numpy as np
 from textblob import TextBlob
 
@@ -257,4 +257,4 @@ def ratioFrancais(lines):
 
 #print(wellCommented(lines)
 #print(commentsWords(fichierLecture()))
-#print(ratioFrancais(fichierLecture()))
+#print(ratioFrancais(lines))
