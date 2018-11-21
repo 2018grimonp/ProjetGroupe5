@@ -2,9 +2,17 @@ import pytest
 import trouve_fonction
 import main
 
+def readLines(l):  # retire les '/n' d'un fichier texte
+    L=[]
+    fp=open(l,'r')
+    lines=fp.readlines()
+    for line in lines:
+        line=line.replace('\n', '')
+        L.append(line)
+    return L
 
-testFonction1=main.readLines("C:\Users\Tim\PycharmProjects\ProjetGroupe5\test_candidats\event_candidate_a.rb.rb.rb")
-testFonction2=main.readLines("C:\Users\Tim\PycharmProjects\ProjetGroupe5\test_candidats\event_candidate_a_test.rb.rb")
+testFonction1=main.readLines("event_candidate_a.rb.rb.rb")
+testFonction2=main.readLines("test.rb")
 testFonction3=["akmdf","def rpsafk","def","end"]
 
 
