@@ -1,6 +1,22 @@
+def readLines(l):  # retire les '/n' d'un fichier texte 
+    L=[]
+    fp=open(l,'r')
+    lines=fp.readlines()
+    for line in lines:
+    	line=line.replace('\n', '')
+    	L.append(line)
+    return L
+
+print ('Nom du fichier à analyser :')
+
+#On rentre le fichier que l'on veut manipuler
+path=input()
+lines=readLines(path)
+
+
 import re  #utilise regex
 
-def test_variables(lines): #lines=tableau de lignes
+def print_variables(lines): #lines=tableau de lignes
     """entré: une liste de lignes (sans les '/n')
        sortie: le nombre de variable dans le code, un tableau du nom de cahque variables"""
     nombre_variables=0
@@ -22,14 +38,16 @@ def test_variables(lines): #lines=tableau de lignes
     tableau_variables_sans_doublons=set(tableau_variables)
     print(tableau_variables_sans_doublons)
     nombre_variables=len(tableau_variables_sans_doublons)
-    return nombre_variables, tableau_variables_sans_doublons
+    str_variables_utiles=",".join(tableau_variables_sans_doublons)
+    return print ("Il y a "+str(nombre_variables)+ ". Elles s'appellent " + str_variables_utiles +" .")
 
 
+"""
 def print_variables(lines):
-    """renvoi toutes les noms des variables qui sont utlisiées ainsi que leur nombre.
-une variable sera consideree comme utilisee si elle apprait deux fois dans le code"""
+    renvoi toutes les noms des variables qui sont utlisiées ainsi que leur nombre.
+une variable sera consideree comme utilisee si elle apprait deux fois dans le code
     result=test_variables(lines)   #c'est un tuples, (int, list)
-    variables_utiles=[]
+    variables_utiles=result.set
     for var in result[1]:
         count=0
         for line in lines:
@@ -43,3 +61,7 @@ une variable sera consideree comme utilisee si elle apprait deux fois dans le co
         str_variables_utiles=",".join(variables_utiles)
     print ("Il y a "+str(nb_variables_utiles)+ ". Elles s'appellent " + str_variables_utiles +" .")
 
+"""
+
+print("----- VARIABLES  -----")
+print_variables(lines)
