@@ -26,7 +26,7 @@ def count_fonction(Code):
                 return("Erreur fonction lingne "+str(k))
             else :
                 fonction_open=True
-            ListeLongeurFonction.append({"longueur":k}) #sauvegarde l'indice de début de la fonction
+            ListeLongeurFonction.append({"start":k}) #sauvegarde l'indice de début de la fonction
             ListeLongeurFonction[-1]["nom"]=Code[k][4:].split("(")[0]
             def_open=open_count
             open_count+=1
@@ -38,7 +38,8 @@ def count_fonction(Code):
                 print(ListeLongeurFonction)
                 return("end not open ligne "+ str(k))
             if open_count== def_open :
-                ListeLongeurFonction[-1]["longueur"]=k-ListeLongeurFonction[-1]["longueur"]-1   #calcul la longueur de la fonction (def et end exclus)
+                ListeLongeurFonction[-1]["end"]=k
+                ListeLongeurFonction[-1]["longueur"]=k-ListeLongeurFonction[-1]["start"]-1   #calcul la longueur de la fonction (def et end exclus)
                 fonction_open=False
     return(ListeLongeurFonction)
 
@@ -51,9 +52,9 @@ def printFonction(Code):
         return(False)
     l_moyenne,l_min,l_max=0,fonctions[0]["longueur"],fonctions[0]["longueur"]
     for num_fonction in range(len(fonctions)):
-        print("fonction "+str(num_fonction))
-        print("nom : "+fonctions[num_fonction]["nom"])
-        print("longueur : "+str(fonctions[num_fonction]["longueur"])+"\n")
+        #print("fonction "+str(num_fonction))
+        print(str(num_fonction)+". nom : "+fonctions[num_fonction]["nom"])
+        #print("longueur : "+str(fonctions[num_fonction]["longueur"])+"\n")
         l_moyenne+=fonctions[num_fonction]["longueur"]
         if fonctions[num_fonction]["longueur"]<l_min :
             l_min=fonctions[num_fonction]["longueur"]
