@@ -4,7 +4,7 @@
 #
 #   Recherche des informations sur un fichier de test Ruby
 #
-#   Dernière modification : 19/11/2018
+#   Dernière modification : 21/11/2018
 #
 #	2018
 #
