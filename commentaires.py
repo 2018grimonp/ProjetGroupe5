@@ -8,7 +8,7 @@ def fichierLecture():
     :return: la liste des lignes du fichier
     """
     try:
-        fichier = open("./commentaires.py", "rt")
+        fichier = open("./test.rb", "rt")
         ligneListe = fichier.readlines()
         return ligneListe
     except IOError:
@@ -223,15 +223,28 @@ def commentsWords(lines):
             notFrequentList.append(word)
     return dicoFrequent, notFrequentList
 
-def isFrancais(word):
+def isFrancais(word, dictionaire):
+    return word.lower() in dictionaire
+
+def ratioFrancais(lines):
+    frequent, notFrequent = commentsWords(lines)
+    numberFrFreq = 0
+    numberFrNFreq = 0
     try:
-        fichier = open('liste.de.motsfrancais.frgut.txt', 'r')
-        mots = fichier.readlines()
-        return word.lower() in mots
+        fichier = open('./liste.de.mots.francais.frgut.txt', 'r')
+        mots = [mot.replace('\n', '') for mot in fichier.readlines()]
+        motsDecode =[mot.encode('iso-8859-1').decode('utf8') for mot in mots]
+        for mot in frequent.keys():
+            if isFrancais(mot, motsDecode):
+                numberFrFreq += frequent[mot]
+        for mot in notFrequent:
+            if isFrancais(mot, motsDecode):
+                numberFrNFreq +=1
+        return numberFrFreq/sum(frequent.values()), numberFrNFreq/len(notFrequent)
     except IOError:
         print("La liste des mots francais n'est pas là")
+
+
 #print(wellCommented(lines)
-#print(wellCommented(fichierLecture()))
-#print(commentsWords(fichierLecture()))
-print(isFrancais('Bonjour'))
-print(isFrancais('Hello'))
+print(commentsWords(fichierLecture()))
+print(ratioFrancais(fichierLecture()))
