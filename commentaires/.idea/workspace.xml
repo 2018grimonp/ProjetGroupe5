@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="d8a9d8cc-af1e-4db1-b099-9dfef234fe0f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../commentaires.py" beforeDir="false" afterPath="$PROJECT_DIR$/../commentaires.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -35,23 +33,23 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="7481" />
+          <entry key="py" value="7827" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="7481" />
+          <entry key="Python" value="7827" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/../commentaires.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="43" lean-forward="true" selection-start-line="43" selection-end-line="43" />
+            <state relative-caret-position="166">
+              <caret line="171" column="68" selection-start-line="171" selection-start-column="68" selection-end-line="171" selection-end-column="68" />
               <folding>
                 <element signature="e#59#411#0" />
                 <element signature="e#471#1274#0" />
@@ -59,16 +57,16 @@
                 <element signature="e#2427#2980#0" />
                 <element signature="e#3047#3512#0" />
                 <element signature="e#3541#4094#0" />
-                <element signature="e#4200#5113#0" />
-                <element signature="e#5140#5516#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../main.py">
-          <provider selected="true" editor-type-id="text-editor" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-191" />
+          </provider>
         </entry>
       </file>
     </leaf>
@@ -182,6 +180,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
       <window_info id="Structure" order="1" weight="0.25" />
@@ -204,10 +203,15 @@
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/Commentaires.py" />
+    <entry file="file://$PROJECT_DIR$/../main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-191" />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/../commentaires.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="43" lean-forward="true" selection-start-line="43" selection-end-line="43" />
+        <state relative-caret-position="166">
+          <caret line="171" column="68" selection-start-line="171" selection-start-column="68" selection-end-line="171" selection-end-column="68" />
           <folding>
             <element signature="e#59#411#0" />
             <element signature="e#471#1274#0" />
@@ -215,14 +219,9 @@
             <element signature="e#2427#2980#0" />
             <element signature="e#3047#3512#0" />
             <element signature="e#3541#4094#0" />
-            <element signature="e#4200#5113#0" />
-            <element signature="e#5140#5516#0" />
           </folding>
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../main.py">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
   </component>
 </project>

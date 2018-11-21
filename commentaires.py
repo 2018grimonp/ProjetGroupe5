@@ -144,6 +144,7 @@ def analyseCom(lines):
     linesNumber = len(lines) #nombre de lignes du fichier
     linesList = [0 for a in range(linesNumber)]
     com = commentCount(lines)[1]
+    comCount = commentCount(lines)[0]
 
     #Enregistre le nombre de commentaires par ligne
     for lineNumber in range(linesNumber):
@@ -158,10 +159,17 @@ def analyseCom(lines):
     #Enregistre le nombre de lignes où il y a un commentaire
     commentLinesNumber = len([i for i in linesList if i != 0])
 
-    return linesList, comCarac/caracNumber, commentLinesNumber/linesNumber
+    return linesList, comCarac/caracNumber, commentLinesNumber/linesNumber, comCount
 
 def printCom(lines):
     analyse = analyseCom(lines)
+    print('-------- Nombre de commentaires --------')
+    if analyse[3] == 0:
+        print('Le fichier n\'est pas commenté')
+    elif analyse[3] == 1:
+        print('Le fichier comporte un seul commentaire')
+    else:
+        print('le fichier comporte '+str(analyse[3])+' commentaires.')
     print('-------- Pourcentage de caractères dédiés aux commentaires --------')
     print(str(int(analyse[1]*10000)/100)+'%')
     print('-------- Pourcentage de lignes dédiées aux commentaires --------')
