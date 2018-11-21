@@ -1,4 +1,5 @@
-#lines = ['Une ligne qui sert à rien', '#Un commentaire normal', 'une ligne inutile #avec un com à la fin', '=begin un commentaire en block', 'ca continue', '=end']
+lines = ['Une ligne qui sert à rien', 'une ligne inutile #avec un com à la fin', '#Ok oon s\'amuse', 'on écrit du code', '#et du code', 'et #encore', 'on s\'arrete #jamais', 'toujours plus de code', '#et voila', 'encore', 'youpi', 'c\'est très fun']
+import numpy as np
 
 def fichierLecture():
     """
@@ -6,7 +7,7 @@ def fichierLecture():
     :return: la liste des lignes du fichier
     """
     try:
-        fichier = open("./test.rb", "rt")
+        fichier = open("./commentaires.py", "rt")
         ligneListe = fichier.readlines()
         return ligneListe
     except IOError:
@@ -124,7 +125,8 @@ def retirerCom(lines):
                 newLines.append(line)
             pass
         if test > 0:
-            newLines.append(line[:test-1])
+            if not isBlock:
+                newLines.append(line[:test-1])
         if test == -1:
             isBlock = True
         if test == -2:
@@ -179,3 +181,26 @@ def printCom(lines):
 
 #print(commentCount(fichierLecture()))
 
+def wellCommented(lines):
+    """
+    Précise si le code est bien commenté
+    :param lines: le code représenté par une liste de lignes
+    :return: False si le code n'est pas commenté
+    """
+    count = commentCount(lines)
+    analyse = analyseCom(lines)
+    comLines = np.array(analyse[0])
+    if count[0] == 0:
+        return False, (0, 0)
+    else:
+        moy = sum(comLines)/len(comLines)
+        moySq = sum(comLines**2)/len(comLines)
+        varLines = analyse[2] - analyse[2]**2
+        varCom = moySq - moy**2
+        stDevLines = np.sqrt(varLines)
+        stDevCom = np.sqrt(varCom)
+        return True, stDevLines, stDevCom, comLines, analyse[2], analyse[1]
+
+
+#print(wellCommented(lines)
+#print(wellCommented(fichierLecture()))
