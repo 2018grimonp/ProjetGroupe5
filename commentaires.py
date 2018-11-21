@@ -168,6 +168,7 @@ def analyseCom(lines):
 
 def printCom(lines):
     analyse = analyseCom(lines)
+    ratio = ratioFrancais(lines)
     print('-------- Nombre de commentaires --------')
     if analyse[3] == 0:
         print('Le fichier n\'est pas commenté')
@@ -179,6 +180,8 @@ def printCom(lines):
     print(str(int(analyse[1]*10000)/100)+'%')
     print('-------- Pourcentage de lignes dédiées aux commentaires --------')
     print(str(int(analyse[2]*10000)/100)+'%')
+    print('-------- Proportion de mots francais --------')
+    print('Mots fréquents : '+str(ratio[0])+' -- Mots peu utilisés : '+str(ratio[1]))
 
 #print(commentCount(fichierLecture()))
 
@@ -192,7 +195,7 @@ def howCommented(lines):
              moy = moyenne de caracètres de commentaire par ligne
              stDevCom = écart type
              caracRatio = pourcentage de caractères de commentaire
-             liniesRatio = pourcentage de lignes de commentaires
+             linesRatio = pourcentage de lignes de commentaires
     """
     count = commentCount(lines)
     analyse = analyseCom(lines)
@@ -257,4 +260,4 @@ def ratioFrancais(lines):
 
 #print(wellCommented(lines)
 #print(commentsWords(fichierLecture()))
-#print(ratioFrancais(lines))
+printCom(lines)
