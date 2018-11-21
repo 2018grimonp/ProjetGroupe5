@@ -199,6 +199,14 @@ def wellCommented(lines):
         varCom = moySq - moy**2
         stDevLines = np.sqrt(varLines)
         stDevCom = np.sqrt(varCom)
+        if analyse[2] > 0.15 and analyse[1] > 0.2:
+            return 10
+        elif analyse[1] > 0.2:
+            return 2
+        elif analyse[2] >0.15:
+            return 4
+        else:
+            return 1
         return True, stDevLines, stDevCom, comLines, analyse[2], analyse[1]
 
 
