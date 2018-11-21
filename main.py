@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from commentaires import retirerCom
 from commentaires import printCom 
 
@@ -46,6 +47,8 @@ printStatsTests(lines)
 #Parsing des variables présentes dans le code et affichage d'informations à leur sujet.
 print("----- VARIABLES  -----")
 print_test_variable(lines)
+
+
 
 
 
