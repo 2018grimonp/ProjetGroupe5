@@ -4,18 +4,19 @@ from commentaires import printCom
 from checkIndentation import retirerIndentation
 from checkIndentation import printIndentation
 
-from test_variables import print_variables
+from test_variables import print_test_variable
 
-from trouve_fonction import printFonctions
+from trouve_fonction import printFonction
 
 from verifyTest import printStatsTests
 
 def readLines(l):  # retire les '/n' d'un fichier texte 
     L=[]
-    with open(l,'r') as fp:
-        for line in fp:
-            line=line.replace('\n', '')
-            L.append(line)
+    fp=open(l,'r')
+    lines=fp.readlines()
+    for line in lines:
+    	line=line.replace('\n', '')
+    	L.append(line)
     return L
 
 print ('Nom du fichier à analyser :')
@@ -36,14 +37,15 @@ lines=retirerIndentation(lines)
 
 #Parsing des fonctions présentes dans le code et affichage de leur nombre de lignes.
 print("----- FONCTIONS  -----")
-printFonctions(lines)
-
-#Parsing des variables présentes dans le code et affichage d'informations à leur sujet.
-print("----- VARIABLES  -----")
-print_variables(lines)
+printFonction(lines)
 
 #Parsing des tests présents dans le code et affichage de données à leur sujet.
 print("----- VERIFICATION DES TESTS  -----")
 printStatsTests(lines)
+
+#Parsing des variables présentes dans le code et affichage d'informations à leur sujet.
+print("----- VARIABLES  -----")
+print_test_variable(lines)
+
 
 
