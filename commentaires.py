@@ -1,4 +1,4 @@
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
 def fichierLecture():
     """
@@ -6,7 +6,7 @@ def fichierLecture():
     :return: la liste des lignes du fichier
     """
     try:
-        fichier = open("./test_candidats/event_candidate_a.rb.rb", "rt")
+        fichier = open("./test.rb", "rt")
         ligneListe = fichier.readlines()
         return ligneListe
     except IOError:
@@ -52,6 +52,13 @@ def commentBlocks(lines):
     isBlock = False
     #On regarde à chaque ligne si il y a le mot "=begin"
     for lineNumber in range(len(lines)):
+        #On détecte le debut du commentaire par le '=begin'
+        if lines[lineNumber][:6] == '=begin':
+            isBlock = True
+            block = lines[lineNumber][6:]
+            blockLine = lineNumber
+            continue
+
         #On enregistre les lignes de commentaires jusqu'à '=end'
         if isBlock and lines[lineNumber][:4] != '=end':
             block += lines[lineNumber]
@@ -61,12 +68,6 @@ def commentBlocks(lines):
             isBlock = False
             commentDico[blockLine] = [block, len(block)]
 
-        #On détecte le debut du commentaire par le '=begin'
-        if lines[lineNumber][:6] == '=begin':
-            isBlock = True
-            block = lines[lineNumber][6:]
-            blockLine = lineNumber
-            pass
     return commentDico
 
 #print(commentBlocks(fichierLecture()))
@@ -161,17 +162,10 @@ def analyseCom(lines):
 
 def printCom(lines):
     analyse = analyseCom(lines)
-    print('-------- Localisation des commentaires dans le script --------')
-    print(analyse[0])
     print('-------- Pourcentage de caractères dédiés aux commentaires --------')
     print(str(int(analyse[1]*10000)/100)+'%')
     print('-------- Pourcentage de lignes dédiées aux commentaires --------')
     print(str(int(analyse[2]*10000)/100)+'%')
 
-"""
-On peut éxécuter les commandes suivantes pour afficher les résultats de ce script
-printCom(fichierLecture())
-plt.plot(analyseCom(fichierLecture())[0])
-plt.show()
-"""
+#print(commentCount(fichierLecture()))
 

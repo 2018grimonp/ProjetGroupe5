@@ -5,7 +5,7 @@ class EventCandidatATest < ActiveSupport::TestCase
     event = EventCandidatA.new starts_at: DateTime.parse("2014-08-04 09:30"), ends_at: DateTime.parse("2014-08-04 12:30")
     assert_not event.save, "Saved the event without a kind"
   end
-
+#On met un commentaire par ci
   test "should not save event with an invalid kind" do
     event = EventCandidatA.new kind: 'other', starts_at: DateTime.parse("2014-08-04 09:30"), ends_at: DateTime.parse("2014-08-04 12:30")
     assert_not event.save, "Saved the event with an invalid kind"
@@ -15,7 +15,7 @@ class EventCandidatATest < ActiveSupport::TestCase
     event = EventCandidatA.new kind: 'opening', ends_at: DateTime.parse("2014-08-04 12:30")
     assert_not event.save, "Saved the event without a starts_at"
   end
-
+#Un commentaire par là
   test "should not save event without ends_at" do
     event = EventCandidatA.new kind: 'opening', starts_at: DateTime.parse("2014-08-04 09:30")
     assert_not event.save, "Saved the event without a ends_at"
@@ -30,7 +30,10 @@ class EventCandidatATest < ActiveSupport::TestCase
     event = EventCandidatA.new kind: 'opening', starts_at: DateTime.parse("2014-08-04 13:30"), ends_at: DateTime.parse("2014-08-04 12:30")
     assert_not event.save, "Saved the event with an ends_at in a different day than a starts_at"
   end
-
+=begin
+Et un commentaire ici
+lui il est par block  attention
+=end
   test "should not save event with a starts_at or ends_at which is not a multiple of 30 minutes" do
     event = EventCandidatA.new kind: 'opening', starts_at: DateTime.parse("2014-08-04 09:05"), ends_at: DateTime.parse("2014-08-04 12:20")
     assert_not event.save, "Saved the event with a starts_at or ends_at which is not a multiple of 30 minutes"
@@ -73,7 +76,7 @@ class EventCandidatATest < ActiveSupport::TestCase
     assert_equal Date.new(2014, 8, 16), availabilities[6][:date]
     assert_equal 7, availabilities.length
   end
-
+#Il y en a un ici aussi
   test "a more complexe test" do
     EventCandidatA.create kind: 'opening', starts_at: DateTime.parse("2014-08-04 09:30"), ends_at: DateTime.parse("2014-08-04 12:30"), weekly_recurring: true
     EventCandidatA.create kind: 'opening', starts_at: DateTime.parse("2014-08-18 14:00"), ends_at: DateTime.parse("2014-08-18 18:00"), weekly_recurring: true
