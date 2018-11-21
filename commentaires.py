@@ -1,4 +1,4 @@
-#import matplotlib.pyplot as plt
+#lines = ['Une ligne qui sert à rien', '#Un commentaire normal', 'une ligne inutile #avec un com à la fin', '=begin un commentaire en block', 'ca continue', '=end']
 
 def fichierLecture():
     """
@@ -40,7 +40,7 @@ def commentsHashtag(lines):
             commentDico[lineNumber] = [comment, len(comment)]
     return commentDico
 
-#print(commentsHashtag(fichierLecture()))
+#print(commentsHashtag(lines))
 
 def commentBlocks(lines):
     """
@@ -70,7 +70,7 @@ def commentBlocks(lines):
 
     return commentDico
 
-#print(commentBlocks(fichierLecture()))
+#print(commentBlocks(lines))
 
 def commentCount(lines):
     """
@@ -89,14 +89,14 @@ def commentCount(lines):
         commentDico[key] = dicoBlock[key]
     return count, commentDico
 
-#print(commentCount(fichierLecture()))
+#print(commentCount(lines))
 
 def detectCom(line):
     """
     Détecte si il y a un commentaire sur cette ligne
     :param line: la fameuse ligne
     :return: 0 si la ligne ne comporte pas de commentaire
-             i si il y a un # à l'indice i de la ligne
+             i+1 si il y a un # à l'indice i de la ligne
              -1 si c'est un =begin
              -2 si c'est un =end
     """
@@ -133,7 +133,7 @@ def retirerCom(lines):
     return newLines
 
 #print(fichierLecture())
-#print(commentCount(retirerCom(fichierLecture())))
+#print(retirerCom(lines))
 
 def analyseCom(lines):
     """
@@ -161,6 +161,8 @@ def analyseCom(lines):
 
     return linesList, comCarac/caracNumber, commentLinesNumber/linesNumber, comCount
 
+#print(analyseCom(lines))
+
 def printCom(lines):
     analyse = analyseCom(lines)
     print('-------- Nombre de commentaires --------')
@@ -169,7 +171,7 @@ def printCom(lines):
     elif analyse[3] == 1:
         print('Le fichier comporte un seul commentaire')
     else:
-        print('le fichier comporte '+str(analyse[3])+' commentaires.')
+        print('Le fichier comporte '+str(analyse[3])+' commentaires.')
     print('-------- Pourcentage de caractères dédiés aux commentaires --------')
     print(str(int(analyse[1]*10000)/100)+'%')
     print('-------- Pourcentage de lignes dédiées aux commentaires --------')
