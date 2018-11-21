@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-def initial(l):  # retire les '\n' d'un fichier texte 
-=======
-from commentaires import retirerCom
-from commentaires import printCom 
-
 from checkIndentation import retirerIndentation
 from checkIndentation import printIndentation
 
@@ -14,7 +8,6 @@ from trouve_fonction import printFonction
 from verifyTest import printStatsTests
 
 def readLines(l):  # retire les '/n' d'un fichier texte 
->>>>>>> 03f7a01b3b4518e8bc5e6f6376d9b8c7b90b16f1
     L=[]
     fp=open(l,'r')
     lines=fp.readlines()
