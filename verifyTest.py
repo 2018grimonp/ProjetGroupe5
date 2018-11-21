@@ -11,7 +11,7 @@
 # ==== ==== ==== ====
 
 # Liste des commande qui ouvrent des actions
-lOpen=["if", "while", "for", "do", "class", "def", "test"]
+lOpen=["if", "while", "for", "do", "class", "def"]
 
 
 # TO DO : exception, virer les noms des tests avant leur analyse
