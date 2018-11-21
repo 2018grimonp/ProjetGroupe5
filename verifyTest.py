@@ -4,7 +4,7 @@
 #
 #   Recherche des informations sur un fichier de test Ruby
 #
-#   Dernière modification : 19/11/2018
+#   Dernière modification : 21/11/2018
 #
 #	2018
 #
@@ -73,15 +73,16 @@ def countTests(lignes):
                 for i in range(len(mots)):
                     if mots[i] == "test":
                         nombreTestsDansLigne += 1
-                        nombreTests += 1
-                        nomTest = ""
-                        for j in range(i+1, len(mots)):
-                            nomTest += mots[j]
-                            nomTest += " "
-                            if mots[j][-1] == '"':
-                                break
-                        nomTest = nomTest[1:-2]
-                        dicTests[nomTest] = ""
+                        if nombreTestsDansLigne == 1:
+                            nombreTests += 1
+                            nomTest = ""
+                            for j in range(i+1, len(mots)):
+                                nomTest += mots[j]
+                                nomTest += " "
+                                if mots[j][-1] == '"':
+                                    break
+                            nomTest = nomTest[1:-2]
+                            dicTests[nomTest] = ""
                 if nombreTestsDansLigne == 1:
                     ligneEnd = rechercheEnd(lignes, i)
                     paragrapheTest = ""
@@ -93,7 +94,7 @@ def countTests(lignes):
         return -1
 
 
-# TO DO : compter le nombre d'assert
+# TO DO : compter le nombre d'assert, rectfier le bug contenu des tests
 def printStatsTests (lignes):
     """
     Affiche les informations statistiques à propos des tests
@@ -106,7 +107,10 @@ def printStatsTests (lignes):
     print("Les noms de ces test sont : ")
     for key in countTests(lignes)[1].keys() :
         print ("    - " + key)
+    # A débugger
+    """
     print("")
     for key in countTests(lignes)[1].keys() :
         print('Le contenu du test "' + key + '" est :')
         print(countTests(lignes)[1][key])
+    """
