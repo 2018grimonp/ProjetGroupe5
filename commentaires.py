@@ -244,7 +244,6 @@ def ratioFrancais(lines):
     except IOError:
         print("La liste des mots francais n'est pas là")
 
-
 #print(wellCommented(lines)
-print(commentsWords(fichierLecture()))
-print(ratioFrancais(fichierLecture()))
+#print(commentsWords(fichierLecture()))
+#print(ratioFrancais(fichierLecture()))
