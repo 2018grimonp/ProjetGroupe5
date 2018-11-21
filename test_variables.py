@@ -18,3 +18,22 @@ def test_variables(lines): #lines=tableau de lignes
     nombre_variables=len(tableau_variables_sans_doublons)
     return nombre_variables, tableau_variables_sans_doublons
 
+
+def print_test_variable(lines):
+    """renvoi toutes les noms des variables qui sont utlisiées ainsi que leur nombre.
+une variable sera consideree comme utilisee si elle apprait deux fois dans le code"""
+    result=test_variables(lines)   #c'est un tuples, (int, list)
+    variables_utiles=[]
+    for var in result[1]:
+        count=0
+        for line in lines:
+            list_line=line.split(" ")
+            for word in list_line:
+                if var==word:
+                    count+=1
+        if count>2:
+            variables_utiles.append(var)
+        nb_variables_utiles=len(variables_utiles)
+        str_variables_utiles=",".join(variables_utiles)
+        return print ("Il y a "+str(nb_variables_utiles)+ ". Elle s'appelle " + str_variables_utiles +" .")
+
