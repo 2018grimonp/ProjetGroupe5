@@ -181,7 +181,7 @@ def printCom(lines):
     print('-------- Pourcentage de lignes dédiées aux commentaires --------')
     print(str(int(analyse[2]*10000)/100)+'%')
     print('-------- Proportion de mots francais --------')
-    print('Mots fréquents : '+str(ratio[0])+' -- Mots peu utilisés : '+str(ratio[1]))
+    print('Mots fréquents : '+str(int(ratio[0]*100)/100)+' -- Mots peu utilisés : '+str(int(ratio[1]*100)/100))
 
 #print(commentCount(fichierLecture()))
 
@@ -260,4 +260,4 @@ def ratioFrancais(lines):
 
 #print(wellCommented(lines)
 #print(commentsWords(fichierLecture()))
-printCom(lines)
+printCom(fichierLecture())
