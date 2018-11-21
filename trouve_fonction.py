@@ -33,6 +33,9 @@ def count_fonction(Code):
             open_count+=1
         if "end" in Code[k].split(" ") :    #controle si la ligne ferme des commandes
             open_count-=1
+            if open_count<0 :
+                print(ListeLongeurFonction)
+                return("end not open ligne "+ str(k))
             if open_count== def_open :
                 ListeLongeurFonction[-1]["longueur"]=k-ListeLongeurFonction[-1]["longueur"]-1   #calcul la longueur de la fonction (def et end exclus)
                 fonction_open=False
@@ -59,5 +62,4 @@ def printFonction(Code):
     print ("la longueur minimal est : "+str(l_min))
     print ("la longueur maximal est : "+str(l_max))
     print ("le nom de fonction le plus stylé est : "+fonctions[rd.randint(0,len(fonctions)-1)]["nom"])
-
 
