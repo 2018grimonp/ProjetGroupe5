@@ -1,4 +1,5 @@
 import commentaires as c
+import pytest
 
 lines = ['Une ligne qui sert à rien', '#Un commentaire normal', 'une ligne inutile #avec un com à la fin', '=begin un commentaire en block', 'ca continue', '=end']
 

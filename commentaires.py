@@ -1,5 +1,6 @@
 lines = ['Une ligne qui sert à rien', 'une ligne inutile #avec un com à la fin', '#Ok oon s\'amuse', 'on écrit du code', '#et du code', 'et #encore', 'on s\'arrete #jamais', 'toujours plus de code', '#et voila', 'encore', 'youpi', 'c\'est très fun']
 import numpy as np
+from textblob import TextBlob
 
 def fichierLecture():
     """
@@ -181,34 +182,47 @@ def printCom(lines):
 
 #print(commentCount(fichierLecture()))
 
-def wellCommented(lines):
+def howCommented(lines):
     """
     Précise si le code est bien commenté
     :param lines: le code représenté par une liste de lignes
     :return: False si le code n'est pas commenté
+             True s'il est commenté
+             et deux couples (moy, stDevCom) et (caracRatio, linesRatio)
+             moy = moyenne de caracètres de commentaire par ligne
+             stDevCom = écart type
+             caracRatio = pourcentage de caractères de commentaire
+             liniesRatio = pourcentage de lignes de commentaires
     """
     count = commentCount(lines)
     analyse = analyseCom(lines)
     comLines = np.array(analyse[0])
     if count[0] == 0:
-        return False, (0, 0)
+        return False, (0, 0), (0,0)
     else:
         moy = sum(comLines)/len(comLines)
         moySq = sum(comLines**2)/len(comLines)
-        varLines = analyse[2] - analyse[2]**2
         varCom = moySq - moy**2
-        stDevLines = np.sqrt(varLines)
         stDevCom = np.sqrt(varCom)
-        if analyse[2] > 0.15 and analyse[1] > 0.2:
-            return 10
-        elif analyse[1] > 0.2:
-            return 2
-        elif analyse[2] >0.15:
-            return 4
-        else:
-            return 1
-        return True, stDevLines, stDevCom, comLines, analyse[2], analyse[1]
+        return True, (moy, stDevCom), (analyse[2], analyse[1])
 
+def trueComments(lines):
+    comments = [comment[0] for comment in list(commentCount(lines)[1].values())]
+    commentAll = ''
+    for comment in comments:
+        commentAll += comment
+    commentAll = TextBlob(commentAll)
+    dicoFrequent = {}
+    notFrequentList = []
+    wordList = commentAll.words.lemmatize()
+    for word in wordList:
+        count = commentAll.words.count(word)
+        if count > 1:
+            dicoFrequent[word.lower()] = commentAll.words.count(word)
+        else:
+            notFrequentList.append(word)
+    return dicoFrequent, notFrequentList
 
 #print(wellCommented(lines)
 #print(wellCommented(fichierLecture()))
+print(trueComments(fichierLecture()))
