@@ -33,6 +33,7 @@ class EventCandidatATest < ActiveSupport::TestCase
 =begin
 Et un commentaire ici
 lui il est par block  attention
+archnuf zpzoeru ppoooze 
 =end
   test "should not save event with a starts_at or ends_at which is not a multiple of 30 minutes" do
     event = EventCandidatA.new kind: 'opening', starts_at: DateTime.parse("2014-08-04 09:05"), ends_at: DateTime.parse("2014-08-04 12:20")
