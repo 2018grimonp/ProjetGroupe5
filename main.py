@@ -30,7 +30,6 @@ print("----- COMMENTAIRES -----")
 printCom(lines)
 lines=retirerCom(lines)
 
-print(lines[109])
 
 
 #Extraction et retrait des indentations et affichage d'informations sur la correction des indentations.
@@ -49,6 +48,7 @@ printStatsTests(lines)
 #Parsing des variables présentes dans le code et affichage d'informations à leur sujet.
 print("----- VARIABLES  -----")
 print_variables(lines)
+
 
 
 
