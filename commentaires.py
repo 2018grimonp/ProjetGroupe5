@@ -1,17 +1,18 @@
+#lines = ['Une ligne qui sert à rien', '#Un commentaire normal', 'une ligne inutile #avec un com à la fin', '=begin un commentaire en block', 'ca continue', '=end']
+
 def fichierLecture():
     """
-    Ouvre le fichier event_candidate_a.rb.rb, juste pour pouvoir tester les fonctions
+    Ouvre le fichier event_candidate_a.rb.rb, juste pour pouvoir tester les fonctions (à virer)
     :return: la liste des lignes du fichier
     """
     try:
-        fichier = open("../test_candidats/event_candidate_a.rb.rb", "rt")
+        fichier = open("./test.rb", "rt")
         ligneListe = fichier.readlines()
         return ligneListe
     except IOError:
         print("Erreur fichier")
 
 #print(fichierLecture())
-
 
 def commentsHashtag(lines):
     """
@@ -39,9 +40,7 @@ def commentsHashtag(lines):
             commentDico[lineNumber] = [comment, len(comment)]
     return commentDico
 
-
-#print(commentsHashtag(fichierLecture()))
-
+#print(commentsHashtag(lines))
 
 def commentBlocks(lines):
     """
@@ -53,6 +52,13 @@ def commentBlocks(lines):
     isBlock = False
     #On regarde à chaque ligne si il y a le mot "=begin"
     for lineNumber in range(len(lines)):
+        #On détecte le debut du commentaire par le '=begin'
+        if lines[lineNumber][:6] == '=begin':
+            isBlock = True
+            block = lines[lineNumber][6:]
+            blockLine = lineNumber
+            continue
+
         #On enregistre les lignes de commentaires jusqu'à '=end'
         if isBlock and lines[lineNumber][:4] != '=end':
             block += lines[lineNumber]
@@ -62,17 +68,9 @@ def commentBlocks(lines):
             isBlock = False
             commentDico[blockLine] = [block, len(block)]
 
-        #On détecte le debut du commentaire par le '=begin'
-        if lines[lineNumber][:6] == '=begin':
-            isBlock = True
-            block = lines[lineNumber][6:]
-            blockLine = lineNumber
-            pass
     return commentDico
 
-
-#print(commentBlocks(fichierLecture()))
-
+#print(commentBlocks(lines))
 
 def commentCount(lines):
     """
@@ -91,14 +89,14 @@ def commentCount(lines):
         commentDico[key] = dicoBlock[key]
     return count, commentDico
 
-#print(commentCount(fichierLecture()))
+#print(commentCount(lines))
 
 def detectCom(line):
     """
     Détecte si il y a un commentaire sur cette ligne
     :param line: la fameuse ligne
     :return: 0 si la ligne ne comporte pas de commentaire
-             i si il y a un # à l'indice i de la ligne
+             i+1 si il y a un # à l'indice i de la ligne
              -1 si c'est un =begin
              -2 si c'est un =end
     """
@@ -112,6 +110,11 @@ def detectCom(line):
     return 0
 
 def retirerCom(lines):
+    """
+    On retire les commentaires du script
+    :return: la nouvelle liste nettoyée
+    """
+    #On retire les commentaires
     newLines = []
     isBlock = False
     for line in lines:
@@ -126,16 +129,53 @@ def retirerCom(lines):
             isBlock = True
         if test == -2:
             isBlock = False
+    #Et on renvoie la nouvelle liste de lignes
     return newLines
 
 #print(fichierLecture())
-#print(commentCount(retirerCom(fichierLecture())))
+#print(retirerCom(lines))
 
-def analyse(lines):
-	caracNumber = sum([len(line) for line in lines])
-	linesNumber = len(lines)
-	linesList = [0 for a in range(linesNumber)]
-	com = commentCount(lines)[1]
-	for lineNumber in range(linesNumber):
-		linesList[lineNumber] += com[lineNumber]
-	return linesList
+def analyseCom(lines):
+    """
+    donne des données intéressantes sur le fichier texte
+    :return: liste des commentaires, ratio caractères commentés, ratio lignes commentées
+    """
+    caracNumber = sum([len(line) for line in lines]) #nombre de caractères en tout
+    linesNumber = len(lines) #nombre de lignes du fichier
+    linesList = [0 for a in range(linesNumber)]
+    com = commentCount(lines)[1]
+    comCount = commentCount(lines)[0]
+
+    #Enregistre le nombre de commentaires par ligne
+    for lineNumber in range(linesNumber):
+        if lineNumber in com.keys():
+            linesList[lineNumber] += com[lineNumber][1]
+
+    #Enregistre le nombre de caractères dédiés aux commentaires
+    comCarac = 0
+    for ligne in com.keys():
+        comCarac += com[ligne][1]
+
+    #Enregistre le nombre de lignes où il y a un commentaire
+    commentLinesNumber = len([i for i in linesList if i != 0])
+
+    return linesList, comCarac/caracNumber, commentLinesNumber/linesNumber, comCount
+
+#print(analyseCom(lines))
+
+def printCom(lines):
+    analyse = analyseCom(lines)
+    print('-------- Nombre de commentaires --------')
+    if analyse[3] == 0:
+        print('Le fichier n\'est pas commenté')
+    elif analyse[3] == 1:
+        print('Le fichier comporte un seul commentaire')
+    else:
+        print('Le fichier comporte '+str(analyse[3])+' commentaires.')
+    print('-------- Pourcentage de caractères dédiés aux commentaires --------')
+    print(str(int(analyse[1]*10000)/100)+'%')
+    print('-------- Pourcentage de lignes dédiées aux commentaires --------')
+    print(str(int(analyse[2]*10000)/100)+'%')
+
+#print(commentCount(fichierLecture()))
+
