@@ -21,6 +21,6 @@ testFonction1=checkIndentation.retirerIndentation(commentaires.retirerCom(testFo
 testFonction2=checkIndentation.retirerIndentation(commentaires.retirerCom(testFonction2))
 testFonction3=checkIndentation.retirerIndentation(commentaires.retirerCom(testFonction3))
 
-print(trouve_fonction.count_fonction(testFonction2))
-print(trouve_fonction.count_fonction(testFonction3))
-print(trouve_fonction.count_fonction(testFonction1))
+b=trouve_fonction.printFonction(testFonction2)
+b=trouve_fonction.printFonction(testFonction3)
+b=trouve_fonction.printFonction(testFonction1)
