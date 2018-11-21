@@ -1,4 +1,4 @@
-import matplotlib.pyplot as plt
+#lines = ['Une ligne qui sert à rien', '#Un commentaire normal', 'une ligne inutile #avec un com à la fin', '=begin un commentaire en block', 'ca continue', '=end']
 
 def fichierLecture():
     """
@@ -6,7 +6,7 @@ def fichierLecture():
     :return: la liste des lignes du fichier
     """
     try:
-        fichier = open("./test_candidats/event_candidate_a.rb.rb", "rt")
+        fichier = open("./test.rb", "rt")
         ligneListe = fichier.readlines()
         return ligneListe
     except IOError:
@@ -40,7 +40,7 @@ def commentsHashtag(lines):
             commentDico[lineNumber] = [comment, len(comment)]
     return commentDico
 
-#print(commentsHashtag(fichierLecture()))
+#print(commentsHashtag(lines))
 
 def commentBlocks(lines):
     """
@@ -52,6 +52,13 @@ def commentBlocks(lines):
     isBlock = False
     #On regarde à chaque ligne si il y a le mot "=begin"
     for lineNumber in range(len(lines)):
+        #On détecte le debut du commentaire par le '=begin'
+        if lines[lineNumber][:6] == '=begin':
+            isBlock = True
+            block = lines[lineNumber][6:]
+            blockLine = lineNumber
+            continue
+
         #On enregistre les lignes de commentaires jusqu'à '=end'
         if isBlock and lines[lineNumber][:4] != '=end':
             block += lines[lineNumber]
@@ -61,15 +68,9 @@ def commentBlocks(lines):
             isBlock = False
             commentDico[blockLine] = [block, len(block)]
 
-        #On détecte le debut du commentaire par le '=begin'
-        if lines[lineNumber][:6] == '=begin':
-            isBlock = True
-            block = lines[lineNumber][6:]
-            blockLine = lineNumber
-            pass
     return commentDico
 
-#print(commentBlocks(fichierLecture()))
+#print(commentBlocks(lines))
 
 def commentCount(lines):
     """
@@ -88,14 +89,14 @@ def commentCount(lines):
         commentDico[key] = dicoBlock[key]
     return count, commentDico
 
-#print(commentCount(fichierLecture()))
+#print(commentCount(lines))
 
 def detectCom(line):
     """
     Détecte si il y a un commentaire sur cette ligne
     :param line: la fameuse ligne
     :return: 0 si la ligne ne comporte pas de commentaire
-             i si il y a un # à l'indice i de la ligne
+             i+1 si il y a un # à l'indice i de la ligne
              -1 si c'est un =begin
              -2 si c'est un =end
     """
@@ -132,7 +133,7 @@ def retirerCom(lines):
     return newLines
 
 #print(fichierLecture())
-#print(commentCount(retirerCom(fichierLecture())))
+#print(retirerCom(lines))
 
 def analyseCom(lines):
     """
@@ -143,6 +144,7 @@ def analyseCom(lines):
     linesNumber = len(lines) #nombre de lignes du fichier
     linesList = [0 for a in range(linesNumber)]
     com = commentCount(lines)[1]
+    comCount = commentCount(lines)[0]
 
     #Enregistre le nombre de commentaires par ligne
     for lineNumber in range(linesNumber):
@@ -157,21 +159,23 @@ def analyseCom(lines):
     #Enregistre le nombre de lignes où il y a un commentaire
     commentLinesNumber = len([i for i in linesList if i != 0])
 
-    return linesList, comCarac/caracNumber, commentLinesNumber/linesNumber
+    return linesList, comCarac/caracNumber, commentLinesNumber/linesNumber, comCount
+
+#print(analyseCom(lines))
 
 def printCom(lines):
     analyse = analyseCom(lines)
-    print('-------- Localisation des commentaires dans le script --------')
-    print(analyse[0])
+    print('-------- Nombre de commentaires --------')
+    if analyse[3] == 0:
+        print('Le fichier n\'est pas commenté')
+    elif analyse[3] == 1:
+        print('Le fichier comporte un seul commentaire')
+    else:
+        print('Le fichier comporte '+str(analyse[3])+' commentaires.')
     print('-------- Pourcentage de caractères dédiés aux commentaires --------')
     print(str(int(analyse[1]*10000)/100)+'%')
     print('-------- Pourcentage de lignes dédiées aux commentaires --------')
     print(str(int(analyse[2]*10000)/100)+'%')
 
-"""
-On peut éxécuter les commandes suivantes pour afficher les résultats de ce script
-printCom(fichierLecture())
-plt.plot(analyseCom(fichierLecture())[0])
-plt.show()
-"""
+#print(commentCount(fichierLecture()))
 
