@@ -16,6 +16,7 @@ def ligne_open(k,Code):      #controlle si la ligne ouvre des commande
     return False
 
 def count_fonction(Code):
+    ListeLongeurFonction=[]
     open_count=0
     fonction_open=False
     def_open=-1
