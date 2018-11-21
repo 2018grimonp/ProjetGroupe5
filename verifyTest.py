@@ -14,7 +14,7 @@
 lOpen=["if", "while", "for", "do", "class"]
 
 
-# TO DO : exception
+# TO DO : exception, virer les noms des tests avant leur analyse
 def rechercheEnd(lignes, ligneOpen):
     """
     Inspiré de count_fonction de trouve_fonction
@@ -26,11 +26,11 @@ def rechercheEnd(lignes, ligneOpen):
     # On suppose qu'un mot clé de open ne renvoie pas en end sur la même ligne si c'est le premier mot clé de open de sa ligne
     openCount = 1
     for k in range(ligneOpen+1, len(lignes)):
-        ligne = lignes[k]
-        if "end" in ligne:  # Contrôle si la ligne contient des end
+        mots = lignes[k].strip().split()
+        if "end" in mots:   # Contrôle si la ligne contient des end
             openCount -= 1
         for iOpen in lOpen: # Contrôle si la ligne contient un mot clé de open
-            if iOpen in ligne:
+            if iOpen in mots:
                 openCount += 1
         if openCount == 0:
             return k
@@ -55,7 +55,7 @@ def isTest(lignes):
     return -1
 
 
-# TO DO : exception
+# TO DO : exception, refactoriser
 def countTests(lignes):
     """
     Compte le nombre de tests dans un fichier et les sépare
@@ -66,10 +66,10 @@ def countTests(lignes):
     if isTest(lignes):
         nombreTests = 0
         dicTests = {}
-        for ligne in lignes:
+        for numLigne in range(len(lignes)):
             nombreTestsDansLigne = 0
-            if "test" in ligne:
-                mots = ligne.strip().split()
+            if "test" in lignes[numLigne]:
+                mots = lignes[numLigne].strip().split()
                 for i in range(len(mots)):
                     if mots[i] == "test":
                         nombreTestsDansLigne += 1
@@ -84,9 +84,10 @@ def countTests(lignes):
                             nomTest = nomTest[1:-2]
                             dicTests[nomTest] = ""
                 if nombreTestsDansLigne == 1:
-                    ligneEnd = rechercheEnd(lignes, i)
+                    ligneEnd = rechercheEnd(lignes, numLigne)
+                    print(numLigne, ligneEnd)
                     paragrapheTest = ""
-                    for j in range(i, ligneEnd+1):
+                    for j in range(numLigne, ligneEnd+1):
                         paragrapheTest += lignes[j] + "\n"
                     dicTests[nomTest] = paragrapheTest
         return (nombreTests, dicTests)
@@ -101,16 +102,27 @@ def printStatsTests (lignes):
     :param lignes: Un tableau contenant des strings correspondantes aux différentes lignes du texte
     :return: None
     """
+    result = countTests(lignes)
     print("")
-    print("Nombre de tests dans le fichier : " + str(countTests(lignes)[0]))
+    print("Nombre de tests dans le fichier : " + str(result[0]))
+    listeStrNumsTests = []
+    for i in range(result[0]):
+        listeStrNumsTests.append(str(i+1))
     print("")
     print("Les noms de ces test sont : ")
-    for key in countTests(lignes)[1].keys() :
-        print ("    - " + key)
+    for i in range(len(result[1].keys())) :
+        print ("    " + str(i+1) + ") " + list(result[1].keys())[i])
     # A débugger
-    """
-    print("")
-    for key in countTests(lignes)[1].keys() :
-        print('Le contenu du test "' + key + '" est :')
-        print(countTests(lignes)[1][key])
-    """
+    askingResults = True
+    askedResult = 0
+    while askingResults:
+        print("")
+        askedResult = input("Pour voir le contenu d'un test entrer son numéro, sinon entrer quoique ce soit d'autre : ")
+        if askedResult in listeStrNumsTests:
+            key = list(result[1].keys())[int(askedResult)-1]
+            print("")
+            print('Le contenu du test ' + askedResult + ' est :')
+            print("")
+            print(result[1][key])
+        else:
+            askingResults = False
