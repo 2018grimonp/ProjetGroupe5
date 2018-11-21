@@ -25,13 +25,13 @@ renvois une liste de dictionniare qui indique:
 """
 
 def controle_duplicat_fonction(fonction,precision):
-    similitude=[]       #liste pour chaque ligne de code on note les differentes ligne de la source qui lui ressemble
+    similitude=[]       #dico (cf explication en haut)
     l=len(fonction)
     indice_controle,indice_fonction=0,0
     pourcentage=0
-    while indice_controle<len(code_controle) :
-        prec=pourcentage_similitude_ligne(fonction[indice_fonction],code_controle[indice_controle])
-        if prec>precision :
+    while indice_controle<len(code_controle) :                                                          #parcour, le code de controle
+        prec=pourcentage_similitude_ligne(fonction[indice_fonction],code_controle[indice_controle])     #controle si les lignes sont semblable
+        if prec>precision :                                         #si oui controle la ligne suivante ecc...
             pourcentage=+prec/l
             indice_fonction+=1
             if indice_fonction==l :
@@ -58,3 +58,4 @@ def pourcentage_similitude_ligne(ligne1,ligne2):
             same+=1
     return(same/l*100)              #on retourne le pourcentage de caractères semblable
 
+def print_resultats_similitude(Code,precision):
