@@ -6,7 +6,7 @@ def test_variables(lines): #lines=tableau de lignes
     nombre_variables=0
     tableau_variables=[]   #pour stocker les variables
     for line in lines:
-        if line.find("=")!=-1:
+        if line.find("=")>0:
             #print(line)
             tableau_avant_apres=line.split("=")    #on separe la chaine avant et apres le egale
             #print(tableau_avant_apres)
