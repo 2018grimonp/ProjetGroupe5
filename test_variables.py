@@ -1,20 +1,4 @@
-def readLines(l):  # retire les '/n' d'un fichier texte 
-    L=[]
-    fp=open(l,'r')
-    lines=fp.readlines()
-    for line in lines:
-    	line=line.replace('\n', '')
-    	L.append(line)
-    return L
-
-print ('Nom du fichier à analyser :')
-
-#On rentre le fichier que l'on veut manipuler
-path=input()
-lines=readLines(path)
-
-
-import re  #utilise regex
+import re
 
 def print_variables(lines): #lines=tableau de lignes
     """entré: une liste de lignes (sans les '/n')
@@ -42,26 +26,4 @@ def print_variables(lines): #lines=tableau de lignes
     return print ("Il y a "+str(nombre_variables)+ ". Elles s'appellent " + str_variables_utiles +" .")
 
 
-"""
-def print_variables(lines):
-    renvoi toutes les noms des variables qui sont utlisiées ainsi que leur nombre.
-une variable sera consideree comme utilisee si elle apprait deux fois dans le code
-    result=test_variables(lines)   #c'est un tuples, (int, list)
-    variables_utiles=result.set
-    for var in result[1]:
-        count=0
-        for line in lines:
-            list_line=line.split(" ")
-            for word in list_line:
-                if var==word:
-                    count+=1
-        if count>2:
-            variables_utiles.append(var)
-        nb_variables_utiles=len(variables_utiles)
-        str_variables_utiles=",".join(variables_utiles)
-    print ("Il y a "+str(nb_variables_utiles)+ ". Elles s'appellent " + str_variables_utiles +" .")
 
-"""
-
-print("----- VARIABLES  -----")
-print_variables(lines)
