@@ -47,7 +47,7 @@ def parse_snake_case(str):  #str=le nom d'UNE variable
 	return str.split("_")
 
 #Détermine la convention de nommage (si elle est cohérente) et vérifie que les mots existent dans le dictionnaire
-def nom_coherent(list_str):	#on prend en argument la liste des noms des variables utiles 
+def printNommageCoherent(list_str):	#on prend en argument la liste des noms des variables utiles 
 	dictionnaire=readLines()
 	snake_case_count=0
 	camel_case_count=0
@@ -86,4 +86,4 @@ def nom_coherent(list_str):	#on prend en argument la liste des noms des variable
 
 
 
-nom_coherent(["coucouTestBonjourTTTA"])
+
