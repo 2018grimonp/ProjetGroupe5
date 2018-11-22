@@ -1,6 +1,4 @@
 import trouve_fonction
-import commentaires
-import checkIndentation
 import duplicationFonction
 import trouve_variables
 
@@ -43,4 +41,3 @@ def ressamblance_fonction(f1,f2):
     for k in range(len(f1)):            #on calcule les similitude
         same+=duplicationFonction.pourcentage_similitude_ligne(f1[k],f2[k])
     return(same/l)
-
