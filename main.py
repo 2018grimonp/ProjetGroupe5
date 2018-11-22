@@ -4,7 +4,7 @@ from commentaires import printCom
 from checkIndentation import retirerIndentation
 from checkIndentation import printIndentation
 
-from test_variables import countVariables
+from trouve_variables import countVariables
 
 from check_case import printNommageCoherent
 

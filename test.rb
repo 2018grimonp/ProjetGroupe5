@@ -21,6 +21,7 @@
 # bloc de
 # commentaire
 
+
   scope :openings, -> { where(kind: :opening) }
   scope :appointments, -> { where(kind: :appointment) }
   scope :recurring, -> { where(weekly_recurring: true) }

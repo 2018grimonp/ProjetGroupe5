@@ -24,3 +24,4 @@ testFonction3=checkIndentation.retirerIndentation(commentaires.retirerCom(testFo
 b=trouve_fonction.printFonction(testFonction2)
 b=trouve_fonction.printFonction(testFonction3)
 b=trouve_fonction.printFonction(testFonction1)
+
