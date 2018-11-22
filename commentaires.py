@@ -73,7 +73,7 @@ def commentBlocks(lines):
         if isBlock and lines[lineNumber][:4] == '=end':
             isBlock = False
             linesTuple = tuple(blockLines)
-            commentDico[linesTuple] = [block, len(block)]
+            commentDico[linesTuple] = [block, sum([len(line) for line in block])]
 
     return commentDico
 
@@ -169,7 +169,7 @@ def analyseCom(lines):
 
     return linesList, comCarac/caracNumber, commentLinesNumber/linesNumber, comCount
 
-#print(analyseCom(lines))
+#print(analyseCom(fichierLecture()))
 
 def printCom(lines):
     analyse = analyseCom(lines)
