@@ -51,7 +51,12 @@ def count_fonction(Code):
     return(ListeLongeurFonction)
 
 #omg c'est trop cool
-
+"""
+Input: code (liste de string)
+print: la liste des fonctions dans le code (en ordre d'apparition) avec leur nom réspéctif
+des info moyenne sur la longueur des fonction
+l'oscar de la meilleure fonction #festivalDeCannes
+"""
 def printFonction(Code):
     fonctions=count_fonction(Code)
     if type(fonctions)!= list :
