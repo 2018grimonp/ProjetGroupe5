@@ -12,3 +12,5 @@ Voici un exemple de results.txt :
 
 Les graphiques sont séparés par |. Leur nombre est infini. Graphique 1 et 2 sont les titres des graphiques. pourcentage[...] sont les légendes des différentes proportions représentées par les pourcentages 10,20,30. (Le pourcentage 4 est omis puisqu'il doit s'agir du reste)
 124 et Note 9/10 sont des légendes à côté des graphiques qui peuvent représenter, entre autres, des notes associées aux graphiques.
+
+Le tiret achevant chacun des graphiques est important pour éviter d'ajouter des \n
