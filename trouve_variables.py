@@ -13,7 +13,6 @@
 # Ancienne version légèrement modifiée
 
 
-
 # v0.1
 
 def countVariables(lines, redondance = False):

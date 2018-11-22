@@ -1,21 +1,27 @@
 import trouve_fonction
 import commentaires
 import checkIndentation
+import trouve_variables
 
 """
 on considère qu'on as une base de donnèes de fonction classique sous forme de liste de ligne
 """
-code_controle=
+
 """
 le code à analyser est Code (liste de string)
+input: code et code_controle sont 2 listes de strings  
+    precision définie avec quelle précision on considère 2 codes identique
+output: liste de dictionnaire qui pour chaque fonction de code donne les correspondente de code_controle
 """
-def controle_duplication(Code,precision):
-    Code=checkIndentation.retirerIndentation(commentaires.retirerCom(Code)) #on enlève indentation et commentaires
-    Code=cutVariable(Code)                                                  #on enlève les variables
+
+def controle_duplication(Code,precision,code_controle):
+    Code=checkIndentation.retirerIndentation(commentaires.retirerCom(Code))                     #on enlève indentation et commentaires
+    Code=trouve_variables.snailVariables(Code,trouve_variables.countVariables(Code))            #on enlève les variables
     similitude_fonctions=[]
-    fonctions=trouve_fonction.count_fonction(Code)
+    fonctions=trouve_fonction.count_fonction(Code)          #trouve les fonctions de code
     for num_fonction in range(len(fonctions)):
-        similitude_fonctions.append(controle_duplicat_fonction(Code[fonctions["start"]+1:fonctions["end"]],precision))
+        similitude_fonctions.append(controle_duplicat_fonction(Code[fonctions["start"]+1:fonctions["end"]],precision,code_controle))
+    return(similitude_fonctions)
 
 """
 controle si une fonction est semblable à d'autres,
@@ -24,7 +30,7 @@ renvois une liste de dictionniare qui indique:
     'pourcentage' : le pourcentage de similitude avec cette fonction
 """
 
-def controle_duplicat_fonction(fonction,precision):
+def controle_duplicat_fonction(fonction,precision,code_controle):
     similitude=[]       #dico (cf explication en haut)
     l=len(fonction)
     indice_controle,indice_fonction=0,0
@@ -41,6 +47,10 @@ def controle_duplicat_fonction(fonction,precision):
         indice_controle+=1
     return (similitude)
 
+"""
+input: 2 strings
+output: pourcentage de similitude des 2 strings
+"""
 
 def pourcentage_similitude_ligne(ligne1,ligne2):
     l1,l2 =len(ligne1),len(ligne2)
@@ -58,8 +68,13 @@ def pourcentage_similitude_ligne(ligne1,ligne2):
             same+=1
     return(same/l*100)              #on retourne le pourcentage de caractères semblable
 
-def print_resultats_similitude(Code,precision):
-    Liste_duplicat=controle_duplication(Code,precision)
+"""
+input: 2 codes (tableau de strings) et une précision (float de 0 à 100)
+output: print des données générales
+"""
+
+def print_resultats_similitude(Code,precision,code_controle):
+    Liste_duplicat=controle_duplication(Code,precision,code_controle)
     s,pourcentage_tot=0,0
     for k in Liste_duplicat :
         if k!=[] :
@@ -69,6 +84,10 @@ def print_resultats_similitude(Code,precision):
     print(str(s)+" fonctions pourraient e^tre copié")
     print("le pourcentage di similitude moyen avec d'autres codes est : "+str(pourcentage_tot)+"%")
 
+"""
+input: La liste des dico qui représente les similitude d'une fonction avec le code_controle
+output: retourne le pourcentage maximale de ressemblance avec une autre fonction
+"""
 def max_percent(Liste_dico):
     max=Liste_dico[0]["pourcentage"]
     for k in Liste_dico:
