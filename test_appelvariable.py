@@ -32,7 +32,7 @@ def test_varglobefore():
     assert type(result_1) == list
     assert result_1 == []
 
-def test_textefonctions():
+def test_textefonctions():  #seul qui marche......
     lines=readLines(path)
     lines=retirerCom(lines)
     lines=retirerIndentation(lines)
