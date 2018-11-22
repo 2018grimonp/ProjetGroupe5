@@ -13,8 +13,8 @@ def readLines(l):  # retire les '/n' d'un fichier texte
         L.append(line)
     return L
 
-testFonction1=readLines("event_candidate_a.rb.rb")
-testFonction2=readLines("event_candidate_a_test.rb.rb")
+testFonction1=readLines("testTim/event_candidate_a.rb.rb")
+testFonction2=readLines("testTim/event_candidate_a_test.rb.rb")
 testFonction3=["akmdf","  def rpsafk","def u","end"]
 
 testFonction1=checkIndentation.retirerIndentation(commentaires.retirerCom(testFonction1))
