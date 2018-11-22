@@ -13,24 +13,24 @@ var radius=200;
 
 
 //Ce code en javascript affiche sur le canvas de HTML5 un diagramme circulaire en fonction des variables L,titles,title qui sont ajoutées au code par le php
-window.onload=function(){
-	w = document.getElementById("canvas").parentNode.clientWidth; 
+window.onload=function(){         #onload= quand ça charge
+	w = document.getElementById("canvas").parentNode.clientWidth;    #parentNode = permet de recuperer le conteneur
 	h = document.getElementById("canvas").parentNode.clientHeight;
 	canvas=document.getElementById("canvas");
 	canvas.style.width=w+"px";
 	canvas.style.height=h+"px";
 	canvas.width=w;
 	canvas.height=h;	
-	ctx=canvas.getContext('2d');
+	ctx=canvas.getContext('2d');      #innitialisation du canvas
 
-	document.getElementById("title").innerHTML=title;
+	document.getElementById("title").innerHTML=title;       #permet de récupérer le text dans la balise 
 
 	var arc=0;
 	for(var i=0;i<L.length;i++){
 		ctx.beginPath();
-		ctx.moveTo(w/2,h/1.7);
+		ctx.moveTo(w/2,h/1.7);      #trace ligne droite
 		ctx.fillStyle=colors[i];
-		ctx.arc(w/2,h/1.7,radius,arc,2*Math.PI*L[i]/100.0+arc);
+		ctx.arc(w/2,h/1.7,radius,arc,2*Math.PI*L[i]/100.0+arc);        #trace arc
 		arc=arc+2*Math.PI*L[i]/100.0;
 		ctx.fill();
 		ctx.closePath();
