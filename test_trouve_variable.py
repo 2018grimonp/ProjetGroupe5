@@ -10,16 +10,16 @@ def readLines(l):  # retire les '/n' d'un fichier texte
         L.append(line)
     return L
 
-PATH="test.rb"
+path="test.rb"
 
 def test_countVariables():
-    lines = readLines(PATH)
+    lines = readLines(path)
     result=toTest.countVariables(lines)
     assert type(result) == list
     assert "KIND" in result
 
 def test_snailVariables():
-    lines = readLines(PATH)
+    lines = readLines(path)
     result=toTest.snailVariables(lines, ["KIND"])
     assert type(resul) == list
     assert ["KIND"] + result == lines
