@@ -47,7 +47,7 @@ def parse_snake_case(str):  #str=le nom d'UNE variable
 	return str.split("_")
 
 #Détermine la convention de nommage (si elle est cohérente) et vérifie que les mots existent dans le dictionnaire
-def printNommageCoherent(list_str):	#on prend en argument la liste des noms des variables utiles 
+def NommageCoherent(list_str):	#on prend en argument la liste des noms des variables utiles 
 	dictionnaire=readLines()
 	snake_case_count=0
 	camel_case_count=0
@@ -78,12 +78,25 @@ def printNommageCoherent(list_str):	#on prend en argument la liste des noms des 
 				in_dictionnary+=1
 			else:
 				not_in_dictionnary+=1
+	
+	#print("Vous utilisez la convention de nommage camelCase à "+str(camel_case_count*100//(snake_case_count+camel_case_count))+"%.")
+	#print("Vous utilisez la convention de nommage snake_case à "+str(snake_case_count*100//(snake_case_count+camel_case_count))+"%.")
+	#print("Les mots que vous utilisez dans vos noms de variables existent à "+str(in_dictionnary*100//(in_dictionnary+not_in_dictionnary))+"% dans le dictionnaire.")
+	pourcentagecc=str(camel_case_count*100//(snake_case_count+camel_case_count))
+	pourcentagesc=str(snake_case_count*100//(snake_case_count+camel_case_count))
+	return [pourcentagecc,pourcentagesc]
 
+def fonctiondenommage(x):			#note associée à un pourcentage de camel_case donné
+	return(4*x²-4*x+1)
 
-	print("Vous utilisez la convention de nommage camelCase à "+str(camel_case_count*100//(snake_case_count+camel_case_count))+"%.")
-	print("Vous utilisez la convention de nommage snake_case à "+str(snake_case_count*100//(snake_case_count+camel_case_count))+"%.")
-	print("Les mots que vous utilisez dans vos noms de variables existent à "+str(in_dictionnary*100//(in_dictionnary+not_in_dictionnary))+"% dans le dictionnaire.")
+def notebareme (list_str): 			#l=liste de 3 éléments
+	#renvoie les notes sur les baremes choisis
+	pourcentage=(NommageCoherent(list_str))[0]
+	return fonctiondenommage(pourcentage)
 
-
-
+def returnmain(list_str):
+	pourcentagecc,pourcentagesc=NommageCoherent(list_str)[0],NommageCoherent(list_str)[1]
+	mix=100-(pourcentagecc+pourcentagesc)
+	note=notebareme(list_str)
+	return ["Convention de Nommage-CamelCase+SnakeCase+Mix-pourcentagecc+pourcentagesc+mix-note",pourcentagecc,pourcentagesc,notebareme(list_str)]
 
