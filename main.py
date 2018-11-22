@@ -4,7 +4,9 @@ from commentaires import printCom
 from checkIndentation import retirerIndentation
 from checkIndentation import printIndentation
 
-from test_variables import print_variables
+from test_variables import countVariables
+
+from check_case import printNommageCoherent
 
 from trouve_fonction import printFonction
 
@@ -15,8 +17,8 @@ def readLines(l):  # retire les '/n' d'un fichier texte
     fp=open(l,'r')
     lines=fp.readlines()
     for line in lines:
-    	line=line.replace('\n', '')
-    	L.append(line)
+        line=line.replace('\n', '')
+        L.append(line)
     return L
 
 print ('Nom du fichier à analyser :')
@@ -27,11 +29,8 @@ lines=readLines(path)
 
 #Affichage d'informations sur les commentaires puis suppression des commentaires.
 print("----- COMMENTAIRES -----")
-printCom(lines)
+#printCom(lines)
 lines=retirerCom(lines)
-
-print(lines[109])
-
 
 #Extraction et retrait des indentations et affichage d'informations sur la correction des indentations.
 print("----- INDENTATIONS -----")
@@ -48,7 +47,9 @@ printStatsTests(lines)
 
 #Parsing des variables présentes dans le code et affichage d'informations à leur sujet.
 print("----- VARIABLES  -----")
-print_variables(lines)
+variables_list=countVariables(lines)
+printNommageCoherent(variables_list)
+
 
 
 

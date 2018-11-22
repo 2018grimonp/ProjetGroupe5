@@ -253,7 +253,7 @@ def ratioFrancais(lines):
     try:
         fichier = open('./liste.de.mots.francais.frgut.txt', 'r')
         mots = [mot.replace('\n', '') for mot in fichier.readlines()]
-        motsDecode =[mot.encode('iso-8859-1').decode('utf8') for mot in mots]
+        motsDecode = mots
         for mot in frequent.keys():
             if isFrancais(mot, motsDecode):
                 numberFrFreq += frequent[mot]
@@ -264,3 +264,5 @@ def ratioFrancais(lines):
     except IOError:
         print("La liste des mots francais n'est pas là")
 
+#print(wellCommented(lines)
+#print(commentsWords(fichierLecture()))
