@@ -1,4 +1,4 @@
-import count_fonction from trouve_fonction
+from trouve_fonction import count_fonction
 
 def numlignevarglo(lignes):             #lignes=fichier texte contenant toutes les lignes du code
     #va récupérer les lignes en dehors des fonctions
