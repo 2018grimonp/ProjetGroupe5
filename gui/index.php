@@ -39,7 +39,8 @@
 		<meta charset="utf-8"/>
 		
 	</head>
-	
+
+	<!-- Code HTML de la page dont le canvas --!>	
 	<body style="position:flex;">
 		<span style="font-size:30px;" id="title"></span>
 		<a style="text-decoration:none;" href="index.php?step=<?php echo intval($_GET["step"]-1);?>">&#8592; Précédent</a>&nbsp;
