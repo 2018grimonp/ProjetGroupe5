@@ -14,7 +14,7 @@ def test_varglob():
     lines=readLines(path)
     result=appelvariable.varglob(lines)
     assert type(result) == list
-    assert result[:1] == ["sel.table_name",2]
+    assert result[:1] == ["self.table_name",2]
 
 def test_varglobefore():
     lines=readLines(path)
