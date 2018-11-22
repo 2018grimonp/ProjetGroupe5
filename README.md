@@ -22,9 +22,9 @@ Mercredi - MVP2
 	Vérifier que les variables et les noms des fonctions respectent une convention cohérente de nommage - Geoffroy
 	Dupliquation de fonctions - Tim
 	Identifier les fonctions ou variables jamais appelées - Pierrick
-	Ne pas étudier seulement la proportion de commentaires dans le code, mais aussi la façon dont ils sont répartis - Valentine
-	Ajout : compter le nombre d'asserts par fonction de test - Jérôme
-	Ajout : vérifier les indentations après chaque bloc (if, while, for, def...) - Anthony
+	Ne pas étudier seulement la proportion de commentaires dans le code, mais aussi la façon dont ils sont répartis - Jérôme
+	Ajout : compter le nombre d'asserts par fonction de test - Anthony
+	Ajout : vérifier les indentations après chaque bloc (if, while, for, def...) - TO DO
 
 
 Jeudi - MVP3
