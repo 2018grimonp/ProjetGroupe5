@@ -45,7 +45,7 @@ def commentsHashtag(lines):
             commentDico[linesList] = [comment, len(comment)]
     return commentDico
 
-#print(commentsHashtag(lines))
+print(commentsHashtag(lines))
 
 def commentBlocks(lines):
     """
@@ -77,7 +77,7 @@ def commentBlocks(lines):
 
     return commentDico
 
-#print(commentBlocks(lines))
+print(commentBlocks(lines))
 
 def commentCount(lines):
     """
@@ -96,7 +96,7 @@ def commentCount(lines):
         commentDico[key] = dicoBlock[key]
     return count, commentDico
 
-#print(commentCount(lines))
+print(commentCount(lines))
 
 def detectCom(line):
     """
@@ -141,7 +141,7 @@ def retirerCom(lines):
     return newLines
 
 #print(fichierLecture())
-#print(retirerCom(lines))
+print(retirerCom(lines))
 
 def analyseCom(lines):
     """
@@ -169,7 +169,7 @@ def analyseCom(lines):
 
     return linesList, comCarac/caracNumber, commentLinesNumber/linesNumber, comCount
 
-#print(analyseCom(fichierLecture()))
+print(analyseCom(lines))
 
 def printCom(lines):
     analyse = analyseCom(lines)
@@ -214,6 +214,8 @@ def howCommented(lines):
         stDevCom = np.sqrt(varCom)
         return True, (moy, stDevCom), (analyse[2], analyse[1])
 
+print(howCommented(lines))
+
 def commentsWords(lines):
     """
     Donne les mots utilisés dans les commentaires
@@ -238,6 +240,7 @@ def commentsWords(lines):
             notFrequentList.append(word)
     return dicoFrequent, notFrequentList
 
+print(commentsWords(lines))
 def isFrancais(word, dictionaire):
     return word.lower() in dictionaire
 
@@ -253,7 +256,7 @@ def ratioFrancais(lines):
     try:
         fichier = open('./liste.de.mots.francais.frgut.txt', 'r')
         mots = [mot.replace('\n', '') for mot in fichier.readlines()]
-        motsDecode =[mot.encode('iso-8859-1').decode('utf8') for mot in mots]
+        motsDecode = mots
         for mot in frequent.keys():
             if isFrancais(mot, motsDecode):
                 numberFrFreq += frequent[mot]
@@ -263,4 +266,4 @@ def ratioFrancais(lines):
         return numberFrFreq/sum(frequent.values()), numberFrNFreq/len(notFrequent)
     except IOError:
         print("La liste des mots francais n'est pas là")
-
+print(ratioFrancais(lines))
