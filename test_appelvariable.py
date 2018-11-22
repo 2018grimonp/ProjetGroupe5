@@ -26,4 +26,10 @@ def test_textefonctions():
     lines=readLines(path)
     result=appelvariable.textefonctions(lines)
     assert type(result) == list
-    assert result[:1] == ["KIND"]
+    assert result[:1] == [[38,40]]
+
+    def test_appelvar():
+        lines=readLines(path)
+        result=appelvariable.appelvar(lines)
+        assert type(result)== int
+        assert result != 0
