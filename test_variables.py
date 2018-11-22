@@ -66,20 +66,22 @@ def countVariables(lines, redondance = False):
         print(tabline)
         for mot in line.split(" "):   #car quand un égale est collé, on a mots = [\"maVariable= \", \"jhu\",..."]
             if mot.find("=")!=-1:
-                mot=mot.strip("=")
-                print(mot)
-                if len(mot)!=0:
-                    nbVariables+=1
-                    tabVariables.append(mot)
+                if mot.find("==")==-1:
+                    mot=mot.strip("=")
+                    print(mot)
+                    if len(mot)!=0:   #ce n'est pas juste un espace
+                        nbVariables+=1
+                        tabVariables.append(mot)
         if "=" in line:
-            mots = line.strip().split()
-            indiceEqual = -1
-            for i in range(len(mots)):
-                if mots[i] == "=":
-                    indiceEqual = i
-                    nbVariables += 1
-                    tabVariables.append(mots[indiceEqual - 1])
-                    break
+            if "==" not in line:
+                mots = line.strip().split()
+                indiceEqual = -1
+                for i in range(len(mots)):
+                    if mots[i] == "=":
+                        indiceEqual = i
+                        nbVariables += 1
+                        tabVariables.append(mots[indiceEqual - 1])
+                        break
     #tabVariablesSansDoublons = set(tabVariables)
     #print(tableau_variables_sans_doublons)
     #nbVariables = len(tableau_variables_sans_doublons)
@@ -87,3 +89,6 @@ def countVariables(lines, redondance = False):
     #print ("Il y a "+str(nombre_variables)+ ". Elles s'appellent " + str_variables_utiles +" .")
     #print(tableau_variables_sans_doublons)
     return tabVariables
+
+
+#print(countVariables(["bh vugg= grte gtr", "byug retdt = gtre", "cb beaz == hjbu nji", "frez rezf== fe fre"]))
