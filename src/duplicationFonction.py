@@ -59,3 +59,16 @@ def pourcentage_similitude_ligne(ligne1,ligne2):
     return(same/l*100)              #on retourne le pourcentage de caractères semblable
 
 def print_resultats_similitude(Code,precision):
+    Liste_duplicat=controle_duplication(Code,precision)
+    s,pourcentage_tot=0,0
+    for k in Liste_duplicat :
+        if k!=[] :
+            s+=1
+            pourcentage_tot+=max_percent(k)
+
+def max_percent(Liste_dico):
+    max=Liste_dico[0]["pourcentage"]
+    for k in Liste_dico:
+        if k["pourcentage"]>=max :
+            max=k["pourcentage"]
+    return(max)
