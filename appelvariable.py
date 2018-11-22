@@ -31,25 +31,31 @@ def varglobefore(i,lignes):
     return T
 
 def textefonctions(lignes):             
-    #renvoie une liste dont les éléments sont le texte des différentes fonctions
-    listedico 
+    #renvoie une liste dont les éléments sont l'indice de début de la fonction et son texte
+    listedico = count_fonction(lignes)
+    textefonctions = []      
+    for i in len listedico:
+        deb,fin = listedico[i]['start'],listedico[i]['end']
+        fonction=lignes[deb,fin]
+        textefonctions.append([deb,fonction])
+    return textefonctions
+
+
+
 
 def appelvar (lignes):                          #lignes=fichier texte contenant toutes les lignes du code
     #regarde si une variable a été utilisée 
-    fonctions=[]                                #on créé une liste dont chaque élément est une fonction 
-    fonction=[]
-    varglo= varglobal(lignes)
-    var=[]
-    for ligne in lignes:                            
-        if "def" not in ligne:              
-            fonction=fonction+ligne
-        else:
-            fonctions.append(fonction)
-            fonction=[ligne]
-    for fonction in fonctions :
-        vars= countVariables(fonction)                  #fonction qui renvoie les variables dans une liste
+    compteur=0                                  #compteur correspond au nombre de fois où une variable n'a pas été appelée    
+    L=textefonctions(lignes)
+    for i in L :    
+        vars= countVariables(L[i][1])                    #vars = les variables dans la ième fonction 
+        vars= vars + varglobefore(L[i][0])                #on rajoute les variables globales créées avant la fonction 
         for var in vars:
-            count               
+            if vars.count(var) ==1:
+                compteur+=1
+    return compteur 
+            
+                        
 
 fp=open('event_candidate_a.rb.rb','r')
 L=fp.readlines()
