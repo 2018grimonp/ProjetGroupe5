@@ -45,6 +45,7 @@ def rechercheEnd(lignes, ligneOpen):
     return -1
 
 
+# TO DO : eception
 def isTest(lignes):
     """
     Vérifie que le fichier envoyé est bien un fichier de tests
@@ -63,7 +64,7 @@ def isTest(lignes):
     return -1
 
 
-# TO DO : exception, refactoriser
+# TO DO : exception
 def countTests(lignes):
     """
     Compte le nombre de tests dans un fichier et les sépare
@@ -96,7 +97,7 @@ def countTests(lignes):
                 dicTests[nomTest] = paragrapheTest
         return (nombreTests, dicTests)
     else:
-        return -1
+        return isTest(lignes)
 
 
 def countAsserts(lignes, dicTests = False):
@@ -107,18 +108,27 @@ def countAsserts(lignes, dicTests = False):
     :return: Un tuple constitué du nombre d'asserts dans le fichier et d'un dictionnaire avec le nom des tests pour indice et le tableau contenant les asserts associés pour valeurs
     """
     if not dicTests:
-        dicTests = countTests(lignes)
+        dicTests = countTests(lignes)[1]
         print("recalcul")
     nombreAsserts = 0
     dicAsserts = {}
     for key in dicTests.keys():
         dicAsserts[key] = []
-        for ligne in dicTests[key]:
+        lignesKey = []
+        lignesKey.append("")
+        actualLigneKey = 0
+        for lettre in dicTests[key]:
+            if lettre == "\n":
+                lignesKey.append("")
+                actualLigneKey += 1
+            else:
+                lignesKey[actualLigneKey] += lettre
+        for ligne in lignesKey:
             mots = ligne.strip().split()
-            if "assert" in mots:
+            if "assert" in mots or "assert_not" in mots or "assert_equal" in mots:
                 nombreAsserts += 1
                 dicAsserts[key].append(ligne)
-    return dicAsserts
+    return (nombreAsserts, dicAsserts)
 
 
 # TO DO : compter le nombre d'assert, rectfier le bug contenu des tests
@@ -129,29 +139,43 @@ def printStatsTests (lignes, voirContenu = True):
     :param voirContenu: La fonction permet à l'utilisateur d'afficher le contenu des tests si la valeur est True, et passe cette partie sinon
     :return: None
     """
-    result_0 = countTests(lignes)
-    result_1 = countAsserts(lignes, result_0[1])
+    resultTest = countTests(lignes)
+    resultAssert = countAsserts(lignes, resultTest[1])
     print("")
-    print("Nombre de tests dans le fichier : " + str(result_0[0]))
+    print("Nombre de tests dans le fichier : " + str(resultTest[0]))
     listeStrNumsTests = []
-    for i in range(result_0[0]):
+    for i in range(resultTest[0]):
         listeStrNumsTests.append(str(i+1))
     print("")
-    print("Les noms de ces test sont : ")
-    for i in range(len(result_0[1].keys())) :
-        nomTest = list(result_0[1].keys())[i]
-        print ("    " + str(i+1) + ") " + nomTest + " qui contient " + result_1)
-    # A débugger
+    print("Nombre d'asserts dans le fichier : " + str(resultAssert[0]))
+    print("")
+    print("Les noms des test sont : ")
+    for i in range(len(resultTest[1].keys())) :
+        nomTest = list(resultTest[1].keys())[i]
+        print ("    " + str(i+1) + ') "' + nomTest + '" qui contient ' + str(len(resultAssert[1][nomTest])) + " assert(s)")
     askingResults = True
     askedResult = 0
     while askingResults and voirContenu:
         print("")
-        askedResult = input("Pour voir le contenu d'un test entrer son numéro, sinon entrer quoique ce soit d'autre : ")
+        askedResult = input("Pour voir LE CONTENU d'un test entrer son numéro, sinon entrer quoique ce soit d'autre : ")
         if askedResult in listeStrNumsTests:
-            key = list(result_0[1].keys())[int(askedResult)-1]
+            key = list(resultTest[1].keys())[int(askedResult)-1]
             print("")
             print('Le contenu du test ' + askedResult + ' est :')
             print("")
-            print(result_0[1][key])
+            print(resultTest[1][key])
+        else:
+            askingResults = False
+    askingResults = True
+    askedResult = 0
+    while askingResults and voirContenu:
+        print("")
+        askedResult = input("Pour voir LES ASSERTS d'un test entrer son numéro, sinon entrer quoique ce soit d'autre : ")
+        if askedResult in listeStrNumsTests:
+            key = list(resultTest[1].keys())[int(askedResult)-1]
+            print("")
+            print('Les asserts du test ' + askedResult + ' sont :')
+            print("")
+            print(resultAssert[1][key])
         else:
             askingResults = False
