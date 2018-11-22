@@ -1,8 +1,18 @@
 import pytest
 import appelvariable
-from main import readLines
+from commentaires import retirerCom
+from checkIndentation import retirerIndentation
 
-path="test_candidats/event_candidate_a_test.rb.rb"
+def readLines(l):  # retire les '/n' d'un fichier texte 
+    L=[]
+    fp=open(l,'r')
+    lines=fp.readlines()
+    for line in lines:
+        line=line.replace('\n', '')
+        L.append(line)
+    return L
+
+path="test.rb"
 
 def test_numlignevarglo():
     lines=readLines(path)
@@ -24,12 +34,14 @@ def test_varglobefore():
 
 def test_textefonctions():
     lines=readLines(path)
+    lines=retirerCom(lines)
+    lines=retirerIndentation(lines)
     result=appelvariable.textefonctions(lines)
     assert type(result) == list
-    assert result[:1] == [[38,40]]
+    assert result[0][0] == 38
 
-    def test_appelvar():
-        lines=readLines(path)
-        result=appelvariable.appelvar(lines)
-        assert type(result)== int
-        assert result != 0
+def test_appelvar():
+    lines=readLines(path)
+    result=appelvariable.appelvar(lines)
+    assert type(result)== int
+    assert result != 0

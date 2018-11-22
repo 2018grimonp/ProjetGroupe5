@@ -1,5 +1,5 @@
 from trouve_fonction import count_fonction
-from test_variables import countVariables 
+from trouve_variables import countVariables
 
 def numlignevarglo(lignes):             #lignes=fichier texte contenant toutes les lignes du code
     #va récupérer les lignes en dehors des fonctions
@@ -33,10 +33,10 @@ def varglobefore(i,lignes):
 def textefonctions(lignes):             
     #renvoie une liste dont les éléments sont l'indice de début de la fonction et son texte
     listedico = count_fonction(lignes)
-    textefonctions = []      
-    for i in len listedico:
+    textefonctions = []
+    for i in range(len(listedico)):
         deb,fin = listedico[i]['start'],listedico[i]['end']
-        fonction=lignes[deb,fin]
+        fonction=lignes[deb:fin+1]
         textefonctions.append([deb,fonction])
     return textefonctions
 
