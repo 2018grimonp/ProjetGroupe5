@@ -4,7 +4,7 @@ import checkIndentation
 from src import duplicationFonction
 
 """
-On spot les fonctions et les variable qui ont le me^me nom #pas cool
+On spot les fonctions et les variable qui ont le même nom #pas cool
 """
 
 #On considère que Code ne possède plus d'indentations ni de commentaire
