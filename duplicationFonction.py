@@ -20,7 +20,7 @@ def controle_duplication(Code,precision,code_controle):
     similitude_fonctions=[]
     fonctions=trouve_fonction.count_fonction(Code)          #trouve les fonctions de code
     for num_fonction in range(len(fonctions)):
-        similitude_fonctions.append(controle_duplicat_fonction(Code[fonctions["start"]+1:fonctions["end"]],precision,code_controle))
+        similitude_fonctions.append(controle_duplicat_fonction(Code[fonctions[num_fonction]["start"]+1:fonctions[num_fonction]["end"]],precision,code_controle))
     return(similitude_fonctions)
 
 """
@@ -57,11 +57,11 @@ def pourcentage_similitude_ligne(ligne1,ligne2):
     if l1>l2 :                      #on ajuste la longueur des lignes
         for k in range(l1-l2):
             ligne2=ligne2+" "
-            l=l1
+        l=l1
     else :
         for k in range(l2-l1):
             ligne1=ligne1+" "
-            l=l2
+        l=l2
     same=0
     for i in range(l):              #on compte les caractère semblable
         if ligne2[i]==ligne1[i]:
@@ -70,7 +70,7 @@ def pourcentage_similitude_ligne(ligne1,ligne2):
 
 """
 input: 2 codes (tableau de strings) et une précision (float de 0 à 100)
-output: print des données générales
+output: print des données générales sur les duplicat entre les 2 input
 """
 
 def print_resultats_similitude(Code,precision,code_controle):
@@ -94,3 +94,5 @@ def max_percent(Liste_dico):
         if k["pourcentage"]>=max :
             max=k["pourcentage"]
     return(max)
+
+
