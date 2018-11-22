@@ -1,5 +1,5 @@
 import pytest
-import test_variable 
+import trouve_variable 
 from main import readLines
 
 PATH="test_candidats/event_candidate_a_test.rb.rb"
