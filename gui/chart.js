@@ -12,6 +12,7 @@ var h;
 var radius=200;
 
 
+//Ce code en javascript affiche sur le canvas de HTML5 un diagramme circulaire en fonction des variables L,titles,title qui sont ajoutées au code par le php
 window.onload=function(){
 	w = document.getElementById("canvas").parentNode.clientWidth; 
 	h = document.getElementById("canvas").parentNode.clientHeight;
