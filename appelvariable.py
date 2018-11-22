@@ -53,14 +53,4 @@ def appelvar (lignes):                          #lignes=fichier texte contenant 
         for var in vars:
             if vars.count(var) ==1:
                 compteur+=1
-    return compteur 
-            
-                        
-
-fp=open('event_candidate_a.rb.rb','r')
-L=fp.readlines()
-print(L)
-#print(numlignevarglo(L))
-
-
-                       
+    return compteur                   
