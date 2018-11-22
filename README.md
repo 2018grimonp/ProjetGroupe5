@@ -32,7 +32,7 @@ Jeudi - MVP3
 	Comparaison des noms de variables et de fonctions	
 	Calculer les hash Md5 des fichiers et les comparer
 	Comparer des segments des deux fichiers traités pour repérer des points communs (copier-coller)
-	Définir un barème de notation
+	Définir un barème de notation - Jérôme
 
 
 Vendredi - MVP4
