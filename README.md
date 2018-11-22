@@ -19,7 +19,7 @@ Lundi -MVP1
 
 Mercredi - MVP2
 
-	Vérifier que les variables et les noms des fonctions respectent une convention cohérente de nommage - Geoffroy
+	Vérifier que les variables et les noms des fonctions respectent une convention cohérente de nommage - Valenitne
 	Dupliquation de fonctions - Tim
 	Identifier les fonctions ou variables jamais appelées - Pierrick
 	Ne pas étudier seulement la proportion de commentaires dans le code, mais aussi la façon dont ils sont répartis - Jérôme
