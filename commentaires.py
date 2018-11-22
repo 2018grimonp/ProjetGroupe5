@@ -1,4 +1,6 @@
+lines = ['=begin Une ligne qui sert à rien', 'Un commentaire normal', 'une ligne inutile avec un com à la fin', 'un commentaire en block', 'ca continue', '=end', 'lignes de code']
 lines = ['Une ligne qui sert à rien', '#Un commentaire normal', 'une ligne inutile #avec un com à la fin', '=begin un commentaire en block', 'ca continue', '=end']
+
 import numpy as np
 from textblob import TextBlob
 
@@ -37,9 +39,10 @@ def commentsHashtag(lines):
 
         #Le commentaire correspond à la fin de la ligne
         if isComment:
-            comment = lines[lineNumber][i:]
+            comment = [lines[lineNumber][i:]]
         if comment != '':
-            commentDico[lineNumber] = [comment, len(comment)]
+            linesList = tuple([lineNumber])
+            commentDico[linesList] = [comment, len(comment)]
     return commentDico
 
 #print(commentsHashtag(lines))
@@ -48,7 +51,7 @@ def commentBlocks(lines):
     """
     Donne les commentaires en block (=begin ... commentaire ... =end)
     :param lines: le code représenté par une liste de lignes
-    :return: un dico avec le commentaire en block associé au numéro de la première ligne de commentaire
+    :return: un dico avec le commentaire en block associé au numéros des lignes de commentaire
     """
     commentDico = {}
     isBlock = False
@@ -57,18 +60,20 @@ def commentBlocks(lines):
         #On détecte le debut du commentaire par le '=begin'
         if lines[lineNumber][:6] == '=begin':
             isBlock = True
-            block = lines[lineNumber][6:]
-            blockLine = lineNumber
+            block = [lines[lineNumber][6:]]
+            blockLines = [lineNumber]
             continue
 
         #On enregistre les lignes de commentaires jusqu'à '=end'
         if isBlock and lines[lineNumber][:4] != '=end':
-            block += lines[lineNumber]
+            block.append(lines[lineNumber])
+            blockLines.append(lineNumber)
 
         #On enregistre le commentaire lorsqu'on tombe sur un '=end'
         if isBlock and lines[lineNumber][:4] == '=end':
             isBlock = False
-            commentDico[blockLine] = [block, len(block)]
+            linesTuple = tuple(blockLines)
+            commentDico[linesTuple] = [block, len(block)]
 
     return commentDico
 
@@ -97,10 +102,10 @@ def detectCom(line):
     """
     Détecte si il y a un commentaire sur cette ligne
     :param line: la fameuse ligne
-    :return: 0 si la ligne ne comporte pas de commentaire
-             i+1 si il y a un # à l'indice i de la ligne
-             -1 si c'est un =begin
-             -2 si c'est un =end
+    :return:0 si la ligne ne comporte pas de commentaire
+            i+1 si il y a un # à l'indice i de la ligne
+            -1 si c'est un =begin
+            -2 si c'est un =end
     """
     if line[:6] == '=begin':
         return -1
@@ -150,9 +155,9 @@ def analyseCom(lines):
     comCount = commentCount(lines)[0]
 
     #Enregistre le nombre de commentaires par ligne
-    for lineNumber in range(linesNumber):
-        if lineNumber in com.keys():
-            linesList[lineNumber] += com[lineNumber][1]
+    for lineNumbers in com.keys():
+        for i in range(len(list(lineNumbers))):
+            linesList[lineNumbers[i]] += len(com[lineNumbers][0][i])
 
     #Enregistre le nombre de caractères dédiés aux commentaires
     comCarac = 0
@@ -189,13 +194,13 @@ def howCommented(lines):
     """
     Donne des infos par rapport à la répartition des commentaires
     :param lines: le code représenté par une liste de lignes
-    :return: False si le code n'est pas commenté
-             True s'il est commenté
-             et deux couples (moy, stDevCom) et (caracRatio, linesRatio)
-             moy = moyenne de caracètres de commentaire par ligne
-             stDevCom = écart type
-             caracRatio = pourcentage de caractères de commentaire
-             linesRatio = pourcentage de lignes de commentaires
+    :return:False si le code n'est pas commenté
+            True s'il est commenté
+            et deux couples (moy, stDevCom) et (caracRatio, linesRatio)
+            moy = moyenne de caracètres de commentaire par ligne
+            stDevCom = écart type
+            caracRatio = pourcentage de caractères de commentaire
+            linesRatio = pourcentage de lignes de commentaires
     """
     count = commentCount(lines)
     analyse = analyseCom(lines)
@@ -213,13 +218,14 @@ def commentsWords(lines):
     """
     Donne les mots utilisés dans les commentaires
     :param lines: le code représenté par une liste de lignes
-    :return: un dico des mots fréquemment utilisés avec leur fréquence
-             une liste des mots utilisés une seule fois
+    :return:un dico des mots fréquemment utilisés avec leur fréquence
+            une liste des mots utilisés une seule fois
     """
     comments = [comment[0] for comment in list(commentCount(lines)[1].values())]
     commentAll = ''
     for comment in comments:
-        commentAll += comment
+        for line in comment:
+            commentAll += line
     commentAll = TextBlob(commentAll)
     dicoFrequent = {}
     notFrequentList = []
@@ -258,6 +264,3 @@ def ratioFrancais(lines):
     except IOError:
         print("La liste des mots francais n'est pas là")
 
-#print(wellCommented(lines)
-#print(commentsWords(fichierLecture()))
-printCom(fichierLecture())
