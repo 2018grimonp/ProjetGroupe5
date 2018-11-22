@@ -4,7 +4,9 @@ from commentaires import printCom
 from checkIndentation import retirerIndentation
 from checkIndentation import printIndentation
 
-from test_variables import print_test_variable
+from test_variables import countVariables
+
+from check_case import printNommageCoherent
 
 from trouve_fonction import printFonction
 
@@ -27,7 +29,7 @@ lines=readLines(path)
 
 #Affichage d'informations sur les commentaires puis suppression des commentaires.
 print("----- COMMENTAIRES -----")
-printCom(lines)
+#printCom(lines)
 lines=retirerCom(lines)
 
 #Extraction et retrait des indentations et affichage d'informations sur la correction des indentations.
@@ -45,7 +47,11 @@ printStatsTests(lines)
 
 #Parsing des variables présentes dans le code et affichage d'informations à leur sujet.
 print("----- VARIABLES  -----")
-print_test_variable(lines)
+variables_list=countVariables(lines)
+printNommageCoherent(variables_list)
+
+
+
 
 
 

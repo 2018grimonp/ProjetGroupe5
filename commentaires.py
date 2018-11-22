@@ -1,4 +1,6 @@
-#lines = ['Une ligne qui sert à rien', '#Un commentaire normal', 'une ligne inutile #avec un com à la fin', '=begin un commentaire en block', 'ca continue', '=end']
+lines = ['Une ligne qui sert à rien', '#Un commentaire normal', 'une ligne inutile #avec un com à la fin', '=begin un commentaire en block', 'ca continue', '=end']
+import numpy as np
+from textblob import TextBlob
 
 def fichierLecture():
     """
@@ -124,7 +126,8 @@ def retirerCom(lines):
                 newLines.append(line)
             pass
         if test > 0:
-            newLines.append(line[:test-1])
+            if not isBlock:
+                newLines.append(line[:test-1])
         if test == -1:
             isBlock = True
         if test == -2:
@@ -165,6 +168,7 @@ def analyseCom(lines):
 
 def printCom(lines):
     analyse = analyseCom(lines)
+    ratio = ratioFrancais(lines)
     print('-------- Nombre de commentaires --------')
     if analyse[3] == 0:
         print('Le fichier n\'est pas commenté')
@@ -176,6 +180,83 @@ def printCom(lines):
     print(str(int(analyse[1]*10000)/100)+'%')
     print('-------- Pourcentage de lignes dédiées aux commentaires --------')
     print(str(int(analyse[2]*10000)/100)+'%')
+    print('-------- Proportion de mots francais --------')
+    print('Mots fréquents : '+str(ratio[0])+' -- Mots peu utilisés : '+str(ratio[1]))
 
 #print(commentCount(fichierLecture()))
 
+def howCommented(lines):
+    """
+    Donne des infos par rapport à la répartition des commentaires
+    :param lines: le code représenté par une liste de lignes
+    :return: False si le code n'est pas commenté
+             True s'il est commenté
+             et deux couples (moy, stDevCom) et (caracRatio, linesRatio)
+             moy = moyenne de caracètres de commentaire par ligne
+             stDevCom = écart type
+             caracRatio = pourcentage de caractères de commentaire
+             linesRatio = pourcentage de lignes de commentaires
+    """
+    count = commentCount(lines)
+    analyse = analyseCom(lines)
+    comLines = np.array(analyse[0])
+    if count[0] == 0:
+        return False, (0, 0), (0,0)
+    else:
+        moy = sum(comLines)/len(comLines)
+        moySq = sum(comLines**2)/len(comLines)
+        varCom = moySq - moy**2
+        stDevCom = np.sqrt(varCom)
+        return True, (moy, stDevCom), (analyse[2], analyse[1])
+
+def commentsWords(lines):
+    """
+    Donne les mots utilisés dans les commentaires
+    :param lines: le code représenté par une liste de lignes
+    :return: un dico des mots fréquemment utilisés avec leur fréquence
+             une liste des mots utilisés une seule fois
+    """
+    comments = [comment[0] for comment in list(commentCount(lines)[1].values())]
+    commentAll = ''
+    for comment in comments:
+        commentAll += comment
+    commentAll = TextBlob(commentAll)
+    dicoFrequent = {}
+    notFrequentList = []
+    wordList = commentAll.words.lemmatize()
+    for word in wordList:
+        count = commentAll.words.count(word)
+        if count > 1:
+            dicoFrequent[word.lower()] = commentAll.words.count(word)
+        else:
+            notFrequentList.append(word)
+    return dicoFrequent, notFrequentList
+
+def isFrancais(word, dictionaire):
+    return word.lower() in dictionaire
+
+def ratioFrancais(lines):
+    """
+    Donne le ratio de mots francais dans les commentaires
+    :param lines: le code représenté par une liste de lignes
+    :return: un tuple contenant les fameux ratios (mots fréquents, mots moins fréquents)
+    """
+    frequent, notFrequent = commentsWords(lines)
+    numberFrFreq = 0
+    numberFrNFreq = 0
+    try:
+        fichier = open('./liste.de.mots.francais.frgut.txt', 'r')
+        mots = [mot.replace('\n', '') for mot in fichier.readlines()]
+        motsDecode = mots
+        for mot in frequent.keys():
+            if isFrancais(mot, motsDecode):
+                numberFrFreq += frequent[mot]
+        for mot in notFrequent:
+            if isFrancais(mot, motsDecode):
+                numberFrNFreq +=1
+        return numberFrFreq/sum(frequent.values()), numberFrNFreq/len(notFrequent)
+    except IOError:
+        print("La liste des mots francais n'est pas là")
+
+#print(wellCommented(lines)
+#print(commentsWords(fichierLecture()))
