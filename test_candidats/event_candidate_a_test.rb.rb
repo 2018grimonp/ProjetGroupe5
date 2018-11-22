@@ -1,4 +1,4 @@
-        class EventCandidatA < ApplicationRecord    #modif indentation , 17 commentaires en tout, ici 55 carac
+        class EventCandidatA < ApplicationRecord    #modif indentation , 18 commentaires en tout, ici 55 carac
   self.table_name = 'events'
   KIND = %w(opening appointment).freeze
 
