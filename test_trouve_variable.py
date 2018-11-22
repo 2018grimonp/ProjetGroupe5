@@ -17,3 +17,9 @@ def test_countVariables():
     result=toTest.countVariables(lines)
     assert type(result) == list
     assert "KIND" in result
+
+def test_snailVariables():
+    lines = readLines(PATH)
+    result=toTest.snailVariables(lines, ["KIND"])
+    assert type(resul) == list
+    assert ["KIND"] + result == lines
