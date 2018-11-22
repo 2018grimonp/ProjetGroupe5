@@ -21,7 +21,7 @@ def varglobal(lignes):
         vars.append([var[0],i])                                         #var= un tableau avec comme seul élément une variable
     return vars
         
-def varglobefore(i,lignes):
+def varglobefore(i,lignes):   #seule fonction qui marche....
 #prend en argument les lignes et i un indice et renvoie la liste des variables globales qui aparaissent avant cet indice
     L=varglobal(lignes)
     T=[]
