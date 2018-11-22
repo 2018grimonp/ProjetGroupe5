@@ -95,4 +95,10 @@ def max_percent(Liste_dico):
             max=k["pourcentage"]
     return(max)
 
-CodeTest=["af","  fs","def skad(george)"]
+CodeTest1=["af","  fs","george = 1","def skad(george)","babar","george = 1","split #françois","end","b","def j","d if do","end","end"]
+CodeControle1=["af","bob = 1","  fs","def skad(bob)","babar","bob = 1","split #frank","end","a","def sfs","d if do","end","end"]
+
+print(controle_duplication(CodeTest1,60,CodeControle1))
+print(commentaires.retirerCom(CodeTest1))
+print(checkIndentation.retirerIndentation(CodeTest1))
+print(trouve_variables.snailVariables(CodeTest1,trouve_variables.countVariables(CodeTest1)))

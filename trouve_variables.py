@@ -61,14 +61,14 @@ def countVariables(lines, redondance = False):
     nbVariables = 0
     tabVariables = []   # Stock les variables
     for line in lines:
-        print(line)
+        #print(line)
         tabline=line.split(" ")
-        print(tabline)
+        #print(tabline)
         for mot in line.split(" "):   #car quand un égale est collé, on a mots = [\"maVariable= \", \"jhu\",..."]
             if mot.find("=")!=-1:
                 if mot.find("==")==-1:
                     mot=mot.strip("=")
-                    print(mot)
+                    #print(mot)
                     if len(mot)!=0:   #ce n'est pas juste un espace
                         nbVariables+=1
                         tabVariables.append(mot)

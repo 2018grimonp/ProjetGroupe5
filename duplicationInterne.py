@@ -2,12 +2,14 @@ import trouve_fonction
 import commentaires
 import checkIndentation
 import duplicationFonction
+import trouve_variables
 
 """
 On spot les fonctions et les variable qui ont le me^me nom #pas cool
 """
 
 """
+input: Code (sans indentation , commentaires)
 cette fonction trouve les fonction de nom identique au sein du code et donne si les code associer sont effectivement identique
 output: fonction["status"]=[(id fonction de me^me nom, realtion), (...), ...]
 """
@@ -26,6 +28,8 @@ input: 2 fonctions (liste de strings)
 output: le pourcentage de ressemblance des 2 fonctions
 """
 def ressamblance_fonction(f1,f2):
+    f1=trouve_variables.snailVariables(f1,trouve_variables.countVariables(f1))
+    f2=trouve_variables.snailVariables(f2,trouve_variables.countVariables(f2))
     l1,l2 =len(f1),len(f2)
     if l1>l2 :                      #on ajuste la longueur des fonction
         for k in range(l1-l2):
