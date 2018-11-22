@@ -95,4 +95,4 @@ def max_percent(Liste_dico):
             max=k["pourcentage"]
     return(max)
 
-
+CodeTest=["af","  fs","def skad(george)"]
