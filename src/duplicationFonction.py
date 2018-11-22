@@ -1,6 +1,7 @@
 import trouve_fonction
 import commentaires
 import checkIndentation
+import trouve_variables
 
 """
 on considère qu'on as une base de donnèes de fonction classique sous forme de liste de ligne
@@ -11,7 +12,7 @@ le code à analyser est Code (liste de string)
 """
 def controle_duplication(Code,precision):
     Code=checkIndentation.retirerIndentation(commentaires.retirerCom(Code)) #on enlève indentation et commentaires
-    Code=cutVariable(Code)                                                  #on enlève les variables
+    Code=trouve_variables.snailVariables(Code,trouve_variables.countVariables())                                                  #on enlève les variables
     similitude_fonctions=[]
     fonctions=trouve_fonction.count_fonction(Code)
     for num_fonction in range(len(fonctions)):
