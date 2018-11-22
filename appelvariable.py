@@ -1,20 +1,20 @@
-import count_fonction from trouve_fonction
-import readlines from Main
+from trouve_fonction import count_fonction
+#from Main import readlines
 
-lignes
+
 
 def numlignevarglo(lignes):             #lignes=fichier texte contenant toutes les lignes du code
     #va récupérer les lignes en dehors des fonctions
     L=count_fonction(lignes)
     var=[]
     numligne= [i for i in range(1,len(lignes))]
-    for i in range (len(lignes))    #on va parcourir toutes les lignes du code
+    for i in range (len(lignes)):    #on va parcourir toutes les lignes du code
         (deb,fin)=(L[i]['deb'],L[i]['fin'])    #on récupère la ligne de début et de fin de chaque fonction
         for k in range (deb,fin+1):
             numligne.pop(k)                 #on retire les indices des lignes où il y a une fonction
     return numligne
 
-def varglobal(lignes):
+"""def varglobal(lignes):
     #renvoie les variables globales et les indices des lignes où elles apparaissent
     L=numlignevarglo(lignes)
     vars=[]
@@ -47,7 +47,12 @@ def appelvar (lignes):                          #lignes=fichier texte contenant 
     for fonction in fonctions :
         vars=                       #fonction qui renvoie les variables dans une liste
         for var in vars:
-            count                 
-        
+            count                 """
+
+fp=open('event_candidate_a.rb.rb','r')
+L=fp.readlines()
+print(L)
+#print(numlignevarglo(L))
+
 
                        
