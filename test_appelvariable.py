@@ -38,7 +38,7 @@ def test_textefonctions():
     lines=retirerIndentation(lines)
     result=appelvariable.textefonctions(lines)
     assert type(result) == list
-    assert result[0][0] == 38
+    assert result[0][0] == 38  #la premiere fonction commence ligne 38
 
 def test_appelvar():
     lines=readLines(path)
