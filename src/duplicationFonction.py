@@ -9,12 +9,16 @@ on considère qu'on as une base de donnèes de fonction classique sous forme de 
 
 """
 le code à analyser est Code (liste de string)
+input: code et code_controle sont 2 listes de strings  
+    precision définie avec quelle précision on considère 2 codes identique
+output: liste de dictionnaire qui pour chaque fonction de code donne les correspondente de code_controle
 """
+
 def controle_duplication(Code,precision,code_controle):
-    Code=checkIndentation.retirerIndentation(commentaires.retirerCom(Code)) #on enlève indentation et commentaires
-    Code=trouve_variables.snailVariables(Code,trouve_variables.countVariables(Code))                                                  #on enlève les variables
+    Code=checkIndentation.retirerIndentation(commentaires.retirerCom(Code))                     #on enlève indentation et commentaires
+    Code=trouve_variables.snailVariables(Code,trouve_variables.countVariables(Code))            #on enlève les variables
     similitude_fonctions=[]
-    fonctions=trouve_fonction.count_fonction(Code)
+    fonctions=trouve_fonction.count_fonction(Code)          #trouve les fonctions de code
     for num_fonction in range(len(fonctions)):
         similitude_fonctions.append(controle_duplicat_fonction(Code[fonctions["start"]+1:fonctions["end"]],precision,code_controle))
     return(similitude_fonctions)
@@ -82,7 +86,7 @@ def print_resultats_similitude(Code,precision,code_controle):
 
 """
 input: La liste des dico qui représente les similitude d'une fonction avec le code_controle
-output: retourne le pourcentage maximale de ressemblance
+output: retourne le pourcentage maximale de ressemblance avec une autre fonction
 """
 def max_percent(Liste_dico):
     max=Liste_dico[0]["pourcentage"]
