@@ -19,7 +19,7 @@ def retirerIndentation(lines):
 	return lines
 
 
-def printIndentation(lines):
+def printIndentation(lines, onTest = False):
 	"""
 	Vérifie l'indentation
 	:param arraySpacesCount: Liste des nombres d'espaces devant chaque ligne
@@ -38,7 +38,7 @@ def printIndentation(lines):
 				nbSpaces+=1
 			else:
 				estVide=False
-				break;
+				break
 		if not estVide:
 			arraySpacesCount.append(nbSpaces)
 			if(nbSpaces==1):
@@ -54,8 +54,12 @@ def printIndentation(lines):
 
 	if indentLength!=255:
 		print("L'identation semble être de "+str(indentLength)+" espace(s).")
+		if onTest == True:
+			return indentLength
 	else:
 		print("L'indentation ne peut être déterminée.")
+		if onTest == True:
+			return -1
 		thereIsAproblem=True
 		return
 
