@@ -27,14 +27,17 @@ print ('Nom du fichier à analyser :')
 path=input()
 lines=readLines(path)
 
+#String qui représente le contenu du fichier results.txt qui sera fournis à l'interface graphique
+results_txt=""
+
 #Affichage d'informations sur les commentaires puis suppression des commentaires.
 print("----- COMMENTAIRES -----")
-#printCom(lines)
+#results_txt=results_txt+printCom(lines)
 lines=retirerCom(lines)
 
 #Extraction et retrait des indentations et affichage d'informations sur la correction des indentations.
 print("----- INDENTATIONS -----")
-printIndentation(lines)
+results_txt=results_txt+printIndentation(lines)
 lines=retirerIndentation(lines)
 
 #Parsing des fonctions présentes dans le code et affichage de leur nombre de lignes.
@@ -51,7 +54,9 @@ variables_list=countVariables(lines)
 printNommageCoherent(variables_list)
 
 
-
+results=open("results.txt","w")
+results.write(results_txt)
+results.close()
 
 
 

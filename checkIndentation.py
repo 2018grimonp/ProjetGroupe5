@@ -21,11 +21,12 @@ def retirerIndentation(lines):
 
 def printIndentation(lines, onTest = False):
 	"""
-	Vérifie l'indentation
+	Vérifie l'indentation et renvoie une string qui représente un graphique
 	:param arraySpacesCount: Liste des nombres d'espaces devant chaque ligne
 	"""
 
 	thereIsAproblem=False
+	note=10
 	
 	#Compte le nombre d'espaces devant chaque ligne
 	arraySpacesCount=[]
@@ -61,7 +62,7 @@ def printIndentation(lines, onTest = False):
 		if onTest == True:
 			return -1
 		thereIsAproblem=True
-		return
+		return note
 
 	#Vérifie que le nombre d'espaces devant chaque ligne est un multiple de l'indentation
 	arrayIndentsCount=[]
@@ -69,20 +70,25 @@ def printIndentation(lines, onTest = False):
 		count=arraySpacesCount[i]
 		if count!=-1 and count%indentLength!=0:
 			print("Problème d'indentation ligne "+str(i)+ ". Le nombre d'espace n'est pas un multiple de l'indentation.")
+			note-=0.5
 			thereIsAproblem=True
 		arrayIndentsCount.append(count//indentLength)
 
 	#Vérifie qu'aucune ligne n'est indentée plusieurs fois par rapport à la précédente 	
 	countOldLine=0
+	count=0
 	for i in range(len(arrayIndentsCount)):
 		countNewLine=arrayIndentsCount[i]
 		if countNewLine==-1 :
 			continue
 		if abs(countNewLine-countOldLine)>1:
 			print("Problème d'indentation ligne "+str(i)+ ". Indentation supplémentaire ou manquante inatendue.")
+			count+=1
+			note-=0.25
 			thereIsAproblem=True
 		countOldLine=countNewLine	
 	
 	if not thereIsAproblem:
 		print("Aucun problème d'indentation détecté.")
 	
+	return "Indentation-Lignes correctement indentées+Lignes mal indentées-"+str(count*100//len(lines))+"- Indentation -|Indentation-Points+-"+str(note*10)+"- Note "+str(note)+" -";
