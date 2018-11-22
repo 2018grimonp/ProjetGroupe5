@@ -6,7 +6,7 @@ from checkIndentation import printIndentation
 
 from trouve_variables import countVariables
 
-from check_case import printNommageCoherent
+from check_case import returnmain 
 
 from trouve_fonction import printFonction
 
@@ -32,7 +32,7 @@ results_txt=""
 
 #Affichage d'informations sur les commentaires puis suppression des commentaires.
 print("----- COMMENTAIRES -----")
-#results_txt=results_txt+printCom(lines)
+results_txt=results_txt+printCom(lines)[0]
 lines=retirerCom(lines)
 
 #Extraction et retrait des indentations et affichage d'informations sur la correction des indentations.
@@ -51,7 +51,7 @@ printStatsTests(lines)
 #Parsing des variables présentes dans le code et affichage d'informations à leur sujet.
 print("----- VARIABLES  -----")
 variables_list=countVariables(lines)
-printNommageCoherent(variables_list)
+results_txt=results_txt+returnmain(variables_list)[0]
 
 
 results=open("results.txt","w")

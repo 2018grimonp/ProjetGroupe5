@@ -192,7 +192,7 @@ def printCom(lines):
     quantite = point[0]
     repartition = point[1]
     langue = point[2]
-    graphique = 'Commentaires-Quantité+Qualité+Points Perdus-'+str(quantite[0]/10)+'+'+str(repartition[0]/10)+'--'+quantite[1]+'\n'+repartition[1]+'|'
+    graphique = 'Commentaires-Quantité+Qualité+Points Perdus-'+str(quantite[0]*10)+'+'+str(repartition[0]*10)+'-'+quantite[1]+" "+repartition[1]+'-|'
     return graphique, (langue, int(analyse[2]*10000)/100, int(analyse[1]*10000)/100)
 
 def howCommented(lines):

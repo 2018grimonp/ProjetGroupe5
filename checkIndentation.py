@@ -91,4 +91,4 @@ def printIndentation(lines, onTest = False):
 	if not thereIsAproblem:
 		print("Aucun problème d'indentation détecté.")
 	
-	return "Indentation-Lignes correctement indentées+Lignes mal indentées-"+str(count*100//len(lines))+"- Indentation -|Indentation-Points+-"+str(note*10)+"- Note "+str(note)+" -";
+	return "Indentation-Lignes correctement indentées+Lignes mal indentées-"+str(100-count*100//len(lines))+"- Indentation -|Indentation-Points+-"+str(note*10)+"- Note : "+str(int(note))+"/10 -|";
