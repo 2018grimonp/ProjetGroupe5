@@ -16,6 +16,7 @@ def ligne_open(k,Code):      #controlle si la ligne ouvre des commande
     return False
 
 def count_fonction(Code):
+    ListeLongeurFonction=[]
     open_count=0
     fonction_open=False
     def_open=-1
@@ -25,7 +26,7 @@ def count_fonction(Code):
                 return("Erreur fonction lingne "+str(k))
             else :
                 fonction_open=True
-            ListeLongeurFonction.append({"longueur":k}) #sauvegarde l'indice de début de la fonction
+            ListeLongeurFonction.append({"start":k}) #sauvegarde l'indice de début de la fonction
             ListeLongeurFonction[-1]["nom"]=Code[k][4:].split("(")[0]
             def_open=open_count
             open_count+=1
@@ -33,8 +34,12 @@ def count_fonction(Code):
             open_count+=1
         if "end" in Code[k].split(" ") :    #controle si la ligne ferme des commandes
             open_count-=1
+            if open_count<0 :
+                print(ListeLongeurFonction)
+                return("end not open ligne "+ str(k))
             if open_count== def_open :
-                ListeLongeurFonction[-1]["longueur"]=k-ListeLongeurFonction[-1]["longueur"]-1   #calcul la longueur de la fonction (def et end exclus)
+                ListeLongeurFonction[-1]["end"]=k
+                ListeLongeurFonction[-1]["longueur"]=k-ListeLongeurFonction[-1]["start"]-1   #calcul la longueur de la fonction (def et end exclus)
                 fonction_open=False
     return(ListeLongeurFonction)
 
@@ -42,22 +47,25 @@ def count_fonction(Code):
 
 def printFonction(Code):
     fonctions=count_fonction(Code)
+    if type(fonctions)!= list :
+        print(fonctions)
+        return(False)
     if len(fonctions)==0 :
         print("omg ce candidat n'utilise pas de fonctions")
         return(False)
     l_moyenne,l_min,l_max=0,fonctions[0]["longueur"],fonctions[0]["longueur"]
+    print("nom des fonctions :")
     for num_fonction in range(len(fonctions)):
-        print("fonction "+str(num_fonction))
-        print("nom : "+fonctions[num_fonction]["nom"])
-        print("longueur : "+str(fonctions[num_fonction]["longueur"])+"\n")
+        #print("fonction "+str(num_fonction))
+        print(str(num_fonction)+". "+fonctions[num_fonction]["nom"])
+        #print("longueur : "+str(fonctions[num_fonction]["longueur"])+"\n")
         l_moyenne+=fonctions[num_fonction]["longueur"]
         if fonctions[num_fonction]["longueur"]<l_min :
             l_min=fonctions[num_fonction]["longueur"]
         if fonctions[num_fonction]["longueur"]>l_max :
             l_max=fonctions[num_fonction]["longueur"]
-    print ("la longueur moyenne est : "+str(l_moyenne/len(fonctions)))
+    print ("\nla longueur moyenne est : "+str(l_moyenne/len(fonctions)))
     print ("la longueur minimal est : "+str(l_min))
     print ("la longueur maximal est : "+str(l_max))
     print ("le nom de fonction le plus stylé est : "+fonctions[rd.randint(0,len(fonctions)-1)]["nom"])
-
-
+    return(True)

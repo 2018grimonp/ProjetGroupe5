@@ -4,7 +4,7 @@ from commentaires import printCom
 from checkIndentation import retirerIndentation
 from checkIndentation import printIndentation
 
-from test_variables import countVariables
+from trouve_variables import countVariables
 
 from check_case import printNommageCoherent
 
@@ -17,8 +17,8 @@ def readLines(l):  # retire les '/n' d'un fichier texte
     fp=open(l,'r')
     lines=fp.readlines()
     for line in lines:
-    	line=line.replace('\n', '')
-    	L.append(line)
+        line=line.replace('\n', '')
+        L.append(line)
     return L
 
 print ('Nom du fichier à analyser :')

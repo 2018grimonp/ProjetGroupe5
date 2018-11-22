@@ -21,6 +21,7 @@
 # bloc de
 # commentaire
 
+
   scope :openings, -> { where(kind: :opening) }
   scope :appointments, -> { where(kind: :appointment) }
   scope :recurring, -> { where(weekly_recurring: true) }
@@ -128,7 +129,6 @@ c'est tout � fait dingue il se passe plein de trucs !!
 
     return slots
   end
->>>>>>> origin/Jerome
 end
 
 #12 test et 23 asserts
@@ -165,15 +165,6 @@ class EventCandidatATest < ActiveSupport::TestCase
     event = EventCandidatA.new kind: 'opening', starts_at: DateTime.parse("2014-08-04 13:30"), ends_at: DateTime.parse("2014-08-04 12:30")
     assert_not event.save, "Saved the event with an ends_at in a different day than a starts_at"
   end
-<<<<<<< HEAD
-=begin
-Et un commentaire ici
-lui il est par block  attention
-archnuf zpzoeru ppoooze 
-=end
-=======
-
->>>>>>> 0619a5e9bd15894cc7d44ca0131ec7ada50c05a4
   test "should not save event with a starts_at or ends_at which is not a multiple of 30 minutes" do
     event = EventCandidatA.new kind: 'opening', starts_at: DateTime.parse("2014-08-04 09:05"), ends_at: DateTime.parse("2014-08-04 12:20")
     assert_not event.save, "Saved the event with a starts_at or ends_at which is not a multiple of 30 minutes"
