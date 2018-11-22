@@ -65,6 +65,9 @@ def print_resultats_similitude(Code,precision):
         if k!=[] :
             s+=1
             pourcentage_tot+=max_percent(k)
+    pourcentage_tot=pourcentage_tot/len(Liste_duplicat)
+    print(str(s)+" fonctions pourraient e^tre copié")
+    print("le pourcentage di similitude moyen avec d'autres codes est : "+str(pourcentage_tot)+"%")
 
 def max_percent(Liste_dico):
     max=Liste_dico[0]["pourcentage"]

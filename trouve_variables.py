@@ -89,6 +89,20 @@ def countVariables(lines, redondance = False):
     #print ("Il y a "+str(nombre_variables)+ ". Elles s'appellent " + str_variables_utiles +" .")
     #print(tableau_variables_sans_doublons)
     return tabVariables
-
-
 #print(countVariables(["bh vugg= grte gtr", "byug retdt = gtre", "cb beaz == hjbu nji", "frez rezf== fe fre"]))
+
+
+def snailVariables(lines, listeVariables):
+    """
+    Supprime du tableau de ligne envoyé les variables de la liste et renvoie le tableau
+    :param lines: une liste de lignes (sans les '/n')
+    :param listeVariables: la liste des variables à supprimer
+    :return: le tableau originel privé des varaiables à retirer
+    """
+    for ligneIndex in range(len(lines)):
+        mots = lines[ligneIndex].strip().split()
+        for i in range(len(mots)-1, -1, -1):
+            if (mots[i] in listeVariables) or (mots[i][-1] == "," and mots[i][:-1] in listeVariables):
+                mots.pop(i)
+        lines[ligneIndex] = " ".join(mots)
+    return lines
