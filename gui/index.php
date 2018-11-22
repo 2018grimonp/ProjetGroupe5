@@ -3,6 +3,7 @@
 		<script>
 		
 			<?php 
+				//Ce code génère en php les affectations de variables en javascript qui correspondent aux proportions et aux légendes dans le graphique
 				$content=file_get_contents("results.txt");
 				$charts=preg_split("/\|/",$content);
 				$_GET["step"]=min(intval($_GET["step"]),intval(count($charts))-1);
@@ -28,6 +29,9 @@
 				echo "var titles=".$titles_txt.";\n";
 				echo "var L=".$L_txt.";\n";
 				echo "var note='".addslashes($data[3])."';";
+
+
+				//Ajout du code javascript
 				echo file_get_contents("chart.js"); 
 			?>
 		
