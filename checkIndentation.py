@@ -41,6 +41,8 @@ def printIndentation(lines):
 				break;
 		if not estVide:
 			arraySpacesCount.append(nbSpaces)
+			if(nbSpaces==1):
+				print("truc " + str(i))
 		else:
 			arraySpacesCount.append(-1)
 

@@ -266,4 +266,3 @@ def ratioFrancais(lines):
         return numberFrFreq/sum(frequent.values()), numberFrNFreq/len(notFrequent)
     except IOError:
         print("La liste des mots francais n'est pas là")
-print(ratioFrancais(lines))
