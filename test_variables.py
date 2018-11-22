@@ -50,6 +50,7 @@ def test_variables(lines, redondance = False):
 
 
 # v0.1
+
 def countVariables(lines, redondance = False):
     """
     Analyse le tableau des lignes envoyé et renvoie la liste des variables déclarées touvées
@@ -60,6 +61,16 @@ def countVariables(lines, redondance = False):
     nbVariables = 0
     tabVariables = []   # Stock les variables
     for line in lines:
+        print(line)
+        tabline=line.split(" ")
+        print(tabline)
+        for mot in line.split(" "):   #car quand un égale est collé, on a mots = [\"maVariable= \", \"jhu\",..."]
+            if mot.find("=")!=-1:
+                mot=mot.strip("=")
+                print(mot)
+                if len(mot)!=0:
+                    nbVariables+=1
+                    tabVariables.append(mot)
         if "=" in line:
             mots = line.strip().split()
             indiceEqual = -1
