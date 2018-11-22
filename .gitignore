@@ -1,3 +1,4 @@
 # Fichiers de Anthony à ignorer
 /mainDeTestDeAnthony.py
 __pycache__
+.idea
