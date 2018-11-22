@@ -1,6 +1,6 @@
 # ==== ==== ==== ====
 #
-#   test_variable.py
+# test_variable.py
 #
 #   Recherche des informations sur les variables dans un fichier Ruby
 #
@@ -106,3 +106,4 @@ def snailVariables(lines, listeVariables):
                 mots.pop(i)
         lines[ligneIndex] = " ".join(mots)
     return lines
+
