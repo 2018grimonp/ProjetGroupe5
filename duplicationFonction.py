@@ -16,9 +16,11 @@ output: liste de dictionnaire qui pour chaque fonction de code donne les corresp
 
 def controle_duplication(Code,precision,code_controle):
     Code=checkIndentation.retirerIndentation(commentaires.retirerCom(Code))                     #on enlève indentation et commentaires
-    Code=trouve_variables.snailVariables(Code,trouve_variables.countVariables(Code))            #on enlève les variables
+    code_controle=checkIndentation.retirerIndentation(commentaires.retirerCom(code_controle))
+    Code=trouve_variables.snailVariables(Code,trouve_variables.countVariables(Code))           #on enlève les variables
+    code_controle=trouve_variables.snailVariables(code_controle,trouve_variables.countVariables(code_controle))
     similitude_fonctions=[]
-    fonctions=trouve_fonction.count_fonction(Code)          #trouve les fonctions de code
+    fonctions=trouve_fonction.count_fonction(Code) #trouve les fonctions de code
     for num_fonction in range(len(fonctions)):
         similitude_fonctions.append(controle_duplicat_fonction(Code[fonctions[num_fonction]["start"]+1:fonctions[num_fonction]["end"]],precision,code_controle))
     return(similitude_fonctions)
@@ -36,15 +38,18 @@ def controle_duplicat_fonction(fonction,precision,code_controle):
     indice_controle,indice_fonction=0,0
     pourcentage=0
     while indice_controle<len(code_controle) :                                                          #parcour, le code de controle
-        prec=pourcentage_similitude_ligne(fonction[indice_fonction],code_controle[indice_controle])     #controle si les lignes sont semblable
+        prec=pourcentage_similitude_ligne(fonction[indice_fonction],code_controle[indice_controle+indice_fonction])     #controle si les lignes sont semblable
         if prec>precision :                                         #si oui controle la ligne suivante ecc...
-            pourcentage=+prec/l
+            pourcentage+=prec/l
             indice_fonction+=1
             if indice_fonction==l :
-                similitude.append({"pourcentage": pourcentage ,"ligneControle" : indice_controle-l })
+                similitude.append({"pourcentage": pourcentage ,"ligneControle" : indice_controle })
                 indice_fonction=0
                 pourcentage=0
-        indice_controle+=1
+                indice_controle+=1
+        else :
+            indice_fonction=0
+            indice_controle+=1
     return (similitude)
 
 """
@@ -95,10 +100,5 @@ def max_percent(Liste_dico):
             max=k["pourcentage"]
     return(max)
 
-CodeTest1=["af","  fs","george = 1","def skad(george)","babar","george = 1","split #françois","end","b","def j","d if do","end","end"]
-CodeControle1=["af","bob = 1","  fs","def skad(bob)","babar","bob = 1","split #frank","end","a","def sfs","d if do","end","end"]
 
-print(controle_duplication(CodeTest1,60,CodeControle1))
-print(commentaires.retirerCom(CodeTest1))
-print(checkIndentation.retirerIndentation(CodeTest1))
-print(trouve_variables.snailVariables(CodeTest1,trouve_variables.countVariables(CodeTest1)))
+
