@@ -72,8 +72,10 @@ def printFonction(Code):
     print ("le nom de fonction le plus stylé est : "+fonctions[rd.randint(0,len(fonctions)-1)]["nom"])
     point = points(fonctions, l_moyenne/len(fonctions))
     analyse = c.analyseCom(Code)
-    graphique = 'Fonctions-'+point[1]+'-Lignes de fonctions+Lignes de commentaires+Reste des lignes-'+str(int(l_moyenne/len(Code)*100))+'+'+str(int(analyse[2]*10000)/100)+'-Note : '+str(point[0])+'/10-|'
+    graphique = 'Fonctions-'+point[1]+'-Lignes de fonctions+Lignes de commentaires+Reste des lignes-'+str(int(l_moyenne/len(Code)*100))+'+'+str(int(analyse[2]*10000/100))+'-Note : '+str(point[0])+'/10-|'
     return(graphique, point[0])
+
+
 
 def points(fonctions, l_moyenne):
     '''
@@ -123,4 +125,3 @@ def points(fonctions, l_moyenne):
                 note = 1
                 commentaire = 'Les fonctions sont trop grosses, il y en a beaucoup trop !'
     return note, commentaire
-
