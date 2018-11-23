@@ -41,6 +41,7 @@ def count_fonction(Code):
                 ListeLongeurFonction[-1]["end"]=k
                 ListeLongeurFonction[-1]["longueur"]=k-ListeLongeurFonction[-1]["start"]-1   #calcul la longueur de la fonction (def et end exclus)
                 fonction_open=False
+                def_open=-1
     return(ListeLongeurFonction)
 
 #omg c'est trop cool
