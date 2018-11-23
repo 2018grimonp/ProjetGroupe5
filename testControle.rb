@@ -1,10 +1,6 @@
-
-
-
         def appointment?    #modif indentation
     kind.eql? 'appointment' 
   end
-
   def self.availabilities(start_date, end_date = start_date + 6.day)
     availabilities = []
 
@@ -17,11 +13,8 @@
 
     return availabilities
   end
-
-
 def adkfsaofjn
 dfmàseafmafm z4sdfs
-
 vwaefp sadroawhfpourn
 avsduvkm
 end
