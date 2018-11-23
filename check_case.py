@@ -93,5 +93,5 @@ def returnmain(list_str):
 	pourcentagecc,pourcentagesc,pourcentagecc_,pourcentagesc_=NommageCoherent(list_str)[0],NommageCoherent(list_str)[1],NommageCoherent(list_str)[2],NommageCoherent(list_str)[3]
 	mix=1-((pourcentagecc)+(pourcentagesc))
 	note=4*pourcentagecc_**2-4*pourcentagecc_+1							
-	return ["Convention de Nommage-Analyse de la cohérence de la convention de nommage-camelCase+snake_case+Indéterminé-"+str(math.floor(pourcentagecc*100))+"+"+str(math.floor(pourcentagesc*100))+"-Note : "+str(round(note*10))+"/10-|",pourcentagecc,pourcentagesc,round(note*10)]
+	return ["Convention de Nommage-Analyse de la cohérence de la convention de nommage-camelCase+snake_case+Indéterminé-"+str(math.floor(pourcentagecc*100))+"+"+str(math.floor(pourcentagesc*100))+"-Note : "+str(round(note*10))+"/10-|",round(note*10)]
 
