@@ -1,6 +1,8 @@
 from trouve_fonction import count_fonction
 from trouve_variables import countVariables
 
+
+
 def numlignevarglo(lignes):             #lignes=fichier texte contenant toutes les lignes du code
     #va récupérer les indices des lignes en dehors des fonctions
     L=count_fonction(lignes)
@@ -27,7 +29,8 @@ def varglobal(lignes):
         var= countVariables([lignes[i-1]])                                  #appel fonction pour récupérer la variable dans la ligne i de lignes
         #print(var)
         if var:
-            vars.append([var[0],i])                                         #var= un tableau avec comme seul élément une variable
+            vars.append([var[0],i])
+    #print (vars)                                                 #var= un tableau avec comme seul élément une variable
     return vars
         
 def varglobefore(i,lignes):
@@ -37,6 +40,7 @@ def varglobefore(i,lignes):
     for k in L:
         if k[1]<i:
             T.append(k[0])
+    #print(T)
     return T
 
 def textefonctions(lignes):             
@@ -57,19 +61,19 @@ def appelvar (lignes):                          #lignes=fichier texte contenant 
     for i in range(len(L)) :    
         vars= countVariables(L[i][1])                    #vars = les variables dans la ième fonction 
         vars= vars + varglobefore(L[i][0], lignes)                #on rajoute les variables globales créées avant la fonction 
-        for var in vars:
-            if vars.count(var) ==1:
-                compteur+=1
+    for var in vars:
+        if vars.count(var) ==1:
+            compteur+=1
     return compteur
 
 def graphiquenote(lignes):
     compteur = appelvar(lignes)
     nbvariables = len(countVariables(lignes))
     pourcentage = round(compteur/nbvariables)*100
+    #print(str(compteur))
     note=10-(0.5*compteur)
     if note >=0:
         note=note
     else:
         note = 0
     return("Variables appelées-Evaluation de l'appel des variables-variables non utilisées+variables utilisées-"+str(pourcentage)+"-Note:"+str(note)+"-|")
-
