@@ -23,5 +23,5 @@ def test_parse_camel_case():
 def test_parse_snake_case():
     assert toTest.parse_snake_case("a_b") == ["a", "b"]
 
-def test_printNommageCoherent():
-    assert toTest.printNommageCoherent(["unMot"]) == None
+def test_NommageCoherent():
+    assert toTest.NommageCoherent(["unMot"]) == ["100", "0"]

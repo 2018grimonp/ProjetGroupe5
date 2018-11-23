@@ -1,0 +1,41 @@
+============================= test session starts ==============================
+platform linux -- Python 3.6.6, pytest-4.0.0, py-1.7.0, pluggy-0.8.0
+rootdir: /mnt/c/Users/REMY/Desktop/CentraleSupélec/CW/Doctolib/Test, inifile:
+plugins: cov-2.6.0
+collected 19 items
+
+ProjetGroupe5LesTests/test_appelvariable.py .....                        [ 26%]
+ProjetGroupe5LesTests/test_checkIndentation.py ..                        [ 36%]
+ProjetGroupe5LesTests/test_check_case.py ....                            [ 57%]
+ProjetGroupe5LesTests/test_commentaires.py .                             [ 63%]
+ProjetGroupe5LesTests/test_duplicateFonction.py .                        [ 68%]
+ProjetGroupe5LesTests/test_trouve_fonction.py .                          [ 73%]
+ProjetGroupe5LesTests/test_trouve_variable.py ..                         [ 84%]
+ProjetGroupe5LesTests/test_verifyTest.py ...                             [100%]
+
+----------- coverage: platform linux, python 3.6.6-final-0 -----------
+Name                        Stmts   Miss  Cover
+-----------------------------------------------
+__init__.py                     3      0   100%
+appelvariable.py               49      0   100%
+checkIndentation.py            64     27    58%
+check_case.py                  67     20    70%
+commentaires.py               229     97    58%
+duplicationFonction.py         62     14    77%
+duplicationInterne.py          26     26     0%
+test_appelvariable.py          51      0   100%
+test_checkIndentation.py       10      0   100%
+test_check_case.py             11      0   100%
+test_commentaires.py           26      2    92%
+test_duplicateFonction.py       9      0   100%
+test_trouve_fonction.py        22      0   100%
+test_trouve_variable.py        21      0   100%
+test_verifyTest.py             30      0   100%
+trouve_fonction.py             57     23    60%
+trouve_variables.py            32      0   100%
+verifyTest.py                 118     61    48%
+-----------------------------------------------
+TOTAL                         887    270    70%
+
+
+========================== 19 passed in 13.07 seconds ==========================
