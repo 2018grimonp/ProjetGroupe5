@@ -61,3 +61,15 @@ def appelvar (lignes):                          #lignes=fichier texte contenant 
             if vars.count(var) ==1:
                 compteur+=1
     return compteur
+
+def graphiquenote(lignes):
+    compteur = appelvar(lignes)
+    nbvariables = countVariables(lignes)
+    pourcentage = round(compteur/nbvariables)*100
+    note=10-(0.5*compteur)
+    if note >=0:
+        note=note
+    else:
+        note = 0
+    return("Variables appelées-Evaluation de l'appel des variables-variables non utilisées+variables utilisées-"+str(pourcentage)+"-Note:"+str(note)+"-|")
+
