@@ -182,9 +182,9 @@ def printStatsTests (lignes, voirContenu = True):
             print(resultAssert[1][key])
         else:
             askingResults = False
-    note1 = int(nombre1Assert/resultTest[0]*50)/10
+    note1 = int((1-nombre1Assert/resultTest[0])*50)/10
     note2 = points(resultTest[0],resultAssert[0]/resultTest[0])
-    graphique = 'Tests-'+str(note2[1])+'-Tests/Asserts+Tests utiles+Points perdus-'+str(note2[0]*10)+'+'+str(note1*10)+'-Note : '+str(note1+note2[0])+'/10-|'
+    graphique = 'Tests-'+str(note2[1])+'-Qualité des tests+Tests utiles+Points perdus-'+str(note2[0]*10)+'+'+str(note1*10)+'-Note : '+str(note1+note2[0])+'/10-|'
     return graphique, note1+note2[0]
 
 def points(tests, asserts):
