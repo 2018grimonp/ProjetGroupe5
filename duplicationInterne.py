@@ -53,3 +53,5 @@ def fonction_double(Code,precision):
     liste_fonction=trouve_fonction.count_fonction(Code)
     for f in range(len(liste_fonction)):
         liste_fonction[f]["copie"]=len(duplicationFonction.controle_duplicat_fonction(Code[liste_fonction[f]["start"]+1:liste_fonction[f]["end"]],precision,Code[:liste_fonction[f]["start"]+1]+Code[liste_fonction[f]["end"]+1:]))
+    return (liste_fonction)
+
