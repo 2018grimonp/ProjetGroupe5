@@ -4,7 +4,7 @@
 #
 #   Test pour verifyTest.py
 #
-#   Dernière modification : 22/11/2018
+#   Dernière modification : 23/11/2018
 #
 #	2018
 #
