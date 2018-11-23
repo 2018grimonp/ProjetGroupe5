@@ -99,5 +99,5 @@ def returnmain(list_str):
 	pourcentagecc,pourcentagesc=NommageCoherent(list_str)[0],NommageCoherent(list_str)[1]
 	mix=1-((pourcentagecc)+(pourcentagesc))
 	note=notebareme(list_str)							
-	return ["Convention de Nommage-CamelCase+SnakeCase+Indéterminé-"+str(floor(pourcentagecc*100)+"+"+str(floor(pourcentagesc*100))+"-Note : "+str(note*10)+"/10-|",pourcentagecc,pourcentagesc,notebareme(list_str)]
+	return ["Convention de Nommage-CamelCase+SnakeCase+Indéterminé-"+str(floor(pourcentagecc*100))+"+"+str(floor(pourcentagesc*100))+"-Note : "+str(note*10)+"/10-|",pourcentagecc,pourcentagesc,notebareme(list_str)]
 
