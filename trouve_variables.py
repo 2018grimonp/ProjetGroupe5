@@ -25,23 +25,23 @@ def countVariables(lines, redondance = False):
     nbVariables = 0
     tabVariables = []   # Stock les variables
     for line in lines:
-        print(line)
+        #print(line)
         tabline=line.split(" ")
-        print(tabline)
+        #print(tabline)
         for mot in line.split(" "):   #car quand un égale est collé, on a mots = [\"maVariable= \", \"jhu\",..."]
             if mot.find("=")!=-1:
                 if mot.find("==")==-1:
                     mot=mot.strip("=")
-                    print(mot)
                     if len(mot)!=0:   #ce n'est pas juste un espace
                         nbVariables+=1
-                        tabVariables.append(mot)
+                        tabVariables.append(mot[0])
         if "=" in line:
             if "==" not in line:
                 mots = line.strip().split()
                 indiceEqual = -1
                 for i in range(len(mots)):
                     if mots[i] == "=":
+                        print(line)
                         indiceEqual = i
                         nbVariables += 1
                         tabVariables.append(mots[indiceEqual - 1])

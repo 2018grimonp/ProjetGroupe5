@@ -1,0 +1,53 @@
+check_case ==>
+1)il_y_a_maj(str):
+return booleen
+2)parse_camel_case(name)
+3)parse_snake_case(str)
+4)NommageCoherent(list_str)
+retur les pourcentage de nom CC et SC
+5)fonctiondenommage(x)
+note associée à un pourcentage de camel_case donné
+6)notebareme (list_str)
+renvoie les notes sur les baremes choisis
+7)returnmain(list_str)
+à partir liste noms variables contenu dans le code,  on obteint un message qui affiche les pourcentages de CC et SN
+
+
+
+
+dublicationFonction ==> 
+1)controle_duplication(Code,precision,code_controle)
+dico de toutes fonctions présentes dans le code avec les correspondances par rapport à code de controle
+2)controle_duplication(Code,precision,code_controle)
+pourcentage de similitude entre la fonction et le code de controle
+3)pourcentage_similitude_ligne(ligne1,ligne2):
+similitude entre deux strings
+4)print_resultats_similitude(Code,precision,code_controle):
+affiche similitude entre deux codes
+5)max_percent(Liste_dico):
+retourne le pourcentage maximale de ressemblance avec une autre fonction
+
+duplicationInterne ==> 
+1)double_fonction_meme_nom(Code)
+return dico avec fonctions de même nom et donne si le code associé est le même
+2)ressamblance_fonction(f1,f2)
+output: le pourcentage de ressemblance des 2 fonctions
+
+tout les fichiers tests permettent de tester si les fonctions des fichiers correspondants marchent:
+1) 	test_appelvariable.py
+2) 	test_appelvariable.py
+3) 	test_check_case.py
+4) 	test_commentaires.py
+5) 	test_fonctions.py
+6) 	test_trouve_fonction.py
+7) 	test_trouve_variable.py
+8) 	test_verifyTest.py
+
+documentation ==>
+contient tous les fichiers qui permettent une meilleurs comprehension du projet
+
+gui ==>
+travail de geoffroy pour l'API
+
+packagetest==> 
+regroupe toutes les fonctions tests
