@@ -17,7 +17,7 @@ def creation_string(code):
     donnees=duplicationFonction.retuour_resresultats_similitude(code,precision,codeControle)
     copies_percent=donnees[0]/donnees[1]*100
     graph="Fonctions copiées-Donne le nombre de fonctions suceptible d'avoir été copiées (avec une précision minimale de "+str(precision)+"%)  pourcentage de duplication :"+str(donnees[2])+ "-fonction originale+fonctions copiées-"+str(100-copies_percent)+"-Multiplicateur de note: "+str(1-copies_percent/100)+"%-|"
-    return (graph)
+    return (graph,1-copies_percent/100)
 
 def creation_string_duplication_interne():
     return 0
