@@ -359,7 +359,7 @@ def points(lines):
     return (carLin, comment), (moyStd, comment1), (noteFr, comment2)
 
 print(printCom(fichierLecture()))
-"""def points(fonctions, l_moyenne):
+def points(fonctions, l_moyenne):
     '''
     Donne le nombre de points obtenus quant à l'écriture des fonctions
     :param fonctions: la liste des fonctions du code
@@ -407,6 +407,8 @@ print(printCom(fichierLecture()))
                 note = 1
                 commentaire = 'Les fonctions sont trop grosses, il y en a beaucoup trop !'
     return note, commentaire
+
 point = points(fonctions, l_moyenne/len(fonctions))
-    graphique = 'Fonctions--'
-"""
+
+graphique = 'Fonctions--Lignes de fonctions+Reste des lignes'
+
