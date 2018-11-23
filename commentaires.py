@@ -186,13 +186,13 @@ def printCom(lines):
     print('-------- Pourcentage de lignes dédiées aux commentaires --------')
     print(str(int(analyse[2]*10000)/100)+'%')
     print('-------- Proportion de mots francais --------')
-    print('Mots fréquents : '+str(int(ratio[0]*100)/100)+' -- Mots peu utilisés : '+str(int(ratio[1]*100)/100))
+    print(str(int(ratio[0]*100))+' % des mots fréquents ; '+str(int(ratio[1]*100))+' % des mots peu utilisés')
     #Attribution des points
     point = points(lines)
     quantite = point[0]
     repartition = point[1]
     langue = point[2]
-    graphique = 'Commentaires-Quantité+Qualité+Points Perdus-'+str(quantite[0]*10)+'+'+str(repartition[0]*10)+'-Note : '+str(quantite[0]+repartition[0])+'/10'+quantite[1]+" "+repartition[1]+'-|'
+    graphique = 'Commentaires-Quantité+Qualité+Points Perdus-'+str(quantite[0]*10)+'+'+str(repartition[0]*10)+'-Note : '+str(quantite[0]+repartition[0])+'/10 '+quantite[1]+" ; "+repartition[1]+'-|'
     return graphique, (langue, int(analyse[2]*10000)/100, int(analyse[1]*10000)/100)
 
 def howCommented(lines):
@@ -268,7 +268,7 @@ def ratioFrancais(lines):
         for mot in notFrequent:
             if isFrancais(mot, motsDecode):
                 numberFrNFreq +=1
-        return numberFrFreq/sum(frequent.values()), numberFrNFreq/len(notFrequent)
+        return numberFrFreq/sum(frequent.values()), numberFrNFreq/len(notFrequent), (numberFrFreq+numberFrNFreq)/(sum(frequent.values())+len(notFrequent))
     except IOError:
         print("La liste des mots francais n'est pas là")
 
@@ -344,19 +344,18 @@ def points(lines):
             moyStd = 3
             comment1 = 'Commentaires pas très bien répartis'
     #mots dans les dicos
-    francais = ratioFrancais(lines)
-    francais = francais[0]/2+francais[1]/2
-    noteFr = int(francais*5)+1
-    if noteFr == 1:
+    francais = ratioFrancais(lines)[2]
+    noteFr = int(francais*50)/10
+    if noteFr < 1:
         comment2 = 'Les commentaires sont pas en Francais'
-    elif noteFr == 2:
+    elif noteFr < 2:
         comment2 = 'Peu de commentaires sont en Francais'
-    elif noteFr == 3:
-        comment2 = 'la moitié des commentaires sont en Francais'
-    elif noteFr == 4:
+    elif noteFr < 3:
+        comment2 = 'La moitié des commentaires sont en Francais'
+    elif noteFr < 4:
         comment2 = 'Une grande partie des commentaires sont en Francais'
     else:
         comment2 = 'La plupart des commentaires sont en Francais'
     return (carLin, comment), (moyStd, comment1), (noteFr, comment2)
 
-#print(printCom(fichierLecture()))
+print(printCom(fichierLecture()))
