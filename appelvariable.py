@@ -69,7 +69,7 @@ def appelvar (lignes):                          #lignes=fichier texte contenant 
 def graphiquenote(lignes):
     compteur = appelvar(lignes)
     nbvariables = len(countVariables(lignes))
-    pourcentage = round(compteur/nbvariables)*100
+    pourcentage = round(100*compteur/nbvariables)
     #print(str(compteur))
     note=10-(0.5*compteur)
     if note >=0:
