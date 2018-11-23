@@ -36,3 +36,4 @@ Jeudi - MVP3
 
 
 Vendredi - MVP4
+le diapo et la correction des bugs -Tout le monde
