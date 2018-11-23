@@ -44,6 +44,7 @@ def count_fonction(Code):
     return(ListeLongeurFonction)
 
 #omg c'est trop cool
+print(count_fonction(Code1))
 
 def printFonction(Code):
     fonctions=count_fonction(Code)
@@ -68,4 +69,55 @@ def printFonction(Code):
     print ("la longueur minimal est : "+str(l_min))
     print ("la longueur maximal est : "+str(l_max))
     print ("le nom de fonction le plus stylé est : "+fonctions[rd.randint(0,len(fonctions)-1)]["nom"])
+    point = points(fonctions, l_moyenne/len(fonctions))
+    graphique = 'Fonctions-'+point[1]+'-Lignes de fonctions+Reste des lignes-'+str(int(l_moyenne/len(Code)))
     return(True)
+
+def points(fonctions, l_moyenne):
+    '''
+    Donne le nombre de points obtenus quant à l'écriture des fonctions
+    :param fonctions: la liste des fonctions du code
+    :param l_moyenne: la longueur moyenne d'une fonctions
+    :return: la note sur 10 ainsi qu'un commentaire associé
+    '''
+    L = len(fonctions)
+    if L == 0:
+        return 0, 'Ce candidat n\'utilise pas de fonctions'
+    else:
+        if l_moyenne < 2:
+            note = 1
+            commentaire = 'Les fonctions sont trop petites'
+        elif l_moyenne < 5:
+            if L < 5:
+                note = 5
+                commentaire = 'Les fonctions sont petites et il y en a pas assez'
+            elif L < 20:
+                note = 9
+                commentaire = 'Les fonctions sont très satisfaisantes'
+            else:
+                note = 2
+                commentaire = 'Il y a trop de fonctions'
+        elif l_moyenne < 15:
+            if L < 2:
+                note = 4
+                commentaire = 'Il y a pas assez de fonctions mais elles ont une taille raisonnable'
+            elif L < 5:
+                note = 8
+                commentaire = 'Les fonctions sont de taille raisonnable, il y en a assez'
+            elif L < 20:
+                note = 10
+                commentaire = 'Le fonctions sont bien gérées'
+            else:
+                note = 3
+                commentaire = 'Il y a trop de fonctions'
+        else:
+            if L < 5:
+                note = 2
+                commentaire = 'Les fonctions sont trop grosses, il y en a trop peu'
+            elif L < 20:
+                note = 4
+                commentaire = 'Les fonctions sont trop grosses mais il y en pas mal'
+            else:
+                note = 1
+                commentaire = 'Les fonctions sont trop grosses, il y en a beaucoup trop !'
+    return note, commentaire

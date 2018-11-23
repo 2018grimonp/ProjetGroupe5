@@ -366,3 +366,4 @@ def points(lines):
         comment2 = 'La plupart des commentaires sont en Francais'
     return (carLin, comment), (moyStd, comment1), (noteFr, comment2)
 
+
