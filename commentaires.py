@@ -16,8 +16,7 @@ def fichierLecture():
     except IOError:
         print("Erreur fichier")
 
-#print(fichierLecture())
-
+#On compte les commentaires en séparant chaque type
 def commentsHashtag(lines):
     """
     Donne les commentaires unitaires
@@ -45,7 +44,6 @@ def commentsHashtag(lines):
             commentDico[linesList] = [comment, len(comment)]
     return commentDico
 
-#print(commentsHashtag(lines))
 
 def commentBlocks(lines):
     """
@@ -77,7 +75,6 @@ def commentBlocks(lines):
 
     return commentDico
 
-#print(commentBlocks(lines))
 
 def commentCount(lines):
     """
@@ -96,8 +93,7 @@ def commentCount(lines):
         commentDico[key] = dicoBlock[key]
     return count, commentDico
 
-#print(commentCount(lines))
-
+#On supprime les commentaires du fichier
 def detectCom(line):
     """
     Détecte si il y a un commentaire sur cette ligne
@@ -115,6 +111,7 @@ def detectCom(line):
         if line[i] == '#':
             return i+1
     return 0
+
 
 def retirerCom(lines):
     """
@@ -140,9 +137,7 @@ def retirerCom(lines):
     #Et on renvoie la nouvelle liste de lignes
     return newLines
 
-#print(fichierLecture())
-#print(retirerCom(lines))
-
+#On analyse les résultats quantitatifs
 def analyseCom(lines):
     """
     donne des données intéressantes sur le fichier texte
@@ -169,7 +164,6 @@ def analyseCom(lines):
 
     return linesList, comCarac/caracNumber, commentLinesNumber/linesNumber, comCount
 
-#print(analyseCom(lines))
 
 def printCom(lines):
     analyse = analyseCom(lines)
@@ -186,15 +180,16 @@ def printCom(lines):
     print('-------- Pourcentage de lignes dédiées aux commentaires --------')
     print(str(int(analyse[2]*10000)/100)+'%')
     print('-------- Proportion de mots francais --------')
-    print('Mots fréquents : '+str(int(ratio[0]*100)/100)+' -- Mots peu utilisés : '+str(int(ratio[1]*100)/100))
+    print(str(int(ratio[0]*100))+' % des mots fréquents ; '+str(int(ratio[1]*100))+' % des mots peu utilisés')
     #Attribution des points
     point = points(lines)
     quantite = point[0]
     repartition = point[1]
     langue = point[2]
-    graphique = 'Commentaires-Quantité+Qualité+Points Perdus-'+str(quantite[0]*10)+'+'+str(repartition[0]*10)+'-'+quantite[1]+" "+repartition[1]+'-|'
-    return graphique, (langue, int(analyse[2]*10000)/100, int(analyse[1]*10000)/100)
+    graphique = 'Commentaires-'+quantite[1]+" <br> "+repartition[1]+'-Quantité+Qualité+Points Perdus-'+str(quantite[0]*10)+'+'+str(repartition[0]*10)+'-Note : '+str(quantite[0]+repartition[0])+'/10 '+'-|'
+    return graphique, quantite[0]+repartition[0], (langue, int(analyse[2]*10000)/100, int(analyse[1]*10000)/100)
 
+#Recherche de résultats qualitatifs
 def howCommented(lines):
     """
     Donne des infos par rapport à la répartition des commentaires
@@ -219,7 +214,6 @@ def howCommented(lines):
         stDevCom = np.sqrt(varCom)
         return True, (moy, stDevCom), (analyse[2], analyse[1])
 
-#print(howCommented(lines))
 
 def commentsWords(lines):
     """
@@ -245,9 +239,10 @@ def commentsWords(lines):
             notFrequentList.append(word)
     return dicoFrequent, notFrequentList
 
-#print(commentsWords(lines))
+
 def isFrancais(word, dictionaire):
     return word.lower() in dictionaire
+
 
 def ratioFrancais(lines):
     """
@@ -268,11 +263,20 @@ def ratioFrancais(lines):
         for mot in notFrequent:
             if isFrancais(mot, motsDecode):
                 numberFrNFreq +=1
-        return numberFrFreq/sum(frequent.values()), numberFrNFreq/len(notFrequent)
+        if numberFrFreq != 0 and numberFrNFreq != 0:
+            return numberFrFreq/sum(frequent.values()), numberFrNFreq/len(notFrequent), (numberFrFreq+numberFrNFreq)/(sum(frequent.values())+len(notFrequent))
+        else:
+            return 0,0,0
     except IOError:
         print("La liste des mots francais n'est pas là")
 
+#Attribution des points du candidat
 def points(lines):
+    """
+    Donne le nombre de points obtenus après chacun des tests portant sur les commentaires
+    :param lines: le code représenté par une liste de lignes
+    :return: trois tuples chacun contenant la note obtenue au test et un commentaire associé
+    """
     how = howCommented(lines)
     carac, line = how[2]
     moy, stDev = how[1]
@@ -339,19 +343,18 @@ def points(lines):
             moyStd = 3
             comment1 = 'Commentaires pas très bien répartis'
     #mots dans les dicos
-    francais = ratioFrancais(lines)
-    francais = francais[0]/2+francais[1]/2
-    noteFr = int(francais*5)+1
-    if noteFr == 1:
+    francais = ratioFrancais(lines)[2]
+    noteFr = int(francais*50)/10
+    if noteFr < 1:
         comment2 = 'Les commentaires sont pas en Francais'
-    elif noteFr == 2:
+    elif noteFr < 2:
         comment2 = 'Peu de commentaires sont en Francais'
-    elif noteFr == 3:
-        comment2 = 'la moitié des commentaires sont en Francais'
-    elif noteFr == 4:
+    elif noteFr < 3:
+        comment2 = 'La moitié des commentaires sont en Francais'
+    elif noteFr < 4:
         comment2 = 'Une grande partie des commentaires sont en Francais'
     else:
         comment2 = 'La plupart des commentaires sont en Francais'
     return (carLin, comment), (moyStd, comment1), (noteFr, comment2)
 
-#print(printCom(fichierLecture()))
+

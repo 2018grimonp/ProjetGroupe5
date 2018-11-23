@@ -1,6 +1,11 @@
 import random as rd
+import commentaires as c
 #liste de commande qui ouvre des actions
 open=["if","while","for","do","class"]
+
+
+#code à analyser
+Code1 = ["#hello","def gilbert():","    lol","end","def bilibili(nhassah,aidj):#bonjour","#f","   if lol do","  end","end"]    #liste de ligne (str)
 
 ListeLongeurFonction=[] #donne une liste des n fonctions avec la longeur de chaque liste
            #indique le nombre de parentaises ouverte
@@ -53,6 +58,7 @@ def count_fonction(Code):
                 ListeLongeurFonction[-1]["end"]=k
                 ListeLongeurFonction[-1]["longueur"]=k-ListeLongeurFonction[-1]["start"]-1   #calcul la longueur de la fonction (def et end exclus)
                 fonction_open=False
+                def_open=-1
                 def_open = -1
     return(ListeLongeurFonction)
 
@@ -86,4 +92,58 @@ def printFonction(Code):
     print ("la longueur minimal est : "+str(l_min))
     print ("la longueur maximal est : "+str(l_max))
     print ("le nom de fonction le plus stylé est : "+fonctions[rd.randint(0,len(fonctions)-1)]["nom"])
-    return(True)
+    point = points(fonctions, l_moyenne/len(fonctions))
+    analyse = c.analyseCom(Code)
+    graphique = 'Fonctions-'+point[1]+'-Lignes de fonctions+Reste des lignes-'+str(int(l_moyenne/len(Code)*100))+'-Note : '+str(point[0])+'/10-|'
+    return(graphique, point[0])
+
+
+
+def points(fonctions, l_moyenne):
+    '''
+    Donne le nombre de points obtenus quant à l'écriture des fonctions
+    :param fonctions: la liste des fonctions du code
+    :param l_moyenne: la longueur moyenne d'une fonctions
+    :return: la note sur 10 ainsi qu'un commentaire associé
+    '''
+    L = len(fonctions)
+    if L == 0:
+        return 0, 'Ce candidat n\'utilise pas de fonctions'
+    else:
+        if l_moyenne < 2:
+            note = 1
+            commentaire = 'Les fonctions sont trop petites'
+        elif l_moyenne < 5:
+            if L < 5:
+                note = 5
+                commentaire = 'Les fonctions sont petites et il y en a pas assez'
+            elif L < 20:
+                note = 9
+                commentaire = 'Les fonctions sont très satisfaisantes'
+            else:
+                note = 2
+                commentaire = 'Il y a trop de fonctions'
+        elif l_moyenne < 15:
+            if L < 2:
+                note = 4
+                commentaire = 'Il y a pas assez de fonctions mais elles ont une taille raisonnable'
+            elif L < 5:
+                note = 8
+                commentaire = 'Les fonctions sont de taille raisonnable, il y en a assez'
+            elif L < 20:
+                note = 10
+                commentaire = 'Le fonctions sont bien gérées'
+            else:
+                note = 3
+                commentaire = 'Il y a trop de fonctions'
+        else:
+            if L < 5:
+                note = 2
+                commentaire = 'Les fonctions sont trop grosses, il y en a trop peu'
+            elif L < 20:
+                note = 4
+                commentaire = 'Les fonctions sont trop grosses mais il y en pas mal'
+            else:
+                note = 1
+                commentaire = 'Les fonctions sont trop grosses, il y en a beaucoup trop !'
+    return note, commentaire

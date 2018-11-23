@@ -1,6 +1,8 @@
 import trouve_fonction
 import duplicationFonction
 import trouve_variables
+import commentaires
+import checkIndentation
 
 """
 On spot les fonctions et les variable qui ont le me^me nom #pas cool
@@ -13,6 +15,8 @@ output: fonction["status"]=[(id fonction de me^me nom, realtion), (...), ...]
 """
 #On considère que Code ne possède plus d'indentations ni de commentaire
 def double_fonction_meme_nom(Code):
+    Code=checkIndentation.retirerIndentation(commentaires.retirerCom(Code))                     #on enlève indentation et commentaires
+    Code=trouve_variables.snailVariables(Code,trouve_variables.countVariables(Code))           #on enlève les variables
     liste_fonction=trouve_fonction.count_fonction(Code)
     for i in range(len(liste_fonction)-1) :
         for j in range(i+1,len(liste_fonction)):
@@ -41,3 +45,13 @@ def ressamblance_fonction(f1,f2):
     for k in range(len(f1)):            #on calcule les similitude
         same+=duplicationFonction.pourcentage_similitude_ligne(f1[k],f2[k])
     return(same/l)
+
+
+def fonction_double(Code,precision):
+    Code=checkIndentation.retirerIndentation(commentaires.retirerCom(Code))                     #on enlève indentation et commentaires
+    Code=trouve_variables.snailVariables(Code,trouve_variables.countVariables(Code))           #on enlève les variables
+    liste_fonction=trouve_fonction.count_fonction(Code)
+    for f in range(len(liste_fonction)):
+        liste_fonction[f]["copie"]=len(duplicationFonction.controle_duplicat_fonction(Code[liste_fonction[f]["start"]+1:liste_fonction[f]["end"]],precision,Code[:liste_fonction[f]["start"]+1]+Code[liste_fonction[f]["end"]+1:]))
+    return (liste_fonction)
+

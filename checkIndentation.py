@@ -62,28 +62,31 @@ def printIndentation(lines, onTest = False):
 		if onTest == True:
 			return -1
 		thereIsAproblem=True
-		return note
 
 	#Vérifie que le nombre d'espaces devant chaque ligne est un multiple de l'indentation
 	arrayIndentsCount=[]
+	count1=0
+	problems=[]
 	for i in range(len(arraySpacesCount)):
 		count=arraySpacesCount[i]
 		if count!=-1 and count%indentLength!=0:
 			print("Problème d'indentation ligne "+str(i)+ ". Le nombre d'espace n'est pas un multiple de l'indentation.")
+			problems.append(i)
+			count1+=1
 			note-=0.5
 			thereIsAproblem=True
 		arrayIndentsCount.append(count//indentLength)
 
 	#Vérifie qu'aucune ligne n'est indentée plusieurs fois par rapport à la précédente 	
 	countOldLine=0
-	count=0
+	count2=0
 	for i in range(len(arrayIndentsCount)):
 		countNewLine=arrayIndentsCount[i]
 		if countNewLine==-1 :
 			continue
-		if abs(countNewLine-countOldLine)>1:
+		if abs(countNewLine-countOldLine)>1 and not i in problems:
 			print("Problème d'indentation ligne "+str(i)+ ". Indentation supplémentaire ou manquante inatendue.")
-			count+=1
+			count2+=1
 			note-=0.25
 			thereIsAproblem=True
 		countOldLine=countNewLine	
@@ -91,4 +94,4 @@ def printIndentation(lines, onTest = False):
 	if not thereIsAproblem:
 		print("Aucun problème d'indentation détecté.")
 	
-	return "Indentation-Lignes correctement indentées+Lignes mal indentées-"+str(100-count*100//len(lines))+"- Indentation -|Indentation-Points+-"+str(note*10)+"- Note : "+str(int(note))+"/10 -|";
+	return "Indentation 1/2-Proportion des erreurs d'indentation-Indentations inattendues+Indentations inconsistentes+Lignes bien indentées - "+str(count1*100//len(lines))+"+"+str(count2*100//len(lines))+"--|Indentation 2/2-Évaluation de l'indentation-Points+-"+str(note*10)+"- Note : "+str(int(note))+"/10 -|",int(note)

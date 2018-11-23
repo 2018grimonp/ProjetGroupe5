@@ -82,13 +82,22 @@ def print_resultats_similitude(Code,precision,code_controle):
     Liste_duplicat=controle_duplication(Code,precision,code_controle)
     s,pourcentage_tot=0,0
     for k in Liste_duplicat :
-        if k!=[] :
+        if len(k)>0 :
             s+=1
             pourcentage_tot+=max_percent(k)
     pourcentage_tot=pourcentage_tot/len(Liste_duplicat)
     print(str(s)+" fonctions pourraient e^tre copié")
     print("le pourcentage di similitude moyen avec d'autres codes est : "+str(pourcentage_tot)+"%")
 
+def retuour_resresultats_similitude(Code,precision,code_controle):
+    Liste_duplicat=controle_duplication(Code,precision,code_controle)
+    s,pourcentage_tot=0,0
+    for k in Liste_duplicat :
+        if len(k)>0 :
+            s+=1
+            pourcentage_tot+=max_percent(k)
+    pourcentage_tot=pourcentage_tot/len(Liste_duplicat)
+    return(s,len(Liste_duplicat),pourcentage_tot)
 """
 input: La liste des dico qui représente les similitude d'une fonction avec le code_controle
 output: retourne le pourcentage maximale de ressemblance avec une autre fonction

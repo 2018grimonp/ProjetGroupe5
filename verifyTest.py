@@ -150,9 +150,12 @@ def printStatsTests (lignes, voirContenu = True):
     print("Nombre d'asserts dans le fichier : " + str(resultAssert[0]))
     print("")
     print("Les noms des test sont : ")
+    nombre1Assert = 0
     for i in range(len(resultTest[1].keys())) :
         nomTest = list(resultTest[1].keys())[i]
         print ("    " + str(i+1) + ') "' + nomTest + '" qui contient ' + str(len(resultAssert[1][nomTest])) + " assert(s)")
+        if len(resultAssert[1][nomTest]) == 1:
+            nombre1Assert += 1
     askingResults = True
     askedResult = 0
     while askingResults and voirContenu:
@@ -179,3 +182,57 @@ def printStatsTests (lignes, voirContenu = True):
             print(resultAssert[1][key])
         else:
             askingResults = False
+    note1 = int((1-nombre1Assert/resultTest[0])*50)/10
+    note2 = points(resultTest[0],resultAssert[0]/resultTest[0])
+    graphique = 'Tests-'+str(note2[1])+'-Qualité des tests+Tests utiles+Points perdus-'+str(note2[0]*10)+'+'+str(note1*10)+'-Note : '+str(round(note1+note2[0]))+'/10-|'
+    return graphique, note1+note2[0]
+
+def points(tests, asserts):
+    '''
+    Donne le nombre de points obtenus quant à l'écriture des tests
+    :param fonctions: la liste des tests du code
+    :param asserts: le nombre d'asserts
+    :return: la note sur 10 ainsi qu'un commentaire associé
+    '''
+    L = tests
+    if L == 0:
+        return 0, 'Ce candidat n\'utilise pas de tests'
+    else:
+        if asserts < 2:
+            note = 1
+            commentaire = 'Il n\' y a pas assez d\'asserts'
+        elif asserts < 5:
+            if L < 5:
+                note = 2
+                commentaire = 'Il y a pas assez d\'asserts si de tests'
+            elif L < 20:
+                note = 5
+                commentaire = 'Les tests sont très satisfaisants'
+            else:
+                note = 1
+                commentaire = 'Il y a trop de tests'
+        elif asserts < 15:
+            if L < 2:
+                note = 2
+                commentaire = 'Il y a pas assez de tests mais assez d\'asserts'
+            elif L < 5:
+                note = 4
+                commentaire = 'Les tests sont de taille raisonnable, il y a assez d\'asserts'
+            elif L < 20:
+                note = 5
+                commentaire = 'Le tests sont bien gérés'
+            else:
+                note = 2
+                commentaire = 'Il y a trop de tests'
+        else:
+            if L < 5:
+                note = 1
+                commentaire = 'Il y a trop d\'asserts, et trop de tests'
+            elif L < 20:
+                note = 2
+                commentaire = 'Trop d\'asserts, niveau nombre de tests ça va'
+            else:
+                note = 1
+                commentaire = 'Trop d\'asserts, trop de tests'
+    return note, commentaire
+
