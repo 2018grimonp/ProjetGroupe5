@@ -83,7 +83,7 @@ def printFonction(Code):
     print ("le nom de fonction le plus stylé est : "+fonctions[rd.randint(0,len(fonctions)-1)]["nom"])
     point = points(fonctions, l_moyenne/len(fonctions))
     graphique = 'Fonctions-'+point[1]+'-Lignes de fonctions+Reste des lignes-'+str(int(l_moyenne/len(Code)*100))+'-Note : '+str(point[0])+'/10-|'
-    return(graphique, l_moyenne)
+    return(graphique, point[0])
 
 def points(fonctions, l_moyenne):
     '''
