@@ -5,7 +5,7 @@ lines = ['Une ligne qui sert à rien', '#Un commentaire normal', 'une ligne inut
 try:
         fichier = open('./liste.de.mots.francais.frgut.txt', 'r')
         mots = [mot.replace('\n', '') for mot in fichier.readlines()]
-        motsDecode =[mot.encode('iso-8859-1').decode('utf8') for mot in mots]
+        motsDecode = mots
 except IOError:
     print('aille')
 
@@ -25,6 +25,6 @@ def test():
     assert c.commentsWords(lines) == ({'un': 3, 'commentaire': 2}, ['normalavec', 'com', 'à', 'la', 'fin', 'en', 'blockca', 'continue'])
     assert c.isFrancais('bonjour', motsDecode)
     assert not c.isFrancais('aoriezur', motsDecode)
-    assert c.ratioFrancais(lines) == (1.0, 0.5)
+    assert c.ratioFrancais(lines) == (1.0, 0.625)
 
 

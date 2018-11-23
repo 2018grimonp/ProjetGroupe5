@@ -19,7 +19,7 @@ Lundi -MVP1
 
 Mercredi - MVP2
 
-	Vérifier que les variables et les noms des fonctions respectent une convention cohérente de nommage - Geoffroy
+	Vérifier que les variables et les noms des fonctions respectent une convention cohérente de nommage - Valentine
 	Dupliquation de fonctions - Tim
 	Identifier les fonctions ou variables jamais appelées - Pierrick
 	Ne pas étudier seulement la proportion de commentaires dans le code, mais aussi la façon dont ils sont répartis - Jérôme
@@ -32,7 +32,7 @@ Jeudi - MVP3
 	Comparaison des noms de variables et de fonctions	
 	Calculer les hash Md5 des fichiers et les comparer
 	Comparer des segments des deux fichiers traités pour repérer des points communs (copier-coller)
-	Définir un barème de notation
+	Définir un barème de notation - Jérôme
 
 
 Vendredi - MVP4
