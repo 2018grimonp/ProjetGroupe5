@@ -1,17 +1,17 @@
 Barème: (80 points au total)
-	• Indentation sur 10
+	FAIT• Indentation sur 10
 		○ -0,25 par indentation inattendue
 		○ -0,5 par nombre d'espaces non multiples de l'indentation
-	• Convention de nommage sur 10
+	FAIT• Convention de nommage sur 10
 		○ CamelCase ou snake_case : Parabole (coef directeur positif, 0 en 50%) 
-	• Proportion de mots qui sont dans les dicos (variables sur 5 & commentaires sur 5)
-	• Commentaire (cf diagramme) sur 10
+	FAIT(à moitié)• Proportion de mots qui sont dans les dicos (variables sur 5 & commentaires sur 5)
+	FAIT• Commentaire (cf diagramme) sur 10
 	• Taille des fonctions (déjà fait) sur 10
 	• Duplication et fraude: nb de fx qui ressemble à au moins 95% 1 autre fx
 		○ -1 par duplication sur 10  
 		○ Fraude (20% de fraude → n'a que 80% de sa note finale)
 	• Tests/asserts sur 10
 		○ même critère que fonctions sur 5
-		○ nb de tests/fonctions sur 5 (parabole coef directeur négatif, 1 en 50%)
+		○ nb de tests/fonctions sur 5 (parabole coef directeur négatif, 1 en 100%)
 	• Variables utilisées sur 10
 		-0,5 par variable non utilisée

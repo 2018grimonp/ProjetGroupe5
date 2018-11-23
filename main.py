@@ -57,6 +57,3 @@ results_txt=results_txt+returnmain(variables_list)[0]
 results=open("results.txt","w")
 results.write(results_txt)
 results.close()
-
-
-
