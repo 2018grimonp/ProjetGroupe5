@@ -263,7 +263,10 @@ def ratioFrancais(lines):
         for mot in notFrequent:
             if isFrancais(mot, motsDecode):
                 numberFrNFreq +=1
-        return numberFrFreq/sum(frequent.values()), numberFrNFreq/len(notFrequent), (numberFrFreq+numberFrNFreq)/(sum(frequent.values())+len(notFrequent))
+        if numberFrFreq != 0 and numberFrNFreq != 0:
+            return numberFrFreq/sum(frequent.values()), numberFrNFreq/len(notFrequent), (numberFrFreq+numberFrNFreq)/(sum(frequent.values())+len(notFrequent))
+        else:
+            return 0,0,0
     except IOError:
         print("La liste des mots francais n'est pas là")
 
