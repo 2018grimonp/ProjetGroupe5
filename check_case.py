@@ -98,6 +98,6 @@ def notebareme (list_str): 			#l=liste de 3 éléments
 def returnmain(list_str):
 	pourcentagecc,pourcentagesc=NommageCoherent(list_str)[0],NommageCoherent(list_str)[1]
 	mix=100-(int(pourcentagecc)+int(pourcentagesc))
-	note=notebareme(list_str)
-	return ["Convention de Nommage-CamelCase+SnakeCase+Indéterminé-"+str(pourcentagecc)+"+"+str(pourcentagesc)+"-"+str(note*10)+"-|",pourcentagecc,pourcentagesc,notebareme(list_str)]
+	note=notebareme(list_str)							
+	return ["Convention de Nommage-CamelCase+SnakeCase+Indéterminé-"+str(pourcentagecc)+"+"+str(pourcentagesc)+"-Note : "+str(note*10)+"/10-|",pourcentagecc,pourcentagesc,notebareme(list_str)]
 
