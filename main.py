@@ -42,7 +42,7 @@ lines=retirerIndentation(lines)
 
 #Parsing des fonctions présentes dans le code et affichage de leur nombre de lignes.
 print("----- FONCTIONS  -----")
-printFonction(lines)
+results_txt=results_txt+printFonction(lines)[0]
 
 #Parsing des tests présents dans le code et affichage de données à leur sujet.
 print("----- VERIFICATION DES TESTS  -----")
