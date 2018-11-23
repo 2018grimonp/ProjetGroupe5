@@ -87,7 +87,7 @@ def NommageCoherent(list_str):	#on prend en argument la liste des noms des varia
 	return [pourcentagecc,pourcentagesc]
 
 def fonctiondenommage(x):			#note associée à un pourcentage de camel_case donné
-	return(4*x²-4*x+1)
+	return(4*x^2-4*x+1)
 
 def notebareme (list_str): 			#l=liste de 3 éléments
 	#renvoie les notes sur les baremes choisis
