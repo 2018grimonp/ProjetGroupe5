@@ -95,4 +95,4 @@ def printIndentation(lines, onTest = False):
 	if not thereIsAproblem:
 		print("Aucun problème d'indentation détecté.")
 	
-	return "Indentation 1/2-Proportion des interfaces graphiques-Indentations inattendues+Indentations inconsistentes+Lignes bien indentées - "+str(count1*100//len(lines))+"+"+str(count2*100//len(lines))+"--|Indentation 2/2-Notation de l'indentation-Points+-"+str(note*10)+"- Note : "+str(int(note))+"/10 -|";
+	return "Indentation 1/2-Proportion des erreurs d'indentation-Indentations inattendues+Indentations inconsistentes+Lignes bien indentées - "+str(count1*100//len(lines))+"+"+str(count2*100//len(lines))+"--|Indentation 2/2-Évaluation de l'indentation-Points+-"+str(note*10)+"- Note : "+str(int(note))+"/10 -|";
