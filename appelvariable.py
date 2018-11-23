@@ -71,9 +71,9 @@ def graphiquenote(lignes):
     nbvariables = len(countVariables(lignes))
     pourcentage = round(100*compteur/nbvariables)
     #print(str(compteur))
-    note=10-(0.5*compteur)
+    note=int(10-(0.5*compteur))
     if note >=0:
         note=note
     else:
         note = 0
-    return("Variables appelées-Evaluation de l'appel des variables-variables non utilisées+variables utilisées-"+str(pourcentage)+"-Note:"+str(note)+"-|")
+    return("Variables appelées-Evaluation de l'appel des variables-variables utilisées+variables non utilisées-"+str(100-pourcentage)+"-Note : "+str(note)+"/10-|",note)
