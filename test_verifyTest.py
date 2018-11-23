@@ -28,10 +28,10 @@ PATH = "test.rb"
 
 def test_rechercheEnd():
     lines = readLines(PATH)
-    result_0 = toTest.rechercheEnd(lines, 137)
+    result_0 = toTest.rechercheEnd(lines, 138)
     assert type(result_0) == int    # rechercheEnd doit renvoyer un entier
     assert result_0 != -1           # rechercheEnd ne doit pas renvoyer une erreur
-    assert result_0 == 140          # rechercheEnd(lines, 3) devrait normalement renvoyer 6 avec le fichier de tests utilisé
+    assert result_0 == 141          # rechercheEnd(lines, 3) devrait normalement renvoyer 6 avec le fichier de tests utilisé
 
 def test_isTest():
     lines = readLines(PATH)
