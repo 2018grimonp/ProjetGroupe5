@@ -4,7 +4,9 @@ from commentaires import printCom
 from checkIndentation import retirerIndentation
 from checkIndentation import printIndentation
 
-from test_variables import print_test_variable
+from trouve_variables import countVariables
+
+from check_case import returnmain 
 
 from trouve_fonction import printFonction
 
@@ -15,8 +17,8 @@ def readLines(l):  # retire les '/n' d'un fichier texte
     fp=open(l,'r')
     lines=fp.readlines()
     for line in lines:
-    	line=line.replace('\n', '')
-    	L.append(line)
+        line=line.replace('\n', '')
+        L.append(line)
     return L
 
 print ('Nom du fichier à analyser :')
@@ -25,14 +27,17 @@ print ('Nom du fichier à analyser :')
 path=input()
 lines=readLines(path)
 
+#String qui représente le contenu du fichier results.txt qui sera fournis à l'interface graphique
+results_txt=""
+
 #Affichage d'informations sur les commentaires puis suppression des commentaires.
 print("----- COMMENTAIRES -----")
-printCom(lines)
+results_txt=results_txt+printCom(lines)[0]
 lines=retirerCom(lines)
 
 #Extraction et retrait des indentations et affichage d'informations sur la correction des indentations.
 print("----- INDENTATIONS -----")
-printIndentation(lines)
+results_txt=results_txt+printIndentation(lines)
 lines=retirerIndentation(lines)
 
 #Parsing des fonctions présentes dans le code et affichage de leur nombre de lignes.
@@ -45,7 +50,13 @@ printStatsTests(lines)
 
 #Parsing des variables présentes dans le code et affichage d'informations à leur sujet.
 print("----- VARIABLES  -----")
-print_test_variable(lines)
+variables_list=countVariables(lines)
+results_txt=results_txt+returnmain(variables_list)[0]
+
+
+results=open("results.txt","w")
+results.write(results_txt)
+results.close()
 
 
 

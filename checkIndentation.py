@@ -19,46 +19,76 @@ def retirerIndentation(lines):
 	return lines
 
 
-def printIndentation(lines):
+def printIndentation(lines, onTest = False):
 	"""
-	Vérifie l'indentation
+	Vérifie l'indentation et renvoie une string qui représente un graphique
 	:param arraySpacesCount: Liste des nombres d'espaces devant chaque ligne
 	"""
+
+	thereIsAproblem=False
+	note=10
 	
 	#Compte le nombre d'espaces devant chaque ligne
 	arraySpacesCount=[]
 	for i in range(len(lines)):
 		nbSpaces=0
 		line=lines[i]
+		estVide=True
 		for char in line:
 			if char==" ":
 				nbSpaces+=1
 			else:
-				break;
-		arraySpacesCount.append(nbSpaces)
+				estVide=False
+				break
+		if not estVide:
+			arraySpacesCount.append(nbSpaces)
+			if(nbSpaces==1):
+				print("truc " + str(i))
+		else:
+			arraySpacesCount.append(-1)
 
 	#Détermine le nombre d'espaces correspondant l'indentation
 	indentLength=255
 	for count in arraySpacesCount:
-		if count < indentLength and count!=0:
+		if count < indentLength and count!=0 and count!=-1:
 			indentLength=count
-	print("L'identation semble être de "+str(indentLength)+" espace(s).")
+
+	if indentLength!=255:
+		print("L'identation semble être de "+str(indentLength)+" espace(s).")
+		if onTest == True:
+			return indentLength
+	else:
+		print("L'indentation ne peut être déterminée.")
+		if onTest == True:
+			return -1
+		thereIsAproblem=True
+		return note
 
 	#Vérifie que le nombre d'espaces devant chaque ligne est un multiple de l'indentation
 	arrayIndentsCount=[]
 	for i in range(len(arraySpacesCount)):
 		count=arraySpacesCount[i]
-		if count%indentLength!=0:
+		if count!=-1 and count%indentLength!=0:
 			print("Problème d'indentation ligne "+str(i)+ ". Le nombre d'espace n'est pas un multiple de l'indentation.")
+			note-=0.5
+			thereIsAproblem=True
 		arrayIndentsCount.append(count//indentLength)
 
 	#Vérifie qu'aucune ligne n'est indentée plusieurs fois par rapport à la précédente 	
 	countOldLine=0
+	count=0
 	for i in range(len(arrayIndentsCount)):
 		countNewLine=arrayIndentsCount[i]
+		if countNewLine==-1 :
+			continue
 		if abs(countNewLine-countOldLine)>1:
-			print("Problème d'indentation ligne "+str(i)+ ". Indentation supplémentaire inatendue.")
+			print("Problème d'indentation ligne "+str(i)+ ". Indentation supplémentaire ou manquante inatendue.")
+			count+=1
+			note-=0.25
+			thereIsAproblem=True
 		countOldLine=countNewLine	
-
 	
-
+	if not thereIsAproblem:
+		print("Aucun problème d'indentation détecté.")
+	
+	return "Indentation-Lignes correctement indentées+Lignes mal indentées-"+str(100-count*100//len(lines))+"- Indentation -|Indentation-Points+-"+str(note*10)+"- Note : "+str(int(note))+"/10 -|";
