@@ -34,6 +34,11 @@ def count_fonction(Code):
             open_count+=1
         if "end" in Code[k].split(" ") :    #controle si la ligne ferme des commandes
             open_count-=1
+            """
+            print("l" + str(k))
+            print("oc" + str(open_count))
+            print(def_open)
+            """
             if open_count<0 :
                 print(ListeLongeurFonction)
                 return("end not open ligne "+ str(k))
@@ -41,6 +46,7 @@ def count_fonction(Code):
                 ListeLongeurFonction[-1]["end"]=k
                 ListeLongeurFonction[-1]["longueur"]=k-ListeLongeurFonction[-1]["start"]-1   #calcul la longueur de la fonction (def et end exclus)
                 fonction_open=False
+                def_open = -1
     return(ListeLongeurFonction)
 
 #omg c'est trop cool
