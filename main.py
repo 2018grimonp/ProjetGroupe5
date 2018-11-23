@@ -43,8 +43,7 @@ lines=retirerIndentation(lines)
 #Parsing des fonctions présentes dans le code et affichage de leur nombre de lignes.
 print("----- FONCTIONS  -----")
 results_txt=results_txt+printFonction(lines)[0]
-=======
->>>>>>> b2e2b447391bfcedc3d0f3ee3e2cb21c43e4d6fa
+#result_txt=result_tx+affichageDuplication(lines)
 
 #Affichage d'informations sur les commentaires puis suppression des commentaires.
 print("----- COMMENTAIRES -----")
