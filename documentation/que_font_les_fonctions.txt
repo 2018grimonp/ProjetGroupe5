@@ -27,9 +27,26 @@ affiche similitude entre deux codes
 5)max_percent(Liste_dico):
 retourne le pourcentage maximale de ressemblance avec une autre fonction
 
-
 duplicationInterne ==> 
 1)double_fonction_meme_nom(Code)
 return dico avec fonctions de même nom et donne si le code associé est le même
 2)ressamblance_fonction(f1,f2)
 output: le pourcentage de ressemblance des 2 fonctions
+
+tout les fichiers tests permettent de tester si les fonctions des fichiers correspondants marchent:
+1) 	test_appelvariable.py
+2) 	test_appelvariable.py
+3) 	test_check_case.py
+4) 	test_commentaires.py
+5) 	test_fonctions.py
+6) 	test_trouve_fonction.py
+7) 	test_trouve_variable.py
+8) 	test_verifyTest.py
+
+documentation ==>
+contient tous les fichiers qui permettent une meilleurs comprehension du projet
+
+gui ==>
+travail de geoffroy pour l'API
+
+packagetest==> 
