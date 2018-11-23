@@ -2,19 +2,26 @@ import random as rd
 #liste de commande qui ouvre des actions
 open=["if","while","for","do","class"]
 
-
-#code à analyser
-Code1 = ["hello","def gilbert():","    lol","end","def bilibili(nhassah,aidj):","f","   if lol do","  end","end"]    #liste de ligne (str)
-
 ListeLongeurFonction=[] #donne une liste des n fonctions avec la longeur de chaque liste
            #indique le nombre de parentaises ouverte
-
+"""
+input: string
+output: booléen si la string contient des commande d'ouverture de cycles (cf. open)
+"""
 def ligne_open(k,Code):      #controlle si la ligne ouvre des commande
     for word in open:
         if word in Code[k].split(" "):
             return True
     return False
 
+"""
+input: Code à analyser (liste de strings)
+output:
+1. une liste de dictionnaire qui correspond à la liste des fonction présente,
+pour chaque fonction on a: "nom":nom , "start":ligne de début , "end":ligne de fin , "longueur":obvius
+
+2. un message d'erreur si le code contient des erreurs
+"""
 def count_fonction(Code):
     ListeLongeurFonction=[]
     open_count=0
@@ -44,7 +51,12 @@ def count_fonction(Code):
     return(ListeLongeurFonction)
 
 #omg c'est trop cool
-
+"""
+Input: code (liste de string)
+print: la liste des fonctions dans le code (en ordre d'apparition) avec leur nom réspéctif
+des info moyenne sur la longueur des fonction
+l'oscar de la meilleure fonction #festivalDeCannes
+"""
 def printFonction(Code):
     fonctions=count_fonction(Code)
     if type(fonctions)!= list :

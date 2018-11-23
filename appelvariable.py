@@ -7,7 +7,7 @@ def numlignevarglo(lignes):             #lignes=fichier texte contenant toutes l
     var=[]
     numligne= [i for i in range(1,len(lignes))]
     for i in range (len(lignes)):    #on va parcourir toutes les lignes du code
-        (deb,fin)=(L[i]['start'],L[i]['fin'])    #on récupère la ligne de début et de fin de chaque fonction
+        (deb,fin)=(L[i]['start'],L[i]['end'])    #on récupère la ligne de début et de fin de chaque fonction
         for k in range (deb,fin+1):
             numligne.pop(k)                 #on retire les indices des lignes où il y a une fonction
     return numligne
