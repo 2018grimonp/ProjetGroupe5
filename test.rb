@@ -21,6 +21,7 @@
 # bloc de
 # commentaire
 
+
   scope :openings, -> { where(kind: :opening) }
   scope :appointments, -> { where(kind: :appointment) }
   scope :recurring, -> { where(weekly_recurring: true) }
@@ -118,7 +119,7 @@ Hello how are you ?
     slots = [] 
 =begin
  waow encore un block #bonjour
-c'est tout � fait dingue il se passe plein de trucs !!
+c'est tout a fait dingue il se passe plein de trucs !!
 =end
     events.each do |event|
       (event.starts_at.to_i..(event.ends_at.to_i - 30.minutes)).step(30.minutes) do |timestamp|

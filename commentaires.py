@@ -1,4 +1,6 @@
+lines = ['=begin Une ligne qui sert à rien', 'Un commentaire normal', 'une ligne inutile avec un com à la fin', 'un commentaire en block', 'ca continue', '=end', 'lignes de code']
 lines = ['Une ligne qui sert à rien', '#Un commentaire normal', 'une ligne inutile #avec un com à la fin', '=begin un commentaire en block', 'ca continue', '=end']
+
 import numpy as np
 from textblob import TextBlob
 
@@ -37,9 +39,10 @@ def commentsHashtag(lines):
 
         #Le commentaire correspond à la fin de la ligne
         if isComment:
-            comment = lines[lineNumber][i:]
+            comment = [lines[lineNumber][i:]]
         if comment != '':
-            commentDico[lineNumber] = [comment, len(comment)]
+            linesList = tuple([lineNumber])
+            commentDico[linesList] = [comment, len(comment)]
     return commentDico
 
 #print(commentsHashtag(lines))
@@ -48,7 +51,7 @@ def commentBlocks(lines):
     """
     Donne les commentaires en block (=begin ... commentaire ... =end)
     :param lines: le code représenté par une liste de lignes
-    :return: un dico avec le commentaire en block associé au numéro de la première ligne de commentaire
+    :return: un dico avec le commentaire en block associé au numéros des lignes de commentaire
     """
     commentDico = {}
     isBlock = False
@@ -57,18 +60,20 @@ def commentBlocks(lines):
         #On détecte le debut du commentaire par le '=begin'
         if lines[lineNumber][:6] == '=begin':
             isBlock = True
-            block = lines[lineNumber][6:]
-            blockLine = lineNumber
+            block = [lines[lineNumber][6:]]
+            blockLines = [lineNumber]
             continue
 
         #On enregistre les lignes de commentaires jusqu'à '=end'
         if isBlock and lines[lineNumber][:4] != '=end':
-            block += lines[lineNumber]
+            block.append(lines[lineNumber])
+            blockLines.append(lineNumber)
 
         #On enregistre le commentaire lorsqu'on tombe sur un '=end'
         if isBlock and lines[lineNumber][:4] == '=end':
             isBlock = False
-            commentDico[blockLine] = [block, len(block)]
+            linesTuple = tuple(blockLines)
+            commentDico[linesTuple] = [block, sum([len(line) for line in block])]
 
     return commentDico
 
@@ -97,10 +102,10 @@ def detectCom(line):
     """
     Détecte si il y a un commentaire sur cette ligne
     :param line: la fameuse ligne
-    :return: 0 si la ligne ne comporte pas de commentaire
-             i+1 si il y a un # à l'indice i de la ligne
-             -1 si c'est un =begin
-             -2 si c'est un =end
+    :return:0 si la ligne ne comporte pas de commentaire
+            i+1 si il y a un # à l'indice i de la ligne
+            -1 si c'est un =begin
+            -2 si c'est un =end
     """
     if line[:6] == '=begin':
         return -1
@@ -150,9 +155,9 @@ def analyseCom(lines):
     comCount = commentCount(lines)[0]
 
     #Enregistre le nombre de commentaires par ligne
-    for lineNumber in range(linesNumber):
-        if lineNumber in com.keys():
-            linesList[lineNumber] += com[lineNumber][1]
+    for lineNumbers in com.keys():
+        for i in range(len(list(lineNumbers))):
+            linesList[lineNumbers[i]] += len(com[lineNumbers][0][i])
 
     #Enregistre le nombre de caractères dédiés aux commentaires
     comCarac = 0
@@ -181,21 +186,26 @@ def printCom(lines):
     print('-------- Pourcentage de lignes dédiées aux commentaires --------')
     print(str(int(analyse[2]*10000)/100)+'%')
     print('-------- Proportion de mots francais --------')
-    print('Mots fréquents : '+str(ratio[0])+' -- Mots peu utilisés : '+str(ratio[1]))
-
-#print(commentCount(fichierLecture()))
+    print('Mots fréquents : '+str(int(ratio[0]*100)/100)+' -- Mots peu utilisés : '+str(int(ratio[1]*100)/100))
+    #Attribution des points
+    point = points(lines)
+    quantite = point[0]
+    repartition = point[1]
+    langue = point[2]
+    graphique = 'Commentaires-Quantité+Qualité+Points Perdus-'+str(quantite[0]*10)+'+'+str(repartition[0]*10)+'-'+quantite[1]+" "+repartition[1]+'-|'
+    return graphique, (langue, int(analyse[2]*10000)/100, int(analyse[1]*10000)/100)
 
 def howCommented(lines):
     """
     Donne des infos par rapport à la répartition des commentaires
     :param lines: le code représenté par une liste de lignes
-    :return: False si le code n'est pas commenté
-             True s'il est commenté
-             et deux couples (moy, stDevCom) et (caracRatio, linesRatio)
-             moy = moyenne de caracètres de commentaire par ligne
-             stDevCom = écart type
-             caracRatio = pourcentage de caractères de commentaire
-             linesRatio = pourcentage de lignes de commentaires
+    :return:False si le code n'est pas commenté
+            True s'il est commenté
+            et deux couples (moy, stDevCom) et (caracRatio, linesRatio)
+            moy = moyenne de caracètres de commentaire par ligne
+            stDevCom = écart type
+            caracRatio = pourcentage de caractères de commentaire
+            linesRatio = pourcentage de lignes de commentaires
     """
     count = commentCount(lines)
     analyse = analyseCom(lines)
@@ -209,17 +219,20 @@ def howCommented(lines):
         stDevCom = np.sqrt(varCom)
         return True, (moy, stDevCom), (analyse[2], analyse[1])
 
+#print(howCommented(lines))
+
 def commentsWords(lines):
     """
     Donne les mots utilisés dans les commentaires
     :param lines: le code représenté par une liste de lignes
-    :return: un dico des mots fréquemment utilisés avec leur fréquence
-             une liste des mots utilisés une seule fois
+    :return:un dico des mots fréquemment utilisés avec leur fréquence
+            une liste des mots utilisés une seule fois
     """
     comments = [comment[0] for comment in list(commentCount(lines)[1].values())]
     commentAll = ''
     for comment in comments:
-        commentAll += comment
+        for line in comment:
+            commentAll += line
     commentAll = TextBlob(commentAll)
     dicoFrequent = {}
     notFrequentList = []
@@ -232,6 +245,7 @@ def commentsWords(lines):
             notFrequentList.append(word)
     return dicoFrequent, notFrequentList
 
+#print(commentsWords(lines))
 def isFrancais(word, dictionaire):
     return word.lower() in dictionaire
 
@@ -258,5 +272,86 @@ def ratioFrancais(lines):
     except IOError:
         print("La liste des mots francais n'est pas là")
 
-#print(wellCommented(lines)
-#print(commentsWords(fichierLecture()))
+def points(lines):
+    how = howCommented(lines)
+    carac, line = how[2]
+    moy, stDev = how[1]
+    #Quantité de commentaires
+    if carac < 0.02:
+        if line < 0.03:
+            carLin = 1
+            comment = 'Code trop peu commenté'
+        elif line <0.15:
+            carLin = 5
+            comment = 'Code bien commenté'
+        else:
+            carLin = 4
+            comment = 'Code plutot bien commenté, un peu trop de lignes'
+    elif carac < 0.2:
+        if line < 0.03:
+            carLin = 5
+            comment = 'Code bien commenté'
+        elif line < 0.15:
+            carLin = 5
+            comment = 'Code bien commenté'
+        else:
+            carLin = 3
+            comment = 'Code pas très bien commenté, trop de lignes'
+    else:
+        if line < 0.03:
+            carLin = 3
+            comment = 'Code pas très bien commenté, pas assez de lignes commentées'
+        elif line <0.15:
+            carLin = 2
+            comment = 'Code mal commenté, trop de commentaires utilisés'
+        else:
+            carLin = 1
+            comment = 'Code beaucoup trop commenté'
+    #Répartition des commentaires
+    if moy < 8:
+        if stDev < 15:
+            moyStd = 2
+            comment1 = 'Commentaires mal répartis'
+        elif stDev < 30:
+            moyStd = 5
+            comment1 = 'Commentaires très bien répartis'
+        else:
+            moyStd = 3
+            comment1 = 'Commentaires pas très bien répartis'
+    elif moy < 15:
+        if stDev < 15:
+            moyStd = 4
+            comment1 = 'Commentaires bien répartis'
+        elif stDev < 30:
+            moyStd = 5
+            comment1 = 'Commentaires très bien répartis'
+        else:
+            moyStd = 1
+            comment1 = 'Commentaires très mal répartis'
+    else:
+        if stDev < 15:
+            moyStd = 1
+            comment1 = 'Commentaires très mal répartis'
+        elif stDev < 30:
+            moyStd = 2
+            comment1 = 'Commentaires mal répartis'
+        else:
+            moyStd = 3
+            comment1 = 'Commentaires pas très bien répartis'
+    #mots dans les dicos
+    francais = ratioFrancais(lines)
+    francais = francais[0]/2+francais[1]/2
+    noteFr = int(francais*5)+1
+    if noteFr == 1:
+        comment2 = 'Les commentaires sont pas en Francais'
+    elif noteFr == 2:
+        comment2 = 'Peu de commentaires sont en Francais'
+    elif noteFr == 3:
+        comment2 = 'la moitié des commentaires sont en Francais'
+    elif noteFr == 4:
+        comment2 = 'Une grande partie des commentaires sont en Francais'
+    else:
+        comment2 = 'La plupart des commentaires sont en Francais'
+    return (carLin, comment), (moyStd, comment1), (noteFr, comment2)
+
+#print(printCom(fichierLecture()))
