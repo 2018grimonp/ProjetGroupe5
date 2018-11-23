@@ -16,8 +16,7 @@ def fichierLecture():
     except IOError:
         print("Erreur fichier")
 
-#print(fichierLecture())
-
+#On compte les commentaires en séparant chaque type
 def commentsHashtag(lines):
     """
     Donne les commentaires unitaires
@@ -45,7 +44,6 @@ def commentsHashtag(lines):
             commentDico[linesList] = [comment, len(comment)]
     return commentDico
 
-#print(commentsHashtag(lines))
 
 def commentBlocks(lines):
     """
@@ -77,7 +75,6 @@ def commentBlocks(lines):
 
     return commentDico
 
-#print(commentBlocks(lines))
 
 def commentCount(lines):
     """
@@ -96,8 +93,7 @@ def commentCount(lines):
         commentDico[key] = dicoBlock[key]
     return count, commentDico
 
-#print(commentCount(lines))
-
+#On supprime les commentaires du fichier
 def detectCom(line):
     """
     Détecte si il y a un commentaire sur cette ligne
@@ -115,6 +111,7 @@ def detectCom(line):
         if line[i] == '#':
             return i+1
     return 0
+
 
 def retirerCom(lines):
     """
@@ -140,9 +137,7 @@ def retirerCom(lines):
     #Et on renvoie la nouvelle liste de lignes
     return newLines
 
-#print(fichierLecture())
-#print(retirerCom(lines))
-
+#On analyse les résultats quantitatifs
 def analyseCom(lines):
     """
     donne des données intéressantes sur le fichier texte
@@ -169,7 +164,6 @@ def analyseCom(lines):
 
     return linesList, comCarac/caracNumber, commentLinesNumber/linesNumber, comCount
 
-#print(analyseCom(lines))
 
 def printCom(lines):
     analyse = analyseCom(lines)
@@ -195,6 +189,7 @@ def printCom(lines):
     graphique = 'Commentaires-'+quantite[1]+" <br> "+repartition[1]+'-Quantité+Qualité+Points Perdus-'+str(quantite[0]*10)+'+'+str(repartition[0]*10)+'-Note : '+str(quantite[0]+repartition[0])+'/10 '+'-|'
     return graphique, (langue, int(analyse[2]*10000)/100, int(analyse[1]*10000)/100)
 
+#Recherche de résultats qualitatifs
 def howCommented(lines):
     """
     Donne des infos par rapport à la répartition des commentaires
@@ -219,7 +214,6 @@ def howCommented(lines):
         stDevCom = np.sqrt(varCom)
         return True, (moy, stDevCom), (analyse[2], analyse[1])
 
-#print(howCommented(lines))
 
 def commentsWords(lines):
     """
@@ -245,9 +239,10 @@ def commentsWords(lines):
             notFrequentList.append(word)
     return dicoFrequent, notFrequentList
 
-#print(commentsWords(lines))
+
 def isFrancais(word, dictionaire):
     return word.lower() in dictionaire
+
 
 def ratioFrancais(lines):
     """
@@ -272,6 +267,7 @@ def ratioFrancais(lines):
     except IOError:
         print("La liste des mots francais n'est pas là")
 
+#Attribution des points du candidat
 def points(lines):
     """
     Donne le nombre de points obtenus après chacun des tests portant sur les commentaires
