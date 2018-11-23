@@ -192,7 +192,7 @@ def printCom(lines):
     quantite = point[0]
     repartition = point[1]
     langue = point[2]
-    graphique = 'Commentaires-Quantité+Qualité+Points Perdus-'+str(quantite[0]/10)+'+'+str(repartition[0]/10)+'--'+quantite[1]+'\n'+repartition[1]+'|'
+    graphique = 'Commentaires-Quantité+Qualité+Points Perdus-'+str(quantite[0]*10)+'+'+str(repartition[0]*10)+'-Note : '+str(quantite[0]+repartition[0])+'/10'+quantite[1]+" "+repartition[1]+'-|'
     return graphique, (langue, int(analyse[2]*10000)/100, int(analyse[1]*10000)/100)
 
 def howCommented(lines):
@@ -273,6 +273,11 @@ def ratioFrancais(lines):
         print("La liste des mots francais n'est pas là")
 
 def points(lines):
+    """
+    Donne le nombre de points obtenus après chacun des tests portant sur les commentaires
+    :param lines: le code représenté par une liste de lignes
+    :return: trois tuples chacun contenant la note obtenue au test et un commentaire associé
+    """
     how = howCommented(lines)
     carac, line = how[2]
     moy, stDev = how[1]
