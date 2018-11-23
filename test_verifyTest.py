@@ -6,7 +6,7 @@
 #
 #   Dernière modification : 23/11/2018
 #
-#	2018
+#	Anthony, Geoffroy, Jérôme, Pierrick, Tim, Valentine, 2018
 #
 # ==== ==== ==== ====
 

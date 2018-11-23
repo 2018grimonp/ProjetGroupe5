@@ -1,3 +1,15 @@
+# ==== ==== ==== ====
+#
+#   main.py
+#
+#   Fichier principal pour le groupe 5 dans le projet Doctolib lors de la semaine 2 des Coding Weeks
+#
+#   Dernière modification : 23/11/2018
+#
+#	Anthony, Geoffroy, Jérôme, Pierrick, Tim, Valentine, 2018
+#
+# ==== ==== ==== ====
+
 from commentaires import retirerCom
 from commentaires import printCom 
 
