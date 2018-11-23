@@ -236,15 +236,3 @@ def points(tests, asserts):
                 commentaire = 'Trop d\'asserts, trop de tests'
     return note, commentaire
 
-def fichierLecture():
-    """
-    Ouvre le fichier event_candidate_a.rb.rb, juste pour pouvoir tester les fonctions (à virer)
-    :return: la liste des lignes du fichier
-    """
-    try:
-        fichier = open("./test.rb", "rt")
-        ligneListe = fichier.readlines()
-        return ligneListe
-    except IOError:
-        print("Erreur fichier")
-

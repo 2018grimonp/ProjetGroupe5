@@ -1,10 +1,11 @@
 import random as rd
+import commentaires as c
 #liste de commande qui ouvre des actions
 open=["if","while","for","do","class"]
 
 
 #code à analyser
-Code1 = ["hello","def gilbert():","    lol","end","def bilibili(nhassah,aidj):","f","   if lol do","  end","end"]    #liste de ligne (str)
+Code1 = ["#hello","def gilbert():","    lol","end","def bilibili(nhassah,aidj):#bonjour","#f","   if lol do","  end","end"]    #liste de ligne (str)
 
 ListeLongeurFonction=[] #donne une liste des n fonctions avec la longeur de chaque liste
            #indique le nombre de parentaises ouverte
@@ -70,7 +71,8 @@ def printFonction(Code):
     print ("la longueur maximal est : "+str(l_max))
     print ("le nom de fonction le plus stylé est : "+fonctions[rd.randint(0,len(fonctions)-1)]["nom"])
     point = points(fonctions, l_moyenne/len(fonctions))
-    graphique = 'Fonctions-'+point[1]+'-Lignes de fonctions+Reste des lignes-'+str(int(l_moyenne/len(Code)*100))+'-Note : '+str(point[0])+'/10-|'
+    analyse = c.analyseCom(Code)
+    graphique = 'Fonctions-'+point[1]+'-Lignes de fonctions+Lignes de commentaires+Reste des lignes-'+str(int(l_moyenne/len(Code)*100))+'+'+str(int(analyse[2]*10000)/100)+'-Note : '+str(point[0])+'/10-|'
     return(graphique, point[0])
 
 def points(fonctions, l_moyenne):
