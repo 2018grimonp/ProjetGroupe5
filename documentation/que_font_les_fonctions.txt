@@ -31,4 +31,5 @@ retourne le pourcentage maximale de ressemblance avec une autre fonction
 duplicationInterne ==> 
 1)double_fonction_meme_nom(Code)
 return dico avec fonctions de même nom et donne si le code associé est le même
-2)numb qui est le pourcentage de ressemblance
+2)ressamblance_fonction(f1,f2)
+output: le pourcentage de ressemblance des 2 fonctions
