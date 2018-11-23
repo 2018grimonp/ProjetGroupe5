@@ -50,3 +50,4 @@ gui ==>
 travail de geoffroy pour l'API
 
 packagetest==> 
+regroupe toutes les fonctions tests
