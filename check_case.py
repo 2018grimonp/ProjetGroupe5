@@ -1,3 +1,4 @@
+import math
 """
 On considere que l'on a en entrée un tableau contenant tout les noms des variables contenues dans le code.
 Ce tableau a été obtenu avec le programme test_variable.
@@ -84,20 +85,13 @@ def NommageCoherent(list_str):	#on prend en argument la liste des noms des varia
 	#print("Les mots que vous utilisez dans vos noms de variables existent à "+str(in_dictionnary*100//(in_dictionnary+not_in_dictionnary))+"% dans le dictionnaire.")
 	pourcentagecc=(camel_case_count/(len(list_str)))
 	pourcentagesc=(snake_case_count/(len(list_str)))
-	return [pourcentagecc,pourcentagesc]
-
-def fonctiondenommage(x):			#note associée à un pourcentage de camel_case donné
-	x=float(x)
-	return(4*x**2-4*x+1)
-
-def notebareme (list_str): 			#l=liste de 3 éléments
-	#renvoie les notes sur les baremes choisis
-	pourcentage=(NommageCoherent(list_str))[0]
-	return fonctiondenommage(pourcentage)
+	pourcentagecc_=(camel_case_count/(camel_case_count+snake_case_count))
+	pourcentagesc_=(snake_case_count/(camel_case_count+snake_case_count))
+	return [pourcentagecc,pourcentagesc,pourcentagecc_,pourcentagesc_]
 
 def returnmain(list_str):
-	pourcentagecc,pourcentagesc=NommageCoherent(list_str)[0],NommageCoherent(list_str)[1]
+	pourcentagecc,pourcentagesc,pourcentagecc_,pourcentagesc_=NommageCoherent(list_str)[0],NommageCoherent(list_str)[1],NommageCoherent(list_str)[2],NommageCoherent(list_str)[3]
 	mix=1-((pourcentagecc)+(pourcentagesc))
-	note=notebareme(list_str)							
-	return ["Convention de Nommage-CamelCase+SnakeCase+Indéterminé-"+str(floor(pourcentagecc*100))+"+"+str(floor(pourcentagesc*100))+"-Note : "+str(note*10)+"/10-|",pourcentagecc,pourcentagesc,notebareme(list_str)]
+	note=4*pourcentagecc_**2-4*pourcentagecc_+1							
+	return ["Convention de Nommage-CamelCase+SnakeCase+Indéterminé-"+str(math.floor(pourcentagecc*100))+"+"+str(math.floor(pourcentagesc*100))+"-Note : "+str(round(note*10))+"/10-|",pourcentagecc,pourcentagesc,round(note*10)]
 
