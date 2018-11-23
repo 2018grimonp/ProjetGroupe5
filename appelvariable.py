@@ -41,8 +41,6 @@ def textefonctions(lignes):
     return textefonctions
 
 
-
-
 def appelvar (lignes):                          #lignes=fichier texte contenant toutes les lignes du code
     #regarde si une variable a été utilisée 
     compteur=0                                  #compteur correspond au nombre de fois où une variable n'a pas été appelée    

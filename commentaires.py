@@ -193,10 +193,14 @@ def printCom(lines):
     repartition = point[1]
     langue = point[2]
 <<<<<<< HEAD
+<<<<<<< HEAD
     graphique = 'Commentaires-Quantité+Qualité+Points Perdus-'+str(quantite[0]*10)+'+'+str(repartition[0]*10)+'-Note : '+str(quantite[0]+repartition[0])+'/10 '+quantite[1]+" ; "+repartition[1]+'-|'
 =======
     graphique = 'Commentaires-Quantité+Qualité+Points Perdus-'+str(quantite[0]*10)+'+'+str(repartition[0]*10)+'-'+quantite[1]+" "+repartition[1]+'-|'
 >>>>>>> master
+=======
+    graphique = 'Commentaires-'+quantite[1]+" ; "+repartition[1]+'-Quantité+Qualité+Points Perdus-'+str(quantite[0]*10)+'+'+str(repartition[0]*10)+'-Note : '+str(quantite[0]+repartition[0])+'/10 '+'-|'
+>>>>>>> geoffroy
     return graphique, (langue, int(analyse[2]*10000)/100, int(analyse[1]*10000)/100)
 
 def howCommented(lines):
@@ -361,58 +365,4 @@ def points(lines):
     else:
         comment2 = 'La plupart des commentaires sont en Francais'
     return (carLin, comment), (moyStd, comment1), (noteFr, comment2)
-
-print(printCom(fichierLecture()))
-def points(fonctions, l_moyenne):
-    '''
-    Donne le nombre de points obtenus quant à l'écriture des fonctions
-    :param fonctions: la liste des fonctions du code
-    :param l_moyenne: la longueur moyenne d'une fonctions
-    :return: la note sur 10 ainsi qu'un commentaire associé
-    '''
-    L = len(fonctions)
-    if L == 0:
-        return 0, 'Ce candidat n\'utilise pas de fonctions'
-    else:
-        if l_moyenne < 2:
-            note = 1
-            commentaire = 'Les fonctions sont trop petites'
-        elif l_moyenne < 5:
-            if L < 5:
-                note = 5
-                commentaire = 'Les fonctions sont petites et il y en a pas assez'
-            elif L < 20:
-                note = 9
-                commentaire = 'Les fonctions sont très satisfaisantes'
-            else:
-                note = 2
-                commentaire = 'Il y a trop de fonctions'
-        elif l_moyenne < 15:
-            if L < 2:
-                note = 4
-                commentaire = 'Il y a pas assez de fonctions mais elles ont une taille raisonnable'
-            elif L < 5:
-                note = 8
-                commentaire = 'Les fonctions sont de taille raisonnable, il y en a assez'
-            elif L < 20:
-                note = 10
-                commentaire = 'Le fonctions sont bien gérées'
-            else:
-                note = 3
-                commentaire = 'Il y a trop de fonctions'
-        else:
-            if L < 5:
-                note = 2
-                commentaire = 'Les fonctions sont trop grosses, il y en a trop peu'
-            elif L < 20:
-                note = 4
-                commentaire = 'Les fonctions sont trop grosses mais il y en pas mal'
-            else:
-                note = 1
-                commentaire = 'Les fonctions sont trop grosses, il y en a beaucoup trop !'
-    return note, commentaire
-
-point = points(fonctions, l_moyenne/len(fonctions))
-
-graphique = 'Fonctions--Lignes de fonctions+Reste des lignes'
 
