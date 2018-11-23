@@ -82,7 +82,7 @@ def print_resultats_similitude(Code,precision,code_controle):
     Liste_duplicat=controle_duplication(Code,precision,code_controle)
     s,pourcentage_tot=0,0
     for k in Liste_duplicat :
-        if k!=[] :
+        if len(k)>0 :
             s+=1
             pourcentage_tot+=max_percent(k)
     pourcentage_tot=pourcentage_tot/len(Liste_duplicat)
@@ -93,7 +93,7 @@ def retuour_resresultats_similitude(Code,precision,code_controle):
     Liste_duplicat=controle_duplication(Code,precision,code_controle)
     s,pourcentage_tot=0,0
     for k in Liste_duplicat :
-        if k!=[] :
+        if len(k)>0 :
             s+=1
             pourcentage_tot+=max_percent(k)
     pourcentage_tot=pourcentage_tot/len(Liste_duplicat)
