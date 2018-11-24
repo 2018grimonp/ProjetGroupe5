@@ -1,7 +1,7 @@
-# ProjetGroupe5
+﻿# ProjetGroupe5
 Analyse du code
 	
-	Notes: le fichier de code sera représenté par un tableau de lignes
+	Notes: Le fichier de code sera représenté par un tableau de lignes
 
 
 Fonctionnalités
@@ -27,13 +27,14 @@ Mercredi - MVP2
 	Ajout : vérifier les indentations après chaque bloc (if, while, for, def...) - TO DO
 
 
-Jeudi - MVP3
+Jeudi - MVP3 et MVP4
 
-	Comparaison des noms de variables et de fonctions	
-	Calculer les hash Md5 des fichiers et les comparer
-	Comparer des segments des deux fichiers traités pour repérer des points communs (copier-coller)
-	Définir un barème de notation
+	Comparaison des noms de variables et de fonctions - Valentine et Pierrick
+	Interface web de visualisation - Geoffroy
+	Comparer des segments des deux fichiers traités pour repérer des points communs (copier-coller) - Tim
+	Définir un barème de notation - Jérôme
+	Correction des bugs et couverture des tests - Anthony
 
 
-Vendredi - MVP4
-         Power Point
+Vendredi - Conclusion  
+	Le diapo et la correction des derniers bugs -Tout le monde
